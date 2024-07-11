@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [Range(1f, 10f)][SerializeField] float MoveSpeed;
+    [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(1f, 10f)][SerializeField] float evasion_power;
     [Range(1f, 10f)][SerializeField] float evasion_damper;
 

@@ -3,8 +3,8 @@ using System.ComponentModel;
 public class PlayerUIViewModel
 {
     int _hp;
-    float _gauge;
-
+    float _skillValueRatio;
+    float _evadeValueRatio;
     public int Hp
     {
         get { return _hp; }
@@ -15,14 +15,24 @@ public class PlayerUIViewModel
             OnPropertyChanged(nameof(Hp));
         }
     }
-    public float Gauge
+    public float SkillValueRatio
     {
-        get { return _gauge; }
+        get { return _skillValueRatio; }
         set
         {
-            if (_gauge == value) return;
-            _gauge = value;
-            OnPropertyChanged(nameof(Gauge));
+            if (_skillValueRatio == value) return;
+            _skillValueRatio = value;
+            OnPropertyChanged(nameof(SkillValueRatio));
+        }
+    }
+    public float EvadeValueRatio
+    {
+        get { return _evadeValueRatio; }
+        set
+        {
+            if (_evadeValueRatio == value) return;
+            _evadeValueRatio = value;
+            OnPropertyChanged(nameof(EvadeValueRatio));
         }
     }
 

@@ -7,9 +7,10 @@ using ViewModel.Extensions;
 
 public class PlayerUIView : MonoBehaviour
 {
-    [Header("¿Â∫Ò ∫‰ « µÂ")]
+    [Header("∫‰ « µÂ")]
     [SerializeField] List<GameObject> HpIconList;
     [SerializeField] Slider Slider_SkillBar;
+    [SerializeField] Image Image_EvasionValueBar;
 
     PlayerUIViewModel _vm;
 
@@ -35,8 +36,11 @@ public class PlayerUIView : MonoBehaviour
             case nameof(_vm.Hp):
                 SetHpIcon(_vm.Hp);
                 break;
-            case nameof(_vm.Gauge):
-                Slider_SkillBar.value = _vm.Gauge;
+            case nameof(_vm.SkillValueRatio):
+                Slider_SkillBar.value = _vm.SkillValueRatio;
+                break;
+            case nameof(_vm.EvadeValueRatio):
+                Image_EvasionValueBar.fillAmount = 1 - _vm.EvadeValueRatio;
                 break;
         }
     }

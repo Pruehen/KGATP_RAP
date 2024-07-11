@@ -10,6 +10,14 @@ public class Player : MonoBehaviour
 
     Action OnZClick;
     Action OnXClick;
+    Action OnHit;
+    Action OnDead;
+
+    public int Hp { get; private set; }
+    public int Atk { get; private set; }
+    public float Gauge { get; private set; }
+    public float Gauge_Max { get; private set; }
+    public float Gauge_RecoverySec { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -18,14 +26,39 @@ public class Player : MonoBehaviour
 
         OnZClick += OnClick_Z;
         OnXClick += OnClick_X;
+
+        Gauge_Max = 100;
+        Gauge_RecoverySec = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
         InputCheck_OnUpdate();
+        InputCheck_OnUpdate_Test();
 
-        _rigidbody.velocity = _moveCommandVector;
+        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
+    }
+
+    /// <summary>
+    /// 피격 메서드
+    /// </summary>
+    /// <param name="dmg"></param>
+    public void Hit(int dmg)
+    {
+        Hp -= dmg;
+        OnHit?.Invoke();
+
+        if(Hp <= 0)
+        {
+            Dead();
+        }
+    }
+
+    void Dead()
+    {
+        OnDead?.Invoke();
+        Debug.Log("플레이어 사망");
     }
 
     void InputCheck_OnUpdate()
@@ -55,6 +88,14 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             OnXClick?.Invoke();
+        }
+    }
+
+    void InputCheck_OnUpdate_Test()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Hit(1);
         }
     }
 

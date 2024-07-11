@@ -347,6 +347,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 5
+  evasion_power: 5
+  evasion_damper: 2
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

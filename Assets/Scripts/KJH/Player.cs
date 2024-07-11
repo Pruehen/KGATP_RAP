@@ -4,6 +4,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Range(1f, 10f)][SerializeField] float MoveSpeed;
+    [Range(1f, 10f)][SerializeField] float evasion_power;
+    [Range(1f, 10f)][SerializeField] float evasion_damper;
 
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
@@ -17,7 +19,12 @@ public class Player : MonoBehaviour
     public int Atk { get; private set; }
     public float Gauge { get; private set; }
     public float Gauge_Max { get; private set; }
-    public float Gauge_RecoverySec { get; private set; }
+    public float Gauge_RecoverySec { get; private set; }    
+    public float evasion_coolTime { get; private set; }
+
+    float evasion_coolTimeValue;
+    float evasion_powerValue;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +44,10 @@ public class Player : MonoBehaviour
         InputCheck_OnUpdate();
         InputCheck_OnUpdate_Test();
 
-        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
+        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y) * evasion_powerValue;
+        evasion_powerValue = Mathf.Lerp(evasion_powerValue, 1, Time.deltaTime);
+
+        evasion_coolTimeValue -= Time.deltaTime;
     }
 
     /// <summary>
@@ -107,5 +117,17 @@ public class Player : MonoBehaviour
     void OnClick_X()
     {
         Debug.Log("X 버튼 클릭");
+
+        if(evasion_coolTimeValue <= 0)
+        {
+            evasion_coolTimeValue = evasion_coolTime;
+            Evasion();
+        }
+    }
+
+    void Evasion()
+    {
+        Debug.Log("회피 조작");
+        evasion_powerValue = evasion_power;
     }
 }

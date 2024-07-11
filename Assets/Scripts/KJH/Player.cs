@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
+public class Player : SceneSingleton<Player>
+{    
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(1f, 10f)][SerializeField] float evasion_power;
     [Range(1f, 10f)][SerializeField] float evasion_damper;
@@ -14,6 +14,14 @@ public class Player : MonoBehaviour
     Action OnXClick;
     Action OnHit;
     Action OnDead;
+
+    Action<int> OnHpChange;
+    public void Register_OnHpChange(Action<int> callBack) { OnHpChange += callBack; }
+    public void UnRegister_OnHpChange(Action<int> callBack) { OnHpChange -= callBack; }
+
+    Action<float> OnGaugeChange;
+    public void Register_OnGaugeChange(Action<float> callBack) { OnGaugeChange += callBack; }
+    public void UnRegister_OnGaugeChange(Action<float> callBack) { OnGaugeChange -= callBack; }
 
     public int Hp { get; private set; }
     public int Atk { get; private set; }
@@ -36,6 +44,9 @@ public class Player : MonoBehaviour
 
         Gauge_Max = 100;
         Gauge_RecoverySec = 1;
+
+        Hp = 4;
+        Atk = 1;
     }
 
     // Update is called once per frame
@@ -43,6 +54,8 @@ public class Player : MonoBehaviour
     {
         InputCheck_OnUpdate();
         InputCheck_OnUpdate_Test();
+
+        GaugeRecovery_OnUpdate();
 
         _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y) * evasion_powerValue;
         evasion_powerValue = Mathf.Lerp(evasion_powerValue, 1, Time.deltaTime);
@@ -58,8 +71,9 @@ public class Player : MonoBehaviour
     {
         Hp -= dmg;
         OnHit?.Invoke();
+        OnHpChange?.Invoke(Hp);
 
-        if(Hp <= 0)
+        if (Hp <= 0)
         {
             Dead();
         }
@@ -99,6 +113,17 @@ public class Player : MonoBehaviour
         {
             OnXClick?.Invoke();
         }
+    }
+
+    void GaugeRecovery_OnUpdate()
+    {
+        Gauge += Time.deltaTime * Gauge_RecoverySec;
+        if(Gauge > Gauge_Max)
+        {
+            Gauge = Gauge_Max;
+        }
+
+        OnGaugeChange?.Invoke(Gauge / Gauge_Max);
     }
 
     void InputCheck_OnUpdate_Test()

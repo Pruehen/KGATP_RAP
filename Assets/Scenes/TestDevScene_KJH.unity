@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 240919936}
+  - component: {fileID: 240919937}
   m_Layer: 5
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -161,6 +162,24 @@ RectTransform:
   m_AnchoredPosition: {x: 250, y: -150}
   m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &240919937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240919935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aacde816e11556742a848f31db09e30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HpIconList:
+  - {fileID: 1787178768}
+  - {fileID: 617384175}
+  - {fileID: 317626463}
+  - {fileID: 1650063951}
+  Slider_SkillBar: {fileID: 2084463987}
 --- !u!1 &317626463
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,7 +993,7 @@ GameObject:
   - component: {fileID: 973364738}
   - component: {fileID: 973364737}
   m_Layer: 5
-  m_Name: HPBar_bg
+  m_Name: SkillBar_bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1287,7 +1306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1637941365}
   m_Layer: 5
-  m_Name: HPBar_FillArea
+  m_Name: SkillBar_FillArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1609,7 +1628,7 @@ GameObject:
   - component: {fileID: 2084463986}
   - component: {fileID: 2084463987}
   m_Layer: 5
-  m_Name: HPBar
+  m_Name: SkillBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1677,7 +1696,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 569012056}
   m_FillRect: {fileID: 569012055}
   m_HandleRect: {fileID: 0}
   m_Direction: 0

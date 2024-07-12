@@ -92,6 +92,6 @@ public class Enemy
     public int Atk { get; set; }
     public float Rotation_sec { get; set; }
     public float Rotation_angle { get; set; }
-    public int Skill { get; set; }
+    public EnemySkill Skill { get; set; }
 }
 

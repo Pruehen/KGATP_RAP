@@ -7,8 +7,9 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
 
-    public Dictionary<int, EnemySkill> LoadedEnemySkillList { get; private set; }
     public Dictionary<int, Projectile> LoadedProjectileList { get; private set; }
+    public Dictionary<int, EnemySkill> LoadedEnemySkillList { get; private set; }
+    public Dictionary<int, Enemy> LoadedEnemyList { get; private set; }
     public Dictionary<int, PlayerSkill> LoadedPlayerSkillList { get; private set; }
     public Dictionary<int, PlayerCharacter> LoadedPlayerCharacterList { get; private set; }
 
@@ -34,6 +35,7 @@ public class DataManager : MonoBehaviour
         //table에서 table 읽을 수도 있어서 순서가 중요.
         ReadData("Projectile");
         ReadData("EnemySkill");
+        ReadData("Enemy");
         ReadData("PlayerSkill");
         ReadData("PlayerCharacter");
     }
@@ -53,6 +55,9 @@ public class DataManager : MonoBehaviour
                 break;
             case "EnemySkill":
                 ReadEnemySkillTable(tableName);
+                break;
+            case "Enemy":
+                ReadEnemyTable(tableName);
                 break;
         }
     }
@@ -157,7 +162,23 @@ public class DataManager : MonoBehaviour
 
     private void ReadEnemyTable(string tableName) 
     {
-        
+        LoadedEnemyList = new Dictionary<int, Enemy>();
+        XDocument doc = XDocument.Load($"{_dataRootPath}/{tableName}.xml");
+        var dataElements = doc.Descendants("data");
+        foreach (var data in dataElements)
+        {
+            var tempEnemy = new Enemy();
+            tempEnemy.DataID = ReadIntData(data, "DataID");
+            tempEnemy.Name = ReadStringData(data, "Name");
+            tempEnemy.Type = ReadStringData(data, "Type");
+            tempEnemy.HP = ReadIntData(data, "HP");
+            tempEnemy.Atk = ReadIntData(data, "Atk");
+            tempEnemy.Rotation_sec = ReadfloatData(data, "Rotation_sec");
+            tempEnemy.Rotation_angle = ReadfloatData(data, "Rotation_angle");
+            tempEnemy.Skill = LoadedEnemySkillList[ReadIntData(data, "Skill")];
+
+            LoadedEnemyList.Add(tempEnemy.DataID, tempEnemy);
+        }
     }
 
     private string ReadStringData(XElement data, string columnName)
@@ -210,11 +231,11 @@ public class DataManager : MonoBehaviour
     private void tempParsingTest()
     {
 
-        foreach (var skill in LoadedEnemySkillList)
+        foreach (var item in LoadedEnemyList)
         {
-            Debug.Log($"{skill.Value.Name}\n" +
-                $"{skill.Value.DataID}\n" +
-                $"{skill.Value.Missle_ID}");
+            Debug.Log($"{item.Value.Name}\n" +
+                $"{item.Value.DataID}\n" +
+                $"{item.Value.Skill.Name}");
         }
     }
 }

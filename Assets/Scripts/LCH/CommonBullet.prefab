@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSize: 0
-  isCanParry: 0
+  isCanParry: 1
 --- !u!54 &7133124050190727130
 Rigidbody:
   m_ObjectHideFlags: 0

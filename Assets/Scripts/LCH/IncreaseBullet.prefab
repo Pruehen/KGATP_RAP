@@ -128,6 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSize: 0
-  isCanParry: 0
+  isCanParry: 1
   size_IncreasePercent_PerSec: 33
   size_MaxPercent: 100

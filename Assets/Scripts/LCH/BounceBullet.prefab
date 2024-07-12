@@ -127,7 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994fccab0ee806046a9a28e1b96fa509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 20
   bulletSize: 0
-  isCanParry: 0
+  isCanParry: 1
   bounce_num: 3

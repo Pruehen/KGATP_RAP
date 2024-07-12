@@ -20,7 +20,7 @@ namespace LCH
             {
                 Nontarget_StartCoroutine_OnStart();
             }
-            StartCoroutine(ShootCoolTime());
+           // StartCoroutine(ShootCoolTime());
         }
         private void Update()
         {
@@ -56,9 +56,11 @@ namespace LCH
         {
             while (true)
             {
-                transform.Rotate(0, 15, 0);
-                yield return new WaitForSeconds(5);
-            }
+               transform.Rotate(0, 40, 0);
+                
+               weapon.CommandFire(this.gameObject.transform.forward + this.transform.position);
+               yield return new WaitForSeconds(coolTime);
+            }  
         }
         void Die_OnUpdate()
         {

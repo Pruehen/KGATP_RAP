@@ -17,11 +17,17 @@ namespace LCH
 
         private void Start()
         {
+            if (target == null) target = Player.Instance.transform;
+            if (weapon == null) weapon = this.GetComponent<EnemyWeapon>();
+
             if (!isTargeting)
             {
                 Nontarget_StartCoroutine_OnStart();
             }
-           // StartCoroutine(ShootCoolTime());
+            else
+            {
+                StartCoroutine(ShootCoolTime());
+            }
         }
         private void Update()
         {

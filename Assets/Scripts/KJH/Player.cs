@@ -170,6 +170,7 @@ public class Player : SceneSingleton<Player>
     void MoveLogic_OnUpdate()
     {
         _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y) * _evasion_powerValue;
+        //this.transform.position.y = new Vector3(transform.position.);
     }
 
     void RotateForward_OnUpdate()

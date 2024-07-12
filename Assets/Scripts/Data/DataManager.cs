@@ -6,6 +6,8 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
+
+    public Dictionary<int, Projectile> LoadedProjectileList { get; private set; }
     public Dictionary<int, PlayerSkill> LoadedPlayerSkillList { get; private set; }
     public Dictionary<int, PlayerCharacter> LoadedPlayerCharacterList { get; private set; }
 
@@ -28,6 +30,7 @@ public class DataManager : MonoBehaviour
 
     private void ReadAllDataOnAwake()
     {
+        ReadData("Projectile");
         ReadData("PlayerSkill");
         ReadData("PlayerCharacter");
     }
@@ -41,6 +44,9 @@ public class DataManager : MonoBehaviour
                 break;
             case "PlayerSkill":
                 ReadPlayerSkillTable(tableName);
+                break;
+            case "Projectile":
+                ReadProjectileTable(tableName);
                 break;
         }
     }
@@ -92,10 +98,40 @@ public class DataManager : MonoBehaviour
 
             LoadedPlayerSkillList.Add(tempPlayerSkill.DataID, tempPlayerSkill);
         }
-
-
     }
 
+    private void ReadProjectileTable(string tableName)
+    {
+        LoadedProjectileList = new Dictionary<int, Projectile>();
+
+        XDocument doc = XDocument.Load($"{_dataRootPath}/{tableName}.xml");
+        var dataElements = doc.Descendants("data");
+        foreach ( var data in dataElements )
+        {
+            var tempProjectile = new Projectile();
+            tempProjectile.DataID = ReadIntData(data, "DataID");
+            tempProjectile.Name = data.Attribute("Name").Value;
+            tempProjectile.Size_min = ReadfloatData(data, "Size_min");
+            tempProjectile.Size_increase = ReadfloatData(data, "Size_increase");
+            tempProjectile.Size_max = ReadfloatData(data, "Size_max");
+            tempProjectile.Atk_multiply = ReadfloatData(data, "Atk_multiply");
+            tempProjectile.Force = ReadfloatData(data, "Force");
+            tempProjectile.Lifetime = ReadfloatData(data, "Lifetime");
+            tempProjectile.Collision_able = ReadStringData(data, "Collision_able");
+            tempProjectile.Disappear_condition = ReadStringData(data, "Disappear_condition");
+            tempProjectile.Parry_able = ReadboolData(data, "Parry_able");
+            tempProjectile.Bounce_num = ReadIntData(data, "Bounce_num");
+            tempProjectile.Combo_ID = ReadStringData(data, "Combo_ID");
+
+            LoadedProjectileList.Add(tempProjectile.DataID, tempProjectile);
+        }
+    }
+
+
+    private string ReadStringData(XElement data, string columnName)
+    {
+        return data.Attribute(columnName).Value;
+    }
     private int ReadIntData(XElement data, string columnName)
     {
         string readedData = data.Attribute(columnName).Value;
@@ -108,6 +144,15 @@ public class DataManager : MonoBehaviour
         string readedData = data.Attribute(columnName).Value;
         if (readedData.Length > 0) { return float.Parse(readedData); }
         else { return 0; }
+    }
+
+    private bool ReadboolData(XElement data, string columnName)
+    {
+        string readedData = data.Attribute(columnName).Value;
+        readedData = readedData.ToLower();
+        if (readedData == "true") { return true; }
+        else if(readedData == "false") { return false; }
+        else { Debug.LogError($"wrong table bool°ª at {columnName}"); return false; }
     }
 
     private List<int> ReadMultipleData(XElement data, string columnName)
@@ -132,6 +177,7 @@ public class DataManager : MonoBehaviour
 
     private void tempParsingTest()
     {
+        /*
         Debug.Log($"{this.LoadedPlayerCharacterList[101].DataID}\n" +
             $"{this.LoadedPlayerCharacterList[101].Name}\n" +
             $"{this.LoadedPlayerCharacterList[101].HP}\n" +
@@ -141,7 +187,8 @@ public class DataManager : MonoBehaviour
             $"{this.LoadedPlayerCharacterList[101].Atk_special}\n" +
             $"{this.LoadedPlayerCharacterList[101].Cost_type}");
 
-        foreach(var skill in LoadedPlayerSkillList)
+        
+        foreach (var skill in LoadedPlayerSkillList)
         {
             Debug.Log($"{skill.Value.DataID}\n" +
                 $"{skill.Value.Name}\n" +
@@ -151,6 +198,12 @@ public class DataManager : MonoBehaviour
                 Debug.Log($"{id}");
             }
         }
-        Debug.Log("?");
+        */
+        foreach (var projectile in LoadedProjectileList)
+        {
+            Debug.Log($"{projectile.Value.Name}\n" +
+                $"{projectile.Value.DataID}\n" +
+                $"{projectile.Value.Parry_able}");
+        }
     }
 }

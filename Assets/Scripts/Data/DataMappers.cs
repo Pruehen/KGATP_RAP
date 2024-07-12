@@ -74,11 +74,12 @@ public class Projectile
     public float Size_max { get; set; }
     public float Atk_multiply { get; set; }
     public float Force { get; set; }
-    public int Lifetime { get; set; }
-    public string Collision_able { get; set; }
+    public float Lifetime { get; set; }
+    public string Collision_able { get; set; }  //일단 받기만
+    public string Disappear_condition { get; set; } //일단 받기만
     public bool Parry_able { get; set; }
     public int Bounce_num { get; set; }
-    public int Combo_ID { get; set; }
+    public string Combo_ID { get; set; }   //일단 받기만
 }
 
 public class Enemy

@@ -6,7 +6,7 @@ public class PlayerTest : MonoBehaviour
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(1f, 10f)][SerializeField] float evasion_power;
     [Range(0.1f, 1f)] [SerializeField] float evasion_duration;
-
+    [Range(0f, 5f)] [SerializeField] float evasion_coolTime;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
 
@@ -28,7 +28,7 @@ public class PlayerTest : MonoBehaviour
     public float Gauge { get; private set; }
     public float Gauge_Max { get; private set; }
     public float Gauge_RecoverySec { get; private set; }    
-    public float evasion_coolTime { get; private set; }
+    //public float evasion_coolTime { get; private set; }
 
     float evasion_coolTimeValue;
     float evasion_powerValue = 1;
@@ -36,7 +36,11 @@ public class PlayerTest : MonoBehaviour
     bool isEvading;
     bool iscombo1=false;
     bool iscombo2=false;
+    bool iscombo3 = false;
     private Coroutine currentCoroutine;
+    [SerializeField]GameObject Atk1Collider;
+    [SerializeField] GameObject Atk2Collider;
+    [SerializeField] GameObject Atk3Collider;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +52,11 @@ public class PlayerTest : MonoBehaviour
 
         Gauge_Max = 100;
         Gauge_RecoverySec = 1;
-        evasion_coolTime = 0f;
+
+        MoveSpeed = 10f;
+        evasion_power = 5f;
+        evasion_duration = 0.2f;
+        evasion_coolTime = 1.5f;
         isEvading = false;
     }
 
@@ -147,19 +155,28 @@ public class PlayerTest : MonoBehaviour
     void OnClick_X()
     {
         Debug.Log("X 버튼 클릭");
-        
-        if(!iscombo1)
+
+        if (!iscombo3)
         {
-            StartNewCoroutine(Atk1());
+            if (!iscombo1)
+            {
+                StartNewCoroutine(Atk1());
+            }
+            else if (iscombo1 && !iscombo2)
+            {
+                StartNewCoroutine(Atk2());
+            }
+            else if (iscombo2)
+            {
+                StartNewCoroutine(Atk3());
+            }
         }
-        else if(iscombo1 &&!iscombo2)
+        else
         {
-            StartNewCoroutine(Atk2());
+            Debug.Log("리턴");
+            return;
         }
-        else if (iscombo2)
-        {
-            StartNewCoroutine(Atk3());
-        }
+            
     }
 
     void OnClick_Z()
@@ -195,6 +212,7 @@ public class PlayerTest : MonoBehaviour
     void Attack3()
     {
         Debug.Log("기본공격3");
+        iscombo3 = true;
     }
 
     void ComboReset()
@@ -202,22 +220,26 @@ public class PlayerTest : MonoBehaviour
         Debug.Log("<color=red>콤보리셋.</color>");
         iscombo1 = false;
         iscombo2 = false;
+        iscombo3 = false;
     }
     IEnumerator Atk1()
     {
         Attack1();
+        StartCoroutine(AtkCol(Atk1Collider));
         yield return new WaitForSeconds(1f);
         ComboReset();
     }
     IEnumerator Atk2()
     {
         Attack2();
+        StartCoroutine(AtkCol(Atk2Collider));
         yield return new WaitForSeconds(1f);
         ComboReset();
     }
     IEnumerator Atk3()
     {
         Attack3();
+        StartCoroutine(AtkCol(Atk3Collider));
         yield return new WaitForSeconds(1f);
         ComboReset();
     }
@@ -228,5 +250,11 @@ public class PlayerTest : MonoBehaviour
             StopCoroutine(currentCoroutine);
         }
         currentCoroutine = StartCoroutine(coroutine);
+    }
+    IEnumerator AtkCol(GameObject obj)
+    {
+        obj.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        obj.SetActive(false);
     }
 }

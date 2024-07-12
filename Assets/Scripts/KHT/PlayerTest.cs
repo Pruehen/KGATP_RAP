@@ -34,6 +34,7 @@ public class PlayerTest : MonoBehaviour
     float evasion_powerValue = 1;
     float evasion_timeRemaining;
     bool isEvading;
+    bool isAtk = false; 
     bool iscombo1=false;
     bool iscombo2=false;
     bool iscombo3 = false;
@@ -41,6 +42,7 @@ public class PlayerTest : MonoBehaviour
     [SerializeField]GameObject Atk1Collider;
     [SerializeField] GameObject Atk2Collider;
     [SerializeField] GameObject Atk3Collider;
+    [SerializeField] Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -71,26 +73,32 @@ public class PlayerTest : MonoBehaviour
 
         if (isEvading)
         {
+            animator.SetBool("Evastion", true);
             _rigidbody.AddForce(transform.forward*evasion_powerValue, ForceMode.Impulse);
 
             evasion_timeRemaining -= Time.deltaTime;
             if (evasion_timeRemaining <= 0)
             {
+                animator.SetBool("Evastion", false);
                 isEvading = false;
                 evasion_powerValue = 1;
             }
         }
 
-        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
-        //evasion_powerValue = Mathf.Lerp(evasion_powerValue, 1, Time.deltaTime);
+
+        if (!isAtk)
+        {
+            _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
+            if (_moveCommandVector != Vector2.zero)
+            {
+                float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, targetAngle, 0);
+            }
+        }
 
         evasion_coolTimeValue -= Time.deltaTime;
 
-        if (_moveCommandVector != Vector2.zero)
-        {
-            float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, targetAngle, 0);
-        }
+       
     }
 
     /// <summary>
@@ -201,6 +209,7 @@ public class PlayerTest : MonoBehaviour
     void Attack1()
     {
         Debug.Log("기본공격1");
+        isAtk = true;
         iscombo1 = true;
 
     }
@@ -221,10 +230,13 @@ public class PlayerTest : MonoBehaviour
         iscombo1 = false;
         iscombo2 = false;
         iscombo3 = false;
+        isAtk = false;
+        animator.SetTrigger("Stop");
     }
     IEnumerator Atk1()
     {
         Attack1();
+        animator.SetTrigger("Atk1");
         StartCoroutine(AtkCol(Atk1Collider));
         yield return new WaitForSeconds(1f);
         ComboReset();
@@ -232,6 +244,7 @@ public class PlayerTest : MonoBehaviour
     IEnumerator Atk2()
     {
         Attack2();
+        animator.SetTrigger("Atk2");
         StartCoroutine(AtkCol(Atk2Collider));
         yield return new WaitForSeconds(1f);
         ComboReset();
@@ -239,6 +252,7 @@ public class PlayerTest : MonoBehaviour
     IEnumerator Atk3()
     {
         Attack3();
+        animator.SetTrigger("Atk3");
         StartCoroutine(AtkCol(Atk3Collider));
         yield return new WaitForSeconds(1f);
         ComboReset();

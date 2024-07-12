@@ -12,20 +12,11 @@ namespace LCH
         [Range(0.1f, 10f)][SerializeField] float coolTime;
         [Header("ÀåÂø ¹«±â")]
         [SerializeField] EnemyWeapon weapon;
-
+          
         private bool _isCanFire;
 
         private void Start()
         {
-            if(weapon == null)
-            {
-                weapon = GetComponent<EnemyWeapon>();
-            }
-            if(target == null)
-            {
-                target = Player.Instance.transform;
-            }
-
             if (!isTargeting)
             {
                 Nontarget_StartCoroutine_OnStart();

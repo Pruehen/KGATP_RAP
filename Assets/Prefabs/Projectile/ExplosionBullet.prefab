@@ -95,7 +95,7 @@ SphereCollider:
   m_GameObject: {fileID: 3030702589660419527}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -127,7 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38bca4dec96c0a41a87ee9d46eddd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
   bulletSize: 0
   isCanParry: 0
   explosionPrefab: {fileID: 3030702589660419527, guid: 6c14a1d5689ff614b8136273de39ae3e, type: 3}

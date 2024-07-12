@@ -5,9 +5,9 @@ using UnityEngine;
 public class ExplosionBullet : Bullet
 {
     [SerializeField] GameObject explosionPrefab;
-    public override void Shoot(Transform target, Vector3 initPos)
+    public override void Shoot(Transform target, Vector3 initPos, float bulletSpeed)
     {
-        base.Shoot(target, initPos);
+
     }
     private void OnCollisionEnter(Collision collision)
     {

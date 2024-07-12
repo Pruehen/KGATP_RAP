@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
+public class Player : SceneSingleton<Player>
+{    
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(1f, 10f)][SerializeField] float evasion_power;
-    [Range(1f, 10f)][SerializeField] float evasion_damper;
+    [Range(0.1f, 1f)][SerializeField] float evasion_duration;
 
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
@@ -15,16 +15,30 @@ public class Player : MonoBehaviour
     Action OnHit;
     Action OnDead;
 
+    Action<int> OnHpChange;
+    public void Register_OnHpChange(Action<int> callBack) { OnHpChange += callBack; }
+    public void UnRegister_OnHpChange(Action<int> callBack) { OnHpChange -= callBack; }
+
+    Action<float> OnGaugeChange;
+    public void Register_OnSkillGaugeChange(Action<float> callBack) { OnGaugeChange += callBack; }
+    public void UnRegister_OnSkillGaugeChange(Action<float> callBack) { OnGaugeChange -= callBack; }
+
+    Action<float> OnEvasionGaugeChange;
+    public void Register_OnEvasionGaugeChange(Action<float> callBack) { OnEvasionGaugeChange += callBack; }
+    public void UnRegister_OnEvasionGaugeChange(Action<float> callBack) { OnEvasionGaugeChange -= callBack; }
+
+
     public int Hp { get; private set; }
     public int Atk { get; private set; }
-    public float Gauge { get; private set; }
-    public float Gauge_Max { get; private set; }
-    public float Gauge_RecoverySec { get; private set; }    
+    public float SkillGauge { get; private set; }
+    public float SkillGauge_Max { get; private set; }
+    public float SkillGauge_RecoverySec { get; private set; }    
     public float evasion_coolTime { get; private set; }
 
     float evasion_coolTimeValue;
     float evasion_powerValue;
-
+    float evasion_timeRemaining;
+    bool isEvading;
 
     // Start is called before the first frame update
     void Start()
@@ -34,8 +48,14 @@ public class Player : MonoBehaviour
         OnZClick += OnClick_Z;
         OnXClick += OnClick_X;
 
-        Gauge_Max = 100;
-        Gauge_RecoverySec = 1;
+        SkillGauge_Max = 100;
+        SkillGauge_RecoverySec = 1;
+        evasion_coolTime = 1.5f;
+        evasion_powerValue = 1;
+        isEvading = false;
+
+        Hp = 4;
+        Atk = 1;
     }
 
     // Update is called once per frame
@@ -44,10 +64,12 @@ public class Player : MonoBehaviour
         InputCheck_OnUpdate();
         InputCheck_OnUpdate_Test();
 
-        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y) * evasion_powerValue;
-        evasion_powerValue = Mathf.Lerp(evasion_powerValue, 1, Time.deltaTime);
+        GaugeRecovery_OnUpdate();
 
-        evasion_coolTimeValue -= Time.deltaTime;
+        EvasionLogic_OnUpdate();
+        MoveLogic_OnUpdate();
+
+        RotateForward_OnUpdate();
     }
 
     /// <summary>
@@ -58,8 +80,9 @@ public class Player : MonoBehaviour
     {
         Hp -= dmg;
         OnHit?.Invoke();
+        OnHpChange?.Invoke(Hp);
 
-        if(Hp <= 0)
+        if (Hp <= 0)
         {
             Dead();
         }
@@ -73,32 +96,46 @@ public class Player : MonoBehaviour
 
     void InputCheck_OnUpdate()
     {
-        _moveCommandVector = Vector2.zero;
+        if (isEvading == false)
+        {
+            _moveCommandVector = Vector2.zero;
 
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            _moveCommandVector += new Vector2(MoveSpeed, 0);
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                _moveCommandVector += new Vector2(MoveSpeed, 0);
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                _moveCommandVector += new Vector2(-MoveSpeed, 0);
+            }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                _moveCommandVector += new Vector2(0, MoveSpeed);
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                _moveCommandVector += new Vector2(0, -MoveSpeed);
+            }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                OnZClick?.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                OnXClick?.Invoke();
+            }
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+    }
+
+    void GaugeRecovery_OnUpdate()
+    {
+        SkillGauge += Time.deltaTime * SkillGauge_RecoverySec;
+        if(SkillGauge > SkillGauge_Max)
         {
-            _moveCommandVector += new Vector2(-MoveSpeed, 0);
+            SkillGauge = SkillGauge_Max;
         }
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            _moveCommandVector += new Vector2(0, MoveSpeed);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            _moveCommandVector += new Vector2(0, -MoveSpeed);
-        }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            OnZClick?.Invoke();
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            OnXClick?.Invoke();
-        }
+
+        OnGaugeChange?.Invoke(SkillGauge / SkillGauge_Max);
     }
 
     void InputCheck_OnUpdate_Test()
@@ -108,6 +145,40 @@ public class Player : MonoBehaviour
             Hit(1);
         }
     }
+
+    void EvasionLogic_OnUpdate()
+    {
+        if (isEvading)
+        {
+            evasion_timeRemaining -= Time.deltaTime;
+            if (evasion_timeRemaining <= 0)
+            {
+                isEvading = false;
+                evasion_powerValue = 1;
+            }
+        }        
+
+        if (evasion_coolTimeValue > 0)
+        {
+            evasion_coolTimeValue -= Time.deltaTime;
+            OnEvasionGaugeChange?.Invoke(evasion_coolTimeValue / evasion_coolTime);
+        }
+    }
+
+    void MoveLogic_OnUpdate()
+    {
+        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y) * evasion_powerValue;
+    }
+
+    void RotateForward_OnUpdate()
+    {
+        if (_moveCommandVector != Vector2.zero)
+        {
+            float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, targetAngle, 0);
+        }
+    }
+
 
     void OnClick_Z()
     {
@@ -121,6 +192,7 @@ public class Player : MonoBehaviour
         if(evasion_coolTimeValue <= 0)
         {
             evasion_coolTimeValue = evasion_coolTime;
+            OnEvasionGaugeChange?.Invoke(evasion_coolTimeValue / evasion_coolTime);
             Evasion();
         }
     }
@@ -129,5 +201,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log("회피 조작");
         evasion_powerValue = evasion_power;
+        isEvading = true;
+        evasion_timeRemaining = evasion_duration;
     }
 }

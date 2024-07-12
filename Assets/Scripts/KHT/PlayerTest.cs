@@ -15,6 +15,14 @@ public class PlayerTest : MonoBehaviour
     Action OnHit;
     Action OnDead;
 
+    Action<int> OnHpChange;
+    public void Register_OnHpChange(Action<int> callBack) { OnHpChange += callBack; }
+    public void UnRegister_OnHpChange(Action<int> callBack) { OnHpChange -= callBack; }
+
+    Action<float> OnGaugeChange;
+    public void Register_OnGaugeChange(Action<float> callBack) { OnGaugeChange += callBack; }
+    public void UnRegister_OnGaugeChange(Action<float> callBack) { OnGaugeChange -= callBack; }
+
     public int Hp { get; private set; }
     public int Atk { get; private set; }
     public float Gauge { get; private set; }

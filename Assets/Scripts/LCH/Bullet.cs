@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {    
-    [SerializeField] private float bulletSpeed;    
     [SerializeField] private float bulletSize;
     [SerializeField] private bool isCanParry;
 
    
 
-    public float BulletSpeed
-    {
-        get { return bulletSpeed; }
-        set { bulletSpeed = value; }
-    }
+    
 
     public float BulletSize
     {
@@ -30,7 +25,7 @@ public class Bullet : MonoBehaviour
 
 
     //projectionVector의 방향으로 발사
-    public void Shoot(Transform target, Vector3 initPos, Vector3 projectionVector)
+    public void Shoot(Transform target, Vector3 initPos, Vector3 projectionVector, float bulletSpeed)
     {
 
 
@@ -39,7 +34,7 @@ public class Bullet : MonoBehaviour
         this.GetComponent<Rigidbody>().velocity = projectionVector.normalized * bulletSpeed;
     }
     //타겟 위치로 발사
-    public virtual void Shoot(Transform target, Vector3 initPos)
+    public virtual void Shoot(Transform target, Vector3 initPos, float bulletSpeed)
     {
 
 

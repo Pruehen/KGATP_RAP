@@ -6,9 +6,9 @@ public class BounceBullet : Bullet
 {
     [SerializeField] int bounce_num;
 
-    public override void Shoot(Transform target, Vector3 initPos)
+    public override void Shoot(Transform target, Vector3 initPos, float bulletSpeed)
     {
-        base.Shoot(target, initPos);
+        
     }
     
     private void OnCollisionEnter(Collision collision)

@@ -50,7 +50,7 @@ public class PlayerSkill
     public int Combo_ID { get; set; }
 }
 
-public class SkillEnemy
+public class EnemySkill
 {
     public int DataID { get; set; }
     public string Description { get; set; }

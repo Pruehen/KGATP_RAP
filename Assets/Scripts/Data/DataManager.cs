@@ -7,6 +7,7 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
 
+    public Dictionary<int, EnemySkill> LoadedEnemySkillList { get; private set; }
     public Dictionary<int, Projectile> LoadedProjectileList { get; private set; }
     public Dictionary<int, PlayerSkill> LoadedPlayerSkillList { get; private set; }
     public Dictionary<int, PlayerCharacter> LoadedPlayerCharacterList { get; private set; }
@@ -30,7 +31,9 @@ public class DataManager : MonoBehaviour
 
     private void ReadAllDataOnAwake()
     {
+        //table에서 table 읽을 수도 있어서 순서가 중요.
         ReadData("Projectile");
+        ReadData("EnemySkill");
         ReadData("PlayerSkill");
         ReadData("PlayerCharacter");
     }
@@ -47,6 +50,9 @@ public class DataManager : MonoBehaviour
                 break;
             case "Projectile":
                 ReadProjectileTable(tableName);
+                break;
+            case "EnemySkill":
+                ReadEnemySkillTable(tableName);
                 break;
         }
     }
@@ -127,6 +133,32 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    private void ReadEnemySkillTable(string tableName)
+    {
+        LoadedEnemySkillList = new Dictionary<int, EnemySkill>();
+        XDocument doc = XDocument.Load($"{_dataRootPath}/{tableName}.xml");
+        var dataElements = doc.Descendants("data");
+        foreach (var data in dataElements)
+        {
+            var tempEnemySkill = new EnemySkill();
+            tempEnemySkill.DataID = ReadIntData(data, "DataID");
+            tempEnemySkill.Name = ReadStringData(data, "Name");
+            tempEnemySkill.Cooltime = ReadfloatData(data, "Cooltime");
+            tempEnemySkill.Buff = ReadIntData(data, "Buff");
+            tempEnemySkill.Debuff = ReadIntData(data, "Debuff");
+            tempEnemySkill.Missle_angle = ReadfloatData(data, "Missle_angle");
+            tempEnemySkill.Missle_ea = ReadIntData(data, "Missle_ea");
+            tempEnemySkill.Missle_ID = ReadIntData(data, "Missle_ID");
+            tempEnemySkill.Combo_ID = ReadIntData(data, "Combo_ID");
+
+            LoadedEnemySkillList.Add(tempEnemySkill.DataID, tempEnemySkill);
+        }
+    }
+
+    private void ReadEnemyTable(string tableName) 
+    {
+        
+    }
 
     private string ReadStringData(XElement data, string columnName)
     {
@@ -177,33 +209,12 @@ public class DataManager : MonoBehaviour
 
     private void tempParsingTest()
     {
-        /*
-        Debug.Log($"{this.LoadedPlayerCharacterList[101].DataID}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Name}\n" +
-            $"{this.LoadedPlayerCharacterList[101].HP}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Atk}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Atk_base}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Evasion}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Atk_special}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Cost_type}");
 
-        
-        foreach (var skill in LoadedPlayerSkillList)
+        foreach (var skill in LoadedEnemySkillList)
         {
-            Debug.Log($"{skill.Value.DataID}\n" +
-                $"{skill.Value.Name}\n" +
-                $"{skill.Value.Atk_multiply}\n");
-            foreach(var id in skill.Value.Debuff)
-            {
-                Debug.Log($"{id}");
-            }
-        }
-        */
-        foreach (var projectile in LoadedProjectileList)
-        {
-            Debug.Log($"{projectile.Value.Name}\n" +
-                $"{projectile.Value.DataID}\n" +
-                $"{projectile.Value.Parry_able}");
+            Debug.Log($"{skill.Value.Name}\n" +
+                $"{skill.Value.DataID}\n" +
+                $"{skill.Value.Missle_ID}");
         }
     }
 }

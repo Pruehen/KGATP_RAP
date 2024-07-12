@@ -35,10 +35,10 @@ public class Player : SceneSingleton<Player>
     public float SkillGauge_RecoverySec { get; private set; }    
     public float evasion_coolTime { get; private set; }
 
-    float evasion_coolTimeValue;
-    float evasion_powerValue;
-    float evasion_timeRemaining;
-    bool isEvading;
+    float _evasion_coolTimeValue;
+    float _evasion_powerValue;
+    float _evasion_timeRemaining;
+    bool _isEvading;
 
     // Start is called before the first frame update
     void Start()
@@ -53,8 +53,8 @@ public class Player : SceneSingleton<Player>
         SkillGauge_Max = 100;
         SkillGauge_RecoverySec = 1;
         evasion_coolTime = player.Evasion.Cooltime;
-        evasion_powerValue = 1;
-        isEvading = false;
+        _evasion_powerValue = 1;
+        _isEvading = false;
 
         Hp = player.HP;
         Atk = player.Atk;
@@ -98,7 +98,7 @@ public class Player : SceneSingleton<Player>
 
     void InputCheck_OnUpdate()
     {
-        if (isEvading == false)
+        if (_isEvading == false)
         {
             _moveCommandVector = Vector2.zero;
 
@@ -150,26 +150,27 @@ public class Player : SceneSingleton<Player>
 
     void EvasionLogic_OnUpdate()
     {
-        if (isEvading)
+        if (_isEvading)
         {
-            evasion_timeRemaining -= Time.deltaTime;
-            if (evasion_timeRemaining <= 0)
+            _evasion_timeRemaining -= Time.deltaTime;
+            if (_evasion_timeRemaining <= 0)
             {
-                isEvading = false;
-                evasion_powerValue = 1;
+                _isEvading = false;
+                _evasion_powerValue = 1;
             }
         }        
 
-        if (evasion_coolTimeValue > 0)
+        if (_evasion_coolTimeValue > 0)
         {
-            evasion_coolTimeValue -= Time.deltaTime;
-            OnEvasionGaugeChange?.Invoke(evasion_coolTimeValue / evasion_coolTime);
+            _evasion_coolTimeValue -= Time.deltaTime;
+            OnEvasionGaugeChange?.Invoke(_evasion_coolTimeValue / evasion_coolTime);
         }
     }
 
     void MoveLogic_OnUpdate()
     {
-        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y) * evasion_powerValue;
+        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y) * _evasion_powerValue;
+        //this.transform.position.y = new Vector3(transform.position.);
     }
 
     void RotateForward_OnUpdate()
@@ -191,10 +192,10 @@ public class Player : SceneSingleton<Player>
     {
         Debug.Log("X 버튼 클릭");
 
-        if(evasion_coolTimeValue <= 0)
+        if(_evasion_coolTimeValue <= 0)
         {
-            evasion_coolTimeValue = evasion_coolTime;
-            OnEvasionGaugeChange?.Invoke(evasion_coolTimeValue / evasion_coolTime);
+            _evasion_coolTimeValue = evasion_coolTime;
+            OnEvasionGaugeChange?.Invoke(_evasion_coolTimeValue / evasion_coolTime);
             Evasion();
         }
     }
@@ -202,8 +203,8 @@ public class Player : SceneSingleton<Player>
     void Evasion()
     {
         Debug.Log("회피 조작");
-        evasion_powerValue = evasion_power;
-        isEvading = true;
-        evasion_timeRemaining = evasion_duration;
+        _evasion_powerValue = evasion_power;
+        _isEvading = true;
+        _evasion_timeRemaining = evasion_duration;
     }
 }

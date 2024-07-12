@@ -88,5 +88,6 @@ public class EnemyWeapon : MonoBehaviour
 
         Vector3 projectionVector = (target - this.transform.position).normalized * speed_Projectile;
         obj.GetComponent<Bullet>().Shoot(this.transform.position, projectionVector);
+
     }
 }

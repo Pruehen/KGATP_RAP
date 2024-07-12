@@ -72,7 +72,7 @@ public class PlayerTest : MonoBehaviour
         }
 
         _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y) * evasion_powerValue;
-        //evasion_powerValue = Mathf.Lerp(evasion_powerValue, 1, Time.deltaTime);
+        //_evasion_powerValue = Mathf.Lerp(_evasion_powerValue, 1, Time.deltaTime);
 
         evasion_coolTimeValue -= Time.deltaTime;
 

@@ -21,26 +21,26 @@ public class EnemyWeapon : MonoBehaviour
     [Range(1, 50)][SerializeField] int projection_ea;
     [Range(0, 0.99f)][SerializeField] float projectionSpeed_RandomGain;
 
-    public void CommandFire(Vector3 target)
+    public void CommandFire(Vector3 targetPosition)
     {
         GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile);
 
         switch (projectionType)
         {
             case ProjectionType.Common:
-                Fire_Common(obj, target);
+                Fire_Common(obj, targetPosition);
                 break;
             case ProjectionType.Shogun:
-                Fire_ShotGun(obj, target);
+                Fire_ShotGun(obj, targetPosition);
                 break;
             case ProjectionType.Scatter:
-                Fire_Scatter(obj, target);
+                Fire_Scatter(obj, targetPosition);
                 break;
             case ProjectionType.Sniping:
-                Fire_Sniping(obj, target);
+                Fire_Sniping(obj, targetPosition);
                 break;
             default:
-                Fire_Common(obj, target);
+                Fire_Common(obj, targetPosition);
                 break;
         }
     }

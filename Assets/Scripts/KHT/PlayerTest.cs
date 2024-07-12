@@ -91,8 +91,13 @@ public class PlayerTest : MonoBehaviour
             _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
             if (_moveCommandVector != Vector2.zero)
             {
+                animator.SetBool("Run",true);
                 float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0, targetAngle, 0);
+            }
+            else
+            {
+                animator.SetBool("Run", false);
             }
         }
 

@@ -129,4 +129,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSize: 0
   isCanParry: 0
+  Prefab_DestroyEffect: {fileID: 1121192042590650, guid: 731ce60f1197f3a44897e0434ecdcff7, type: 3}
   explosionPrefab: {fileID: 3030702589660419527, guid: 6c14a1d5689ff614b8136273de39ae3e, type: 3}

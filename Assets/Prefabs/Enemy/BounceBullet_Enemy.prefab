@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6644710640935209626}
   - component: {fileID: 2551990493753126301}
   - component: {fileID: 6754301043469698936}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BounceBullet_Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

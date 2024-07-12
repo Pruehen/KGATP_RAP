@@ -21,6 +21,8 @@ public class EnemyWeapon : MonoBehaviour
     [Range(1, 100)][SerializeField] int projection_ea;
     [Range(0, 0.99f)][SerializeField] float projectionSpeed_RandomGain;
 
+    [SerializeField] Transform Transform_FirePoint;
+
     public void CommandFire(Vector3 targetPosition)
     {        
         switch (projectionType)
@@ -47,8 +49,8 @@ public class EnemyWeapon : MonoBehaviour
     {
         GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile);
 
-        Vector3 projectionVector = (target - this.transform.position).normalized * speed_Projectile;
-        obj.GetComponent<Bullet>().Shoot(this.transform.position, projectionVector);
+        Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * speed_Projectile;
+        obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector);
     }
     void Fire_ShotGun(Vector3 target)
     {
@@ -60,10 +62,10 @@ public class EnemyWeapon : MonoBehaviour
             float randomProjecitonVelocity = speed_Projectile * (1 + Random.Range(-projectionSpeed_RandomGain, projectionSpeed_RandomGain));
             Quaternion angle = Quaternion.Euler(0, randomProjectionAngle, 0);
 
-            Vector3 projectionVector = (target - this.transform.position).normalized * randomProjecitonVelocity;
+            Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * randomProjecitonVelocity;
             projectionVector = angle * projectionVector;
 
-            obj.GetComponent<Bullet>().Shoot(this.transform.position, projectionVector);
+            obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector);
         }
     }
     void Fire_Scatter(Vector3 target)
@@ -76,18 +78,18 @@ public class EnemyWeapon : MonoBehaviour
 
             Quaternion angle = Quaternion.Euler(0, projectionAngle, 0);
 
-            Vector3 projectionVector = (target - this.transform.position).normalized * speed_Projectile;
+            Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * speed_Projectile;
             projectionVector = angle * projectionVector;
 
-            obj.GetComponent<Bullet>().Shoot(this.transform.position, projectionVector);
+            obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector);
         }
     }
     void Fire_Sniping(Vector3 target)
     {
         GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile);
 
-        Vector3 projectionVector = (target - this.transform.position).normalized * speed_Projectile;
-        obj.GetComponent<Bullet>().Shoot(this.transform.position, projectionVector);
+        Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * speed_Projectile;
+        obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector);
 
     }
 }

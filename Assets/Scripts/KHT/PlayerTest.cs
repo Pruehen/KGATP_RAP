@@ -48,7 +48,7 @@ public class PlayerTest : MonoBehaviour
 
         Gauge_Max = 100;
         Gauge_RecoverySec = 1;
-        evasion_coolTime = 1.5f;
+        evasion_coolTime = 0f;
         isEvading = false;
     }
 
@@ -63,6 +63,8 @@ public class PlayerTest : MonoBehaviour
 
         if (isEvading)
         {
+            _rigidbody.AddForce(transform.forward*evasion_powerValue, ForceMode.Impulse);
+
             evasion_timeRemaining -= Time.deltaTime;
             if (evasion_timeRemaining <= 0)
             {
@@ -71,7 +73,7 @@ public class PlayerTest : MonoBehaviour
             }
         }
 
-        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y) * evasion_powerValue;
+        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
         //evasion_powerValue = Mathf.Lerp(evasion_powerValue, 1, Time.deltaTime);
 
         evasion_coolTimeValue -= Time.deltaTime;

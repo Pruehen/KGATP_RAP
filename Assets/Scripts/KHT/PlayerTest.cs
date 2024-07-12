@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using System.Collections;
 public class PlayerTest : MonoBehaviour
 {
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
@@ -34,6 +34,9 @@ public class PlayerTest : MonoBehaviour
     float evasion_powerValue = 1;
     float evasion_timeRemaining;
     bool isEvading;
+    bool iscombo1=false;
+    bool iscombo2=false;
+    private Coroutine currentCoroutine;
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +72,7 @@ public class PlayerTest : MonoBehaviour
         }
 
         _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y) * evasion_powerValue;
-        //evasion_powerValue = Mathf.Lerp(evasion_powerValue, 1, Time.deltaTime);
+        //_evasion_powerValue = Mathf.Lerp(_evasion_powerValue, 1, Time.deltaTime);
 
         evasion_coolTimeValue -= Time.deltaTime;
 
@@ -139,14 +142,27 @@ public class PlayerTest : MonoBehaviour
         }
     }
 
-    void OnClick_Z()
-    {
-        Debug.Log("Z 버튼 클릭");
-    }
-
     void OnClick_X()
     {
         Debug.Log("X 버튼 클릭");
+        
+        if(!iscombo1)
+        {
+            StartNewCoroutine(Atk1());
+        }
+        else if(iscombo1 &&!iscombo2)
+        {
+            StartNewCoroutine(Atk2());
+        }
+        else if (iscombo2)
+        {
+            StartNewCoroutine(Atk3());
+        }
+    }
+
+    void OnClick_Z()
+    {
+        Debug.Log("Z 버튼 클릭");
 
         if(evasion_coolTimeValue <= 0)
         {
@@ -163,4 +179,52 @@ public class PlayerTest : MonoBehaviour
         evasion_timeRemaining = evasion_duration;
     }
 
+    void Attack1()
+    {
+        Debug.Log("기본공격1");
+        iscombo1 = true;
+
+    }
+    void Attack2()
+    {
+        Debug.Log("기본공격2");
+        iscombo2 = true;
+    }
+    void Attack3()
+    {
+        Debug.Log("기본공격3");
+    }
+
+    void ComboReset()
+    {
+        Debug.Log("<color=red>콤보리셋.</color>");
+        iscombo1 = false;
+        iscombo2 = false;
+    }
+    IEnumerator Atk1()
+    {
+        Attack1();
+        yield return new WaitForSeconds(1f);
+        ComboReset();
+    }
+    IEnumerator Atk2()
+    {
+        Attack2();
+        yield return new WaitForSeconds(1f);
+        ComboReset();
+    }
+    IEnumerator Atk3()
+    {
+        Attack3();
+        yield return new WaitForSeconds(1f);
+        ComboReset();
+    }
+    void StartNewCoroutine(IEnumerator coroutine)
+    {
+        if (currentCoroutine != null)
+        {
+            StopCoroutine(currentCoroutine);
+        }
+        currentCoroutine = StartCoroutine(coroutine);
+    }
 }

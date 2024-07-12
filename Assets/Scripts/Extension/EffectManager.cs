@@ -1,31 +1,39 @@
 using System.Collections;
 using UnityEngine;
 
+public enum EffectType
+{ 
+    Explosion,
+    BulletDestroy
+}
 public class EffectManager : SceneSingleton<EffectManager>
 {
-    public GameObject ExplosionEffect;    
+    [SerializeField] GameObject Prefab_ExplosionEffect;
+    [SerializeField] GameObject Prefab_BulletDestroyEffect;
 
-    public void EffectGenerate(GameObject item, Vector3 position, float size)
+    public void EffectGenerate(GameObject prefab, Vector3 position)
     {
-        GameObject effect = ObjectPoolManager.Instance.DequeueObject(item);
+        GameObject effect = ObjectPoolManager.Instance.DequeueObject(prefab);
         effect.transform.position = position;
-        effect.transform.rotation = Quaternion.identity;
-        effect.transform.localScale *= size;
+        effect.transform.rotation = Quaternion.identity;        
         effect.GetComponent<ParticleSystem>().Play();
 
-        StartCoroutine(EffectEnqueue(effect, 10));
+        StartCoroutine(EffectEnqueue(effect, 5));
     }
 
-    public void ExplosionEffectGenerate(Vector3 position, float size)
+    public void EffectGenerate(EffectType effectType, Vector3 pos)
     {
-        GameObject effect = ObjectPoolManager.Instance.DequeueObject(ExplosionEffect);
-        effect.transform.position = position;
-        effect.transform.rotation = Quaternion.identity;
-        effect.transform.localScale = new Vector3(size, size, size);
-        effect.transform.GetChild(0).localScale = new Vector3(size, size, size);
-        effect.GetComponent<ParticleSystem>().Play();
-
-        StartCoroutine(EffectEnqueue(effect, 10));
+        switch (effectType)
+        {
+            case EffectType.Explosion:
+                EffectGenerate(Prefab_ExplosionEffect, pos);
+                break;
+            case EffectType.BulletDestroy:
+                EffectGenerate(Prefab_BulletDestroyEffect, pos);
+                break;
+            default:
+                break;
+        }
     }
 
     IEnumerator EffectEnqueue(GameObject item, float delayTime)

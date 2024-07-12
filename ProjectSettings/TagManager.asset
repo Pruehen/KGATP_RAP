@@ -11,12 +11,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Projectile
+  - Enemy
+  - Player
+  - NonDestroyObject
+  - CanDestroyObject
+  - Floor
   - 
   - 
   - 

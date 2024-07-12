@@ -6,10 +6,7 @@ public class Bullet : MonoBehaviour
 {    
     [SerializeField] private float bulletSize;
     [SerializeField] private bool isCanParry;
-
-   
-
-    
+    [SerializeField] protected GameObject Prefab_DestroyEffect;   
 
     public float BulletSize
     {

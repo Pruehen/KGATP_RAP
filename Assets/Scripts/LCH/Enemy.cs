@@ -17,6 +17,15 @@ namespace LCH
 
         private void Start()
         {
+            if(weapon == null)
+            {
+                weapon = GetComponent<EnemyWeapon>();
+            }
+            if(target == null)
+            {
+                target = Player.Instance.transform;
+            }
+
             if (!isTargeting)
             {
                 Nontarget_StartCoroutine_OnStart();

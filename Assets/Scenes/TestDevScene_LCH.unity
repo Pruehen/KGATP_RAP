@@ -1060,9 +1060,9 @@ MonoBehaviour:
   enemyHp: 0
   atkDamage: 0
   isCanFire: 0
-  isTargeting: 1
+  isTargeting: 0
   isStun: 0
-  coolTime: 1
+  coolTime: 5
   weapon: {fileID: 1986960420}
 --- !u!114 &1986960420
 MonoBehaviour:
@@ -1080,5 +1080,5 @@ MonoBehaviour:
   projectionType: 1
   speed_Projectile: 10
   projection_Angle: 30
-  projection_ea: 10
+  projection_ea: 5
   projectionSpeed_RandomGain: 0.299

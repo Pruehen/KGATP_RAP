@@ -6,30 +6,22 @@ namespace LCH
     {
         [SerializeField] Transform target;
         [SerializeField] float enemyHp;
-        [SerializeField] float atkDamage;
-        [SerializeField] bool isCanFire;
+        [SerializeField] float atkDamage;        
         [SerializeField] bool isTargeting;
         [SerializeField] bool isStun;
         [Range(0.1f, 10f)][SerializeField] float coolTime;
         [Header("ÀåÂø ¹«±â")]
         [SerializeField] EnemyWeapon weapon;
+          
+        private bool _isCanFire;
 
         private void Start()
         {
-            if(weapon == null)
-            {
-                weapon = GetComponent<EnemyWeapon>();
-            }
-            if(target == null)
-            {
-                target = Player.Instance.transform;
-            }
-
             if (!isTargeting)
             {
                 Nontarget_StartCoroutine_OnStart();
             }
-            StartCoroutine(ShootCoolTime());
+           // StartCoroutine(ShootCoolTime());
         }
         private void Update()
         {
@@ -65,9 +57,11 @@ namespace LCH
         {
             while (true)
             {
-                transform.Rotate(0, 15, 0);
-                yield return new WaitForSeconds(5);
-            }
+               transform.Rotate(0, 40, 0);
+                
+               weapon.CommandFire(this.gameObject.transform.forward + this.transform.position);
+               yield return new WaitForSeconds(coolTime);
+            }  
         }
         void Die_OnUpdate()
         {
@@ -84,7 +78,6 @@ namespace LCH
                 weapon.CommandFire(target.transform.position);
                 yield return new WaitForSeconds(coolTime);
             }
-            
         }
     }
 }

@@ -6,13 +6,14 @@ namespace LCH
     {
         [SerializeField] Transform target;
         [SerializeField] float enemyHp;
-        [SerializeField] float atkDamage;
-        [SerializeField] bool isCanFire;
+        [SerializeField] float atkDamage;        
         [SerializeField] bool isTargeting;
         [SerializeField] bool isStun;
         [Range(0.1f, 10f)][SerializeField] float coolTime;
         [Header("ÀåÂø ¹«±â")]
         [SerializeField] EnemyWeapon weapon;
+
+        private bool _isCanFire;
 
         private void Start()
         {
@@ -77,7 +78,6 @@ namespace LCH
                 weapon.CommandFire(target.transform.position);
                 yield return new WaitForSeconds(coolTime);
             }
-            
         }
     }
 }

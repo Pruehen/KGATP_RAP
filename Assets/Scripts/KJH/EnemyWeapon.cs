@@ -17,8 +17,8 @@ public class EnemyWeapon : MonoBehaviour
 
     [Header("발사 속성 필드")]
     [Range(0, 500)][SerializeField] float speed_Projectile;
-    [Range(0, 180)][SerializeField] float projection_Angle;
-    [Range(1, 50)][SerializeField] int projection_ea;
+    [Range(0, 360)][SerializeField] float projection_Angle;
+    [Range(1, 100)][SerializeField] int projection_ea;
     [Range(0, 0.99f)][SerializeField] float projectionSpeed_RandomGain;
 
     public void CommandFire(Vector3 targetPosition)

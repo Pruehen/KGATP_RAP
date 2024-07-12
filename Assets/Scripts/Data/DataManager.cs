@@ -6,9 +6,9 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
-
-    public Dictionary<int, PlayerCharacter> LoadedPlayerCharacterList { get; private set; }
     public Dictionary<int, PlayerSkill> LoadedPlayerSkillList { get; private set; }
+    public Dictionary<int, PlayerCharacter> LoadedPlayerCharacterList { get; private set; }
+
     //¿”Ω√∑Œ πŸ≈¡»≠∏Èø° DataParser∏¶ ∫πªÁ«ÿ≥ˆæﬂ µ•¿Ã≈Õ ∆ƒΩÃµ .
     private string _dataRootPath;
 
@@ -28,8 +28,8 @@ public class DataManager : MonoBehaviour
 
     private void ReadAllDataOnAwake()
     {
-        ReadData("PlayerCharacter");
         ReadData("PlayerSkill");
+        ReadData("PlayerCharacter");
     }
 
     private void ReadData(string tableName)
@@ -59,9 +59,10 @@ public class DataManager : MonoBehaviour
             tempPlayerCharacter.Name = data.Attribute("Name").Value;
             tempPlayerCharacter.HP = int.Parse(data.Attribute("HP").Value);
             tempPlayerCharacter.Atk = int.Parse(data.Attribute("Atk").Value);
-            tempPlayerCharacter.Atk_base = int.Parse(data.Attribute("Atk_base").Value);
-            tempPlayerCharacter.Evasion = int.Parse(data.Attribute("Evasion").Value);
-            tempPlayerCharacter.Atk_special = int.Parse(data.Attribute("Atk_special").Value);
+            tempPlayerCharacter.Atk_base = this.LoadedPlayerSkillList[int.Parse(data.Attribute("Atk_base").Value)];
+            tempPlayerCharacter.Atk_strong = this.LoadedPlayerSkillList[int.Parse(data.Attribute("Atk_strong").Value)];
+            tempPlayerCharacter.Evasion = this.LoadedPlayerSkillList[int.Parse(data.Attribute("Evasion").Value)];
+            tempPlayerCharacter.Atk_special = this.LoadedPlayerSkillList[int.Parse(data.Attribute("Atk_special").Value)];
             tempPlayerCharacter.Cost_type = int.Parse(data.Attribute("Cost_type").Value);
 
             LoadedPlayerCharacterList.Add(tempPlayerCharacter.DataID, tempPlayerCharacter);

@@ -9,10 +9,10 @@ public class PlayerCharacter
     public string Name { get; set; }
     public int HP { get; set; }
     public int Atk { get; set; }
-    public int Atk_base { get; set; }
-    public int Atk_strong { get; set; }
-    public int Evasion { get; set; }
-    public int Atk_special { get; set; }
+    public PlayerSkill Atk_base { get; set; }
+    public PlayerSkill Atk_strong { get; set; }
+    public PlayerSkill Evasion { get; set; }
+    public PlayerSkill Atk_special { get; set; }
     public int Cost_type { get; set; }
 }
 

@@ -25,21 +25,18 @@ public class Bullet : MonoBehaviour
 
 
     //projectionVector의 방향으로 발사
-    public void Shoot(Transform target, Vector3 initPos, Vector3 projectionVector, float bulletSpeed)
-    {
+    //public void Shoot(Transform target, Vector3 initPos, Vector3 projectionVector, float bulletSpeed)
+    //{
 
 
-        this.transform.position = initPos;
+    //    this.transform.position = initPos;
         
-        this.GetComponent<Rigidbody>().velocity = projectionVector.normalized * bulletSpeed;
-    }
+    //    this.GetComponent<Rigidbody>().velocity = projectionVector.normalized * bulletSpeed;
+    //}
     //타겟 위치로 발사
-    public virtual void Shoot(Transform target, Vector3 initPos, float bulletSpeed)
+    public virtual void Shoot(Vector3 initPos, Vector3 projectionVector)
     {
-
-
         this.transform.position = initPos;
-
-        this.GetComponent<Rigidbody>().velocity = (target.position - this.transform.position).normalized * bulletSpeed;
+        this.GetComponent<Rigidbody>().velocity = projectionVector;
     }
 }

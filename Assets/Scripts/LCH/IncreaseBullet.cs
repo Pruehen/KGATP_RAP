@@ -8,8 +8,9 @@ public class IncreaseBullet : Bullet
     Vector3 initScale;
     float activeTime = 0;
 
-    public override void Shoot(Transform target, Vector3 initPos, float bulletSpeed)
+    public override void Shoot(Vector3 initPos, Vector3 projectionVector)
     {
+        base.Shoot(initPos, projectionVector);
         initScale = this.transform.localScale;
         activeTime = 0;
     }

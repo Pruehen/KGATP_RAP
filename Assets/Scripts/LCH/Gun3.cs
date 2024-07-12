@@ -12,7 +12,7 @@ public class Gun3 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GameObject obj = ObjectPoolManager.Instance.DequeueObject(bulletPrefab);
-            obj.GetComponent<IncreaseBullet>().Shoot(Target, this.transform.position);
+            //obj.GetComponent<IncreaseBullet>().Shoot(Target, this.transform.position);
         }
     }
 }

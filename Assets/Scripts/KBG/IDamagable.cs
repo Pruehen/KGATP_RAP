@@ -10,6 +10,8 @@ public struct DamageMessage
     public Vector3 hitNormal;
 }
 
+
+
 public interface IDamageable
 {
     public bool ApplyDamage(DamageMessage damageMsg);

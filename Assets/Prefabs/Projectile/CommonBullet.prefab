@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3030702589660419529}
   - component: {fileID: 3030702589660419526}
   - component: {fileID: 4865898233415419224}
+  - component: {fileID: 361990910950524418}
   - component: {fileID: 7133124050190727130}
   m_Layer: 6
   m_Name: CommonBullet
@@ -109,6 +110,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba05bb62ea534014bae9bdf4ff46252e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSize: 0
+  isCanParry: 0
+  Prefab_DestroyEffect: {fileID: 1329845292236604, guid: 3e007ffa39b58a5468e10616bc8f605b, type: 3}
+--- !u!114 &361990910950524418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3030702589660419527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 703e22edcbefdc349a3f460ac8d346e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSize: 0

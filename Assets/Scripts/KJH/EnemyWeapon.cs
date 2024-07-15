@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum ProjectionType
@@ -51,6 +52,27 @@ public class EnemyWeapon : MonoBehaviour
                 break;
         }
     }
+    public void CommandFire(Transform targetTransform)
+    {
+        switch (projectionType)
+        {
+            case ProjectionType.Common:
+                Fire_Common(targetTransform.position);
+                break;
+            case ProjectionType.Shogun:
+                Fire_ShotGun(targetTransform.position);
+                break;
+            case ProjectionType.Scatter:
+                Fire_Scatter(targetTransform.position);
+                break;
+            case ProjectionType.Sniping:
+                Fire_Sniping(targetTransform);
+                break;
+            default:
+                Fire_Common(targetTransform.position);
+                break;
+        }
+    }
 
     void Fire_Common(Vector3 target)
     {
@@ -91,12 +113,35 @@ public class EnemyWeapon : MonoBehaviour
             obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector);
         }
     }
-    void Fire_Sniping(Vector3 target)
+    void Fire_Sniping(Vector3 targetPos)
     {
-        GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile);
+        StartCoroutine(BulletCharging_Sniping(targetPos));
+    }
+    void Fire_Sniping(Transform targetTrf)
+    {
+        StartCoroutine(BulletCharging_Sniping(targetTrf));
+    }
 
-        Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * speed_Projectile;
-        obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector);
+    IEnumerator BulletCharging_Sniping(Transform targetTrf)
+    {
+        float chargeTime = 0;
+        while (chargeTime < bulletChargingTime)
+        {
+            chargeTime += Time.deltaTime;
+            yield return null;
+        }
 
+        Fire_Common(targetTrf.position);
+    }
+    IEnumerator BulletCharging_Sniping(Vector3 targetPos)
+    {
+        float chargeTime = 0;
+        while (chargeTime < bulletChargingTime)
+        {
+            chargeTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Fire_Common(targetPos);
     }
 }

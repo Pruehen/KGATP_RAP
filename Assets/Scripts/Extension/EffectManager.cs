@@ -4,12 +4,14 @@ using UnityEngine;
 public enum EffectType
 { 
     Explosion,
-    BulletDestroy
+    BulletDestroy,
+    EnemyDie
 }
 public class EffectManager : SceneSingleton<EffectManager>
 {
     [SerializeField] GameObject Prefab_ExplosionEffect;
     [SerializeField] GameObject Prefab_BulletDestroyEffect;
+    [SerializeField] GameObject Prefab_EnemyDie_Effect;
 
     public void EffectGenerate(GameObject prefab, Vector3 position)
     {
@@ -30,6 +32,9 @@ public class EffectManager : SceneSingleton<EffectManager>
                 break;
             case EffectType.BulletDestroy:
                 EffectGenerate(Prefab_BulletDestroyEffect, pos);
+                break;
+            case EffectType.EnemyDie:
+                EffectGenerate(Prefab_EnemyDie_Effect, pos);
                 break;
             default:
                 break;

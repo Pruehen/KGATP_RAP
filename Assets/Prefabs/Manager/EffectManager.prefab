@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab_ExplosionEffect: {fileID: 1121192042590650, guid: 731ce60f1197f3a44897e0434ecdcff7, type: 3}
   Prefab_BulletDestroyEffect: {fileID: 1329845292236604, guid: 3e007ffa39b58a5468e10616bc8f605b, type: 3}
+  Prefab_EnemyDie_Effect: {fileID: 1121192042590650, guid: 1329dedd7685dd24582d971f031a4bc7, type: 3}

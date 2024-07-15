@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+
 public enum ProjectionType
 {
     Common,
@@ -27,11 +28,19 @@ public class EnemyWeapon : MonoBehaviour
 
     [Header("스나이핑 필드")]
     [Range(0.1f, 5)][SerializeField] float bulletChargingTime = 1f;
+    [Range(0.5f, 5)][SerializeField] float lineWidth = 1f;
 
     [SerializeField] Transform Transform_FirePoint;
+    LineRenderer lineRenderer;
 
     public void CommandFire(Vector3 targetPosition)
-    {        
+    {
+        if (lineRenderer == null)
+        {
+            lineRenderer = GetComponent<LineRenderer>();
+            lineRenderer.enabled = false;
+        }
+
         switch (projectionType)
         {
             case ProjectionType.Common:
@@ -53,6 +62,12 @@ public class EnemyWeapon : MonoBehaviour
     }
     public void CommandFire(Transform targetTransform)
     {
+        if (lineRenderer == null)
+        {
+            lineRenderer = GetComponent<LineRenderer>();
+            lineRenderer.enabled = false;
+        }
+
         switch (projectionType)
         {
             case ProjectionType.Common:
@@ -124,23 +139,69 @@ public class EnemyWeapon : MonoBehaviour
     IEnumerator BulletCharging_Sniping(Transform targetTrf)
     {
         float chargeTime = 0;
+        lineRenderer.enabled = true;
         while (chargeTime < bulletChargingTime)
         {
+            Vector3 origin = this.transform.position + new Vector3(0, 0.5f, 0);
+            Vector3 targetPos = targetTrf.position + new Vector3(0, 0.5f, 0);
+            Vector3 dir = (targetPos - origin).normalized;
+
+            lineRenderer.SetPosition(0, origin);
+            Ray ray = new Ray(origin, dir);
+            
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+
+                lineRenderer.SetPosition(1, hit.point);
+                int hitLayer = hit.collider.gameObject.layer;
+                Debug.Log("Hit layer: " + LayerMask.LayerToName(hitLayer));
+            }
+            else
+            {
+                lineRenderer.SetPosition(1, targetPos);
+            }         
+            
+            lineRenderer.widthMultiplier = (1 - (chargeTime / bulletChargingTime)) * lineWidth;
             chargeTime += Time.deltaTime;
             yield return null;
         }
 
+        lineRenderer.enabled = false;
         Fire_Common(targetTrf.position);
     }
     IEnumerator BulletCharging_Sniping(Vector3 targetPos)
     {
         float chargeTime = 0;
+        Vector3 origin = this.transform.position + new Vector3(0, 0.5f, 0);
+        targetPos = targetPos + new Vector3(0, 0.5f, 0);
+        Vector3 dir = (targetPos - origin).normalized;
+
+        lineRenderer.SetPosition(0, origin);
+        Ray ray = new Ray(origin, dir);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+
+            lineRenderer.SetPosition(1, hit.point);
+            int hitLayer = hit.collider.gameObject.layer;
+            Debug.Log("Hit layer: " + LayerMask.LayerToName(hitLayer));
+        }
+        else
+        {
+            lineRenderer.SetPosition(1, targetPos);
+        }
         while (chargeTime < bulletChargingTime)
         {
+            lineRenderer.widthMultiplier = (1 - (chargeTime / bulletChargingTime)) * lineWidth;
             chargeTime += Time.deltaTime;
             yield return null;
         }
 
+        lineRenderer.enabled = false;
         Fire_Common(targetPos);
     }
 }

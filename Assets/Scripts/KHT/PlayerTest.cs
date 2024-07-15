@@ -177,42 +177,21 @@ public class PlayerTest : MonoBehaviour
             evasion_coolTimeValue = evasion_coolTime;
             //Evasion();
             
-            StartCoroutine(EvastionCoroutine());
+            
         }
     }
-
-    //void Evasion()
-    //{
-    //    Debug.Log("회피 조작");
-    //    evasion_powerValue = evasion_power;
-    //    isEvading = true;
-    //    evasion_timeRemaining = evasion_duration;
-    //}
-
-    //void EvasionAct()
-    //{
-    //    if (isEvading)
-    //    {
-    //        animator.SetBool("Evasion", true);
-    //        _rigidbody.AddForce(transform.forward * evasion_powerValue, ForceMode.Impulse);
-
-    //        evasion_timeRemaining -= Time.deltaTime;
-    //        if (evasion_timeRemaining <= 0)
-    //        {
-    //            animator.SetBool("Evasion", false);
-    //            isEvading = false;
-    //            evasion_powerValue = 1;
-    //        }
-    //    }
-    //}
+    public void EvasionStart()
+    {
+        StartCoroutine(EvasionCoroutine());
+    }
 
     //더킹 코루틴
-    private IEnumerator EvastionCoroutine()
+    private IEnumerator EvasionCoroutine()
     {
         isEvading = true;
+
         Vector3 start = transform.position;
         Vector3 end = transform.position + transform.forward * evasion_distace;
-        //float dashDuration = evasion_distace / evasion_power;
 
         float elapsedTime = 0f;
 
@@ -231,7 +210,7 @@ public class PlayerTest : MonoBehaviour
     //플레이어 상태변경
     public void ChangeState(IState newState)
     {
-        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State||_curState is EvasionState|| _curState is EvasionDelayState) && newState is MoveState)
+        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State|| _curState is EvasionDelayState) && newState is MoveState)
         {
             Debug.Log("Cannot transition from AtkState to MoveState");
             return;

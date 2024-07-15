@@ -93,11 +93,13 @@ public class EvasionState : StateBase
 
     public override void EnterState()
     {
-        _player.animator.SetBool("Evasion",true);
+        _player.animator.SetTrigger("Evasion");
+        _player.EvasionStart();
     }
     public override void ExitState()
     {
-        _player.animator.SetBool("Evasion", false);
+        //_player.animator.SetBool("Evasion", false);
+        _player.animator.SetTrigger("Stop");
     }
     public override void OnInput(KeyName InputName)
     {

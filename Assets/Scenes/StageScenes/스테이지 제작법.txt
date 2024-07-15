@@ -1,5 +1,4 @@
 스테이지 제작 - 본 문서는 Assets/Scenes/StageScenes 폴더 안에 텍스트 파일로 저장됨.
-
 재료 위치
 Assets/Prefabs 폴더 안에 있음.
 Enemy 폴더 내부에 적 프리팹, MapObject 폴더 내부에 맵 오브젝트 프리팹, Prefabs 폴더 안에 플레이어 프리팹 있음.
@@ -8,3 +7,8 @@ Enemy 폴더 내부에 적 프리팹, MapObject 폴더 내부에 맵 오브젝�
 Assets/Scenes/StageScenes 폴더 안에 스테이지 씬 있음. 각각의 스테이지에 맞게 해당 씬에서 작업하면 됨.
 
 제작 브랜치 위치
+DEV_CreateStage 브랜치에서 작업하면 됨. DEV_KJH의 파생 브랜치.
+
+팁
+1. 프리팹의 Inspector 창 상단 우측에 Layer 설정 기능이 있음.
+2. 레이어간의 충돌 판정을 조작할 수 있음. 유니티 창 좌측 상단의 Edit / Project Setting / 좌측 탭의 Physics 창의 Layer Collision Matrix 에서 조작 가능.

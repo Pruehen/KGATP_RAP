@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-public class Player : SceneSingleton<Player>
-{    
+public class PlayerCopy : SceneSingleton<Player>
+{
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(1f, 10f)][SerializeField] float evasion_power;
     [Range(0.1f, 1f)][SerializeField] float evasion_duration;
@@ -32,7 +32,7 @@ public class Player : SceneSingleton<Player>
     public int Atk { get; private set; }
     public float SkillGauge { get; private set; }
     public float SkillGauge_Max { get; private set; }
-    public float SkillGauge_RecoverySec { get; private set; }    
+    public float SkillGauge_RecoverySec { get; private set; }
     public float evasion_coolTime { get; private set; }
 
     float evasion_coolTimeValue;
@@ -132,7 +132,7 @@ public class Player : SceneSingleton<Player>
     void GaugeRecovery_OnUpdate()
     {
         SkillGauge += Time.deltaTime * SkillGauge_RecoverySec;
-        if(SkillGauge > SkillGauge_Max)
+        if (SkillGauge > SkillGauge_Max)
         {
             SkillGauge = SkillGauge_Max;
         }
@@ -158,7 +158,7 @@ public class Player : SceneSingleton<Player>
                 isEvading = false;
                 evasion_powerValue = 1;
             }
-        }        
+        }
 
         if (evasion_coolTimeValue > 0)
         {
@@ -191,7 +191,7 @@ public class Player : SceneSingleton<Player>
     {
         Debug.Log("X 버튼 클릭");
 
-        if(evasion_coolTimeValue <= 0)
+        if (evasion_coolTimeValue <= 0)
         {
             evasion_coolTimeValue = evasion_coolTime;
             OnEvasionGaugeChange?.Invoke(evasion_coolTimeValue / evasion_coolTime);

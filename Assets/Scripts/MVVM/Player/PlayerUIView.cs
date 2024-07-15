@@ -26,7 +26,7 @@ public class PlayerUIView : MonoBehaviour
     }
     private void OnDisable()
     {
-       // _vm.UnRegister_OnDisable();
+        //_vm.UnRegister_OnDisable();
     }
 
     void OnPropertyChanged(object sender, PropertyChangedEventArgs e)

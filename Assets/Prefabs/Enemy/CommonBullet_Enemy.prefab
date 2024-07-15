@@ -89,7 +89,6 @@ MonoBehaviour:
   enemyHp: 10
   atkDamage: 1
   isTargeting: 1
-  isStun: 0
   coolTime: 5
   weapon: {fileID: -5686845201229807378}
 --- !u!95 &1688482218382078006
@@ -120,7 +119,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3041262898025056512}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -206,7 +205,7 @@ LineRenderer:
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
-    alignment: 0
+    alignment: 1
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
@@ -574,7 +573,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 63d3483e6fd7bc34cb299522d9a14a45, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 63d3483e6fd7bc34cb299522d9a14a45, type: 3}
 --- !u!1 &1033131744543454513 stripped
 GameObject:

@@ -42,19 +42,12 @@ namespace LCH
             {
                 FindPlayer_OnUpdate();
             }
-
-            if(Input.GetKeyDown(KeyCode.F))
-            {
-                weapon.CommandFire(target.transform.position);
-            }
         }
 
         void FindPlayer_OnUpdate()
         {
             Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
             transform.LookAt(targetPosition);
-
-
         }
         void Nontarget_StartCoroutine_OnStart()
         {
@@ -109,7 +102,7 @@ namespace LCH
         {
             while (true)
             {
-                weapon.CommandFire(target.transform.position);
+                weapon.CommandFire(target);
                 yield return new WaitForSeconds(coolTime);
             }
         }

@@ -11,7 +11,10 @@ public class TimeManager : SceneSingleton<TimeManager>
     IEnumerator BulletTime(float targetTimeScale, float duration)
     {
         Time.timeScale = targetTimeScale;
+        float fixedDeltaTimeTamp = Time.fixedDeltaTime;
+        Time.fixedDeltaTime *= targetTimeScale;
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1;
+        Time.fixedDeltaTime = fixedDeltaTimeTamp;
     }
 }

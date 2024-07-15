@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public abstract class Bullet : MonoBehaviour
 {    
     [SerializeField] private float bulletSize;
     [SerializeField] private bool isCanParry;
@@ -35,5 +35,11 @@ public class Bullet : MonoBehaviour
     {
         this.transform.position = initPos;
         this.GetComponent<Rigidbody>().velocity = projectionVector;
+    }
+
+    public abstract void ProjectileDestroy(Vector3 destroyPos);
+    public void ProjectileDestroy()
+    {
+        ProjectileDestroy(this.transform.position);
     }
 }

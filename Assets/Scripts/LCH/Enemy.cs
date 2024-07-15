@@ -107,6 +107,7 @@ namespace LCH
         void Dead()
         {
             OnDead?.Invoke();
+            GetComponent<CapsuleCollider>().enabled = false;
             _animator.enabled = false;
             StopAllCoroutines();
             Debug.Log("Àû »ç¸Á");
@@ -134,6 +135,11 @@ namespace LCH
             {
                 _isStun = false;
             }
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Hit(100);
         }
     }
 }

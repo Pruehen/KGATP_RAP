@@ -71,6 +71,7 @@ MonoBehaviour:
   projection_ea: 10
   projectionSpeed_RandomGain: 0.2
   bulletChargingTime: 1
+  lineWidth: 1
   Transform_FirePoint: {fileID: 8875995908425481789}
 --- !u!114 &-7275759016192501703
 MonoBehaviour:
@@ -119,7 +120,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3041262898025056512}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -205,7 +206,7 @@ LineRenderer:
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
-    alignment: 0
+    alignment: 1
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0

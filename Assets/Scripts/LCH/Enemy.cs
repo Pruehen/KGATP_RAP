@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using System;
+
 namespace LCH
 {    
     public class Enemy : MonoBehaviour
@@ -14,6 +16,10 @@ namespace LCH
         [SerializeField] EnemyWeapon weapon;
           
         private bool _isCanFire;
+        private Animator _animator;
+
+        Action OnHit;
+        Action OnDead;
 
         private void Start()
         {
@@ -28,16 +34,13 @@ namespace LCH
             {
                 StartCoroutine(ShootCoolTime());
             }
+            _animator = GetComponent<Animator>();
         }
         private void Update()
         {
             if (isTargeting)
             {
                 FindPlayer_OnUpdate();
-            }
-            if (enemyHp <= 0)
-            {
-                Die_OnUpdate();
             }
 
             if(Input.GetKeyDown(KeyCode.F))
@@ -48,7 +51,9 @@ namespace LCH
 
         void FindPlayer_OnUpdate()
         {
-            transform.LookAt(target);
+            Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
+            transform.LookAt(targetPosition);
+
 
         }
         void Nontarget_StartCoroutine_OnStart()
@@ -69,14 +74,37 @@ namespace LCH
                yield return new WaitForSeconds(coolTime);
             }  
         }
-        void Die_OnUpdate()
-        {
-            //ragdoll
-        }
+        
         void Stun_OnUpdate()
         {
 
         }
+        /// <summary>
+        /// 피격 메서드
+        /// </summary>
+        /// <param name="dmg"></param>
+        public void Hit(int dmg)
+        {
+            enemyHp -= dmg;
+            OnHit?.Invoke();
+            //OnHpChange?.Invoke(Hp);
+
+            if (enemyHp <= 0)
+            {
+                Dead();
+            }
+        }
+
+        void Dead()
+        {
+            OnDead?.Invoke();
+            _animator.enabled = false;
+            StopAllCoroutines();
+            Debug.Log("적 사망");
+            EffectManager.Instance.EffectGenerate(EffectType.Explosion, this.gameObject.transform.position);
+            Destroy(this);
+        }
+
         IEnumerator ShootCoolTime()
         {
             while (true)
@@ -85,5 +113,6 @@ namespace LCH
                 yield return new WaitForSeconds(coolTime);
             }
         }
+        
     }
 }

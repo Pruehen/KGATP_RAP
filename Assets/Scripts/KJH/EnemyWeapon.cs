@@ -151,7 +151,7 @@ public class EnemyWeapon : MonoBehaviour
             
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit,1000, LayerMask.GetMask("NonDestroyObject", "Player")))
             {
 
                 lineRenderer.SetPosition(1, hit.point);

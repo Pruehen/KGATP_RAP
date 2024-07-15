@@ -110,6 +110,8 @@ namespace LCH
             while (true)
             {
                 weapon.CommandFire(target);
+
+
                 yield return new WaitForSeconds(coolTime);
             }
         }

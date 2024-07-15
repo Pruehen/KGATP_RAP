@@ -1,0 +1,10 @@
+스테이지 제작 - 본 문서는 Assets/Scenes/StageScenes 폴더 안에 텍스트 파일로 저장됨.
+
+재료 위치
+Assets/Prefabs 폴더 안에 있음.
+Enemy 폴더 내부에 적 프리팹, MapObject 폴더 내부에 맵 오브젝트 프리팹, Prefabs 폴더 안에 플레이어 프리팹 있음.
+
+제작 씬 위치
+Assets/Scenes/StageScenes 폴더 안에 스테이지 씬 있음. 각각의 스테이지에 맞게 해당 씬에서 작업하면 됨.
+
+제작 브랜치 위치

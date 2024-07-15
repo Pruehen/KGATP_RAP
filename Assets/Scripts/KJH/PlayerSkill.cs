@@ -14,8 +14,8 @@ namespace kjh
 
                 Quaternion offset1 = Quaternion.Euler(0, i * 5, 0);
                 Quaternion offset2 = Quaternion.Euler(0, i * -5, 0);
-                projectile1.GetComponent<PlayerSkillProjectile>().Init(this.transform.position, this.transform.rotation * offset1, 15, 15);
-                projectile2.GetComponent<PlayerSkillProjectile>().Init(this.transform.position, this.transform.rotation * offset2, 15, 15);
+                projectile1.GetComponent<PlayerSkillProjectile>().Init(this.transform.position, this.transform.rotation * offset1, 30, 15);
+                projectile2.GetComponent<PlayerSkillProjectile>().Init(this.transform.position, this.transform.rotation * offset2, 30, 15);
             }
         }
     }

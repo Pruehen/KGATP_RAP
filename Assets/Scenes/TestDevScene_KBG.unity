@@ -2689,6 +2689,7 @@ GameObject:
   - component: {fileID: 419117201}
   - component: {fileID: 419117200}
   - component: {fileID: 419117205}
+  - component: {fileID: 419117206}
   m_Layer: 0
   m_Name: Player_Test
   m_TagString: Untagged
@@ -2809,6 +2810,21 @@ MonoBehaviour:
   evasion_duration: 0.5
   lastDamagedTime: 0
   invincibleTime: 0
+--- !u!114 &419117206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419117197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b157f6de9d2843469bc2137677ac5f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRenderer: {fileID: 419117202}
+  blinkDuration: 1
+  blinkInterval: 0.1
 --- !u!1 &421606606
 GameObject:
   m_ObjectHideFlags: 0
@@ -18785,7 +18801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1979046866
 MonoBehaviour:
   m_ObjectHideFlags: 0

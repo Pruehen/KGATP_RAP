@@ -106,10 +106,6 @@ public class EvasionState : StateBase
             _player.ChangeState(new StrongAtkState(_player));
         }
     }
-    public override void OnAnimationComplete(string animationName)
-    {
-        _player.ChangeState(new EvasionDelayState(_player));
-    }
 }
 
 
@@ -125,17 +121,14 @@ public class EvasionDelayState : StateBase
 
     public override void EnterState()
     {
-        _player.animator.SetTrigger("Delay");
+        _player.Delay();
     }
     public override void ExitState()
     {
 
     }
 
-    public override void OnAnimationComplete(string animationName)
-    {
-        _player.ChangeState(new IdleState(_player));
-    }
+ 
 }
 //Atk1
 public class Atk1State : StateBase
@@ -155,7 +148,7 @@ public class Atk1State : StateBase
     {
         
         iscombo = false;
-        _player.animator.SetTrigger("Stop");
+        
     }
     public override void OnInput(KeyName InputName)
     {
@@ -173,6 +166,7 @@ public class Atk1State : StateBase
         }
         else
         {
+            _player.animator.SetTrigger("Stop");
             _player.ChangeState(new IdleState(_player));
         }
     }
@@ -190,13 +184,14 @@ public class Atk2State : StateBase
 
     public override void EnterState()
     {
-        _player.Atk2();
+        _player.animator.SetTrigger("Atk2");
         
     }
     public override void ExitState()
     {
+
         iscombo = false;
-        _player.AtkEnd();
+        
     }
     public override void OnInput(KeyName InputName)
     {
@@ -209,11 +204,13 @@ public class Atk2State : StateBase
     {
         if (iscombo)
         {
-            _player.ChangeState(new Atk3State(_player));
 
+            _player.ChangeState(new Atk3State(_player));
+            
         }
         else
         {
+            _player.animator.SetTrigger("Stop");
             _player.ChangeState(new IdleState(_player));
         }
 
@@ -232,11 +229,11 @@ public class Atk3State : StateBase
 
     public override void EnterState()
     {
-        _player.Atk3();
+        _player.animator.SetTrigger("Atk3");
     }
     public override void ExitState()
     {
-        _player.AtkEnd();
+
     }
     public override void OnInput(KeyName InputName)
     {
@@ -244,7 +241,8 @@ public class Atk3State : StateBase
     }
     public override void OnAnimationComplete(string animationName)
     {
-       _player.ChangeState(new IdleState(_player));
+        _player.animator.SetTrigger("Stop");
+        _player.ChangeState(new IdleState(_player));
     }
 }
 

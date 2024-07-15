@@ -9,10 +9,10 @@ public class PlayerCharacter
     public string Name { get; set; }
     public int HP { get; set; }
     public int Atk { get; set; }
-    public int Atk_base { get; set; }
-    public int Atk_strong { get; set; }
-    public int Evasion { get; set; }
-    public int Atk_special { get; set; }
+    public PlayerSkill Atk_base { get; set; }
+    public PlayerSkill Atk_strong { get; set; }
+    public PlayerSkill Evasion { get; set; }
+    public PlayerSkill Atk_special { get; set; }
     public int Cost_type { get; set; }
 }
 
@@ -50,7 +50,7 @@ public class PlayerSkill
     public int Combo_ID { get; set; }
 }
 
-public class SkillEnemy
+public class EnemySkill
 {
     public int DataID { get; set; }
     public string Description { get; set; }
@@ -74,11 +74,12 @@ public class Projectile
     public float Size_max { get; set; }
     public float Atk_multiply { get; set; }
     public float Force { get; set; }
-    public int Lifetime { get; set; }
-    public string Collision_able { get; set; }
+    public float Lifetime { get; set; }
+    public string Collision_able { get; set; }  //일단 받기만
+    public string Disappear_condition { get; set; } //일단 받기만
     public bool Parry_able { get; set; }
     public int Bounce_num { get; set; }
-    public int Combo_ID { get; set; }
+    public string Combo_ID { get; set; }   //일단 받기만
 }
 
 public class Enemy
@@ -91,6 +92,6 @@ public class Enemy
     public int Atk { get; set; }
     public float Rotation_sec { get; set; }
     public float Rotation_angle { get; set; }
-    public int Skill { get; set; }
+    public EnemySkill Skill { get; set; }
 }
 

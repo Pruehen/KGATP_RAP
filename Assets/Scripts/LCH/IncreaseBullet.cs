@@ -8,9 +8,10 @@ public class IncreaseBullet : Bullet
     Vector3 initScale;
     float activeTime = 0;
 
-    public override void Shoot(Transform target, Vector3 initPos)
+    public override void Shoot(Vector3 initPos, Vector3 projectionVector)
     {
-        base.Shoot(target, initPos);
+        base.Shoot(initPos, projectionVector);
+        this.gameObject.transform.localScale = Vector3.one;
         initScale = this.transform.localScale;
         activeTime = 0;
     }
@@ -18,5 +19,20 @@ public class IncreaseBullet : Bullet
     {
         activeTime += Time.deltaTime;
         this.gameObject.transform.localScale = initScale * (1 + (Mathf.Clamp(activeTime * size_IncreasePercent_PerSec, 0, size_MaxPercent) / 100));
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Player player))
+        {
+            player.Hit(1);            
+        }
+
+        ProjectileDestroy(collision.contacts[0].point);
+    }
+    void ProjectileDestroy(Vector3 destroyPos)
+    {
+        EffectManager.Instance.EffectGenerate(EffectType.BulletDestroy, destroyPos);
+        ObjectPoolManager.Instance.EnqueueObject(this.gameObject);
     }
 }

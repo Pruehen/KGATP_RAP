@@ -43,6 +43,8 @@ public class Player : SceneSingleton<Player>
     // Start is called before the first frame update
     void Start()
     {
+        PlayerCharacter player = DataManager.Instance.LoadedPlayerCharacterList[101];
+
         _rigidbody = GetComponent<Rigidbody>();
 
         OnZClick += OnClick_Z;
@@ -50,12 +52,12 @@ public class Player : SceneSingleton<Player>
 
         SkillGauge_Max = 100;
         SkillGauge_RecoverySec = 1;
-        evasion_coolTime = 1.5f;
+        evasion_coolTime = player.Evasion.Cooltime;
         evasion_powerValue = 1;
         isEvading = false;
 
-        Hp = 4;
-        Atk = 1;
+        Hp = player.HP;
+        Atk = player.Atk;
     }
 
     // Update is called once per frame

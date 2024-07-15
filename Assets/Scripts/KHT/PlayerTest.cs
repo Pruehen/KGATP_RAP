@@ -13,9 +13,11 @@ public enum KeyName
 public class PlayerTest : MonoBehaviour
 {
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
-    [Range(1f, 10f)][SerializeField] float evasion_power;
-    [Range(0.1f, 1f)] [SerializeField] float evasion_duration;
+    //[Range(1f, 50f)][SerializeField] float evasion_power;
+    [Range(0.1f, 5f)] [SerializeField] float evasion_duration;
     [Range(0f, 5f)] [SerializeField] float evasion_coolTime;
+    [Range(0f, 50f)] [SerializeField] float evasion_distace;
+    [Range(0f, 5f)] [SerializeField] float evasion_delay;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
 
@@ -65,7 +67,7 @@ public class PlayerTest : MonoBehaviour
         Gauge_RecoverySec = 1;
 
         MoveSpeed = 10f;
-        evasion_power = 5f;
+        //evasion_power = 5f;
         evasion_duration = 0.2f;
         evasion_coolTime = 1.5f;
         isEvading = false;
@@ -78,23 +80,6 @@ public class PlayerTest : MonoBehaviour
     {
         InputCheck_OnUpdate();
         //InputCheck_OnUpdate_Test();
-
-        if (isEvading)
-        {
-            animator.SetBool("Evasion", true);
-            _rigidbody.AddForce(transform.forward*evasion_powerValue, ForceMode.Impulse);
-
-            evasion_timeRemaining -= Time.deltaTime;
-            if (evasion_timeRemaining <= 0)
-            {
-                animator.SetBool("Evasion", false);
-                isEvading = false;
-                evasion_powerValue = 1;
-            }
-        }
-
-
-        
 
         evasion_coolTimeValue -= Time.deltaTime;
 
@@ -190,20 +175,63 @@ public class PlayerTest : MonoBehaviour
         if (evasion_coolTimeValue <= 0)
         {
             evasion_coolTimeValue = evasion_coolTime;
-            Evasion();
+            //Evasion();
+            
+            StartCoroutine(EvastionCoroutine());
         }
     }
 
-    void Evasion()
+    //void Evasion()
+    //{
+    //    Debug.Log("회피 조작");
+    //    evasion_powerValue = evasion_power;
+    //    isEvading = true;
+    //    evasion_timeRemaining = evasion_duration;
+    //}
+
+    //void EvasionAct()
+    //{
+    //    if (isEvading)
+    //    {
+    //        animator.SetBool("Evasion", true);
+    //        _rigidbody.AddForce(transform.forward * evasion_powerValue, ForceMode.Impulse);
+
+    //        evasion_timeRemaining -= Time.deltaTime;
+    //        if (evasion_timeRemaining <= 0)
+    //        {
+    //            animator.SetBool("Evasion", false);
+    //            isEvading = false;
+    //            evasion_powerValue = 1;
+    //        }
+    //    }
+    //}
+
+    //더킹 코루틴
+    private IEnumerator EvastionCoroutine()
     {
-        Debug.Log("회피 조작");
-        evasion_powerValue = evasion_power;
         isEvading = true;
-        evasion_timeRemaining = evasion_duration;
+        Vector3 start = transform.position;
+        Vector3 end = transform.position + transform.forward * evasion_distace;
+        //float dashDuration = evasion_distace / evasion_power;
+
+        float elapsedTime = 0f;
+
+        while(elapsedTime < evasion_duration)
+        {
+            transform.position = Vector3.Lerp(start, end, elapsedTime / evasion_duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        //transform.position = end;
+        isEvading = false;
+        ChangeState(new EvasionDelayState(this));
     }
+
+    //플레이어 상태변경
     public void ChangeState(IState newState)
     {
-        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State) && newState is MoveState)
+        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State||_curState is EvasionState|| _curState is EvasionDelayState) && newState is MoveState)
         {
             Debug.Log("Cannot transition from AtkState to MoveState");
             return;
@@ -213,35 +241,27 @@ public class PlayerTest : MonoBehaviour
         Text_TemporalState.text = _curState.ToString();
         _curState.EnterState();
     }
+
+    //애니메이션 완료 함수
     public void OnAnimationComplete(string animationName)
     {
+        Debug.Log($"{animationName}1234");
         _curState.OnAnimationComplete(animationName);
     }
 
+    //이동 입력체크
     public Vector2 GetMoveInput()
     {
         return moveInput;
     }
-    public void Atk1()
+    
+    public void Delay()
     {
-        animator.SetTrigger("Atk1");
-        Atk1Collider.SetActive(true);
+        StartCoroutine(EvasionDelay());
     }
-    public void Atk2()
+    private IEnumerator EvasionDelay()
     {
-        animator.SetTrigger("Atk2");
-        Atk2Collider.SetActive(true);
-    }
-    public void Atk3()
-    {
-        animator.SetTrigger("Atk3");
-        Atk3Collider.SetActive(true);
-    }
-    public void AtkEnd()
-    {
-        //animator.SetTrigger("Stop");
-        Atk1Collider.SetActive(false);
-        Atk2Collider.SetActive(false);
-        Atk3Collider.SetActive(false);
+        yield return new WaitForSeconds(evasion_delay);
+        ChangeState(new IdleState(this));
     }
 }

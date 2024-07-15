@@ -1,14 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
 
-    public Dictionary<int, PlayerCharacter> LoadedPlayerCharacterList { get; private set; }
+    public Dictionary<int, Projectile> LoadedProjectileList { get; private set; }
+    public Dictionary<int, EnemySkill> LoadedEnemySkillList { get; private set; }
+    public Dictionary<int, Enemy> LoadedEnemyList { get; private set; }
     public Dictionary<int, PlayerSkill> LoadedPlayerSkillList { get; private set; }
+    public Dictionary<int, PlayerCharacter> LoadedPlayerCharacterList { get; private set; }
+
+    public int LoadedClearedStage { get; private set; }
+
     //임시로 바탕화면에 DataParser를 복사해놔야 데이터 파싱됨.
     private string _dataRootPath;
 
@@ -28,8 +37,12 @@ public class DataManager : MonoBehaviour
 
     private void ReadAllDataOnAwake()
     {
-        ReadData("PlayerCharacter");
+        //table에서 table 읽을 수도 있어서 순서가 중요.
+        ReadData("Projectile");
+        ReadData("EnemySkill");
+        ReadData("Enemy");
         ReadData("PlayerSkill");
+        ReadData("PlayerCharacter");
     }
 
     private void ReadData(string tableName)
@@ -41,6 +54,15 @@ public class DataManager : MonoBehaviour
                 break;
             case "PlayerSkill":
                 ReadPlayerSkillTable(tableName);
+                break;
+            case "Projectile":
+                ReadProjectileTable(tableName);
+                break;
+            case "EnemySkill":
+                ReadEnemySkillTable(tableName);
+                break;
+            case "Enemy":
+                ReadEnemyTable(tableName);
                 break;
         }
     }
@@ -59,9 +81,10 @@ public class DataManager : MonoBehaviour
             tempPlayerCharacter.Name = data.Attribute("Name").Value;
             tempPlayerCharacter.HP = int.Parse(data.Attribute("HP").Value);
             tempPlayerCharacter.Atk = int.Parse(data.Attribute("Atk").Value);
-            tempPlayerCharacter.Atk_base = int.Parse(data.Attribute("Atk_base").Value);
-            tempPlayerCharacter.Evasion = int.Parse(data.Attribute("Evasion").Value);
-            tempPlayerCharacter.Atk_special = int.Parse(data.Attribute("Atk_special").Value);
+            tempPlayerCharacter.Atk_base = this.LoadedPlayerSkillList[int.Parse(data.Attribute("Atk_base").Value)];
+            tempPlayerCharacter.Atk_strong = this.LoadedPlayerSkillList[int.Parse(data.Attribute("Atk_strong").Value)];
+            tempPlayerCharacter.Evasion = this.LoadedPlayerSkillList[int.Parse(data.Attribute("Evasion").Value)];
+            tempPlayerCharacter.Atk_special = this.LoadedPlayerSkillList[int.Parse(data.Attribute("Atk_special").Value)];
             tempPlayerCharacter.Cost_type = int.Parse(data.Attribute("Cost_type").Value);
 
             LoadedPlayerCharacterList.Add(tempPlayerCharacter.DataID, tempPlayerCharacter);
@@ -91,10 +114,112 @@ public class DataManager : MonoBehaviour
 
             LoadedPlayerSkillList.Add(tempPlayerSkill.DataID, tempPlayerSkill);
         }
-
-
     }
 
+    private void ReadProjectileTable(string tableName)
+    {
+        LoadedProjectileList = new Dictionary<int, Projectile>();
+
+        XDocument doc = XDocument.Load($"{_dataRootPath}/{tableName}.xml");
+        var dataElements = doc.Descendants("data");
+        foreach ( var data in dataElements )
+        {
+            var tempProjectile = new Projectile();
+            tempProjectile.DataID = ReadIntData(data, "DataID");
+            tempProjectile.Name = data.Attribute("Name").Value;
+            tempProjectile.Size_min = ReadfloatData(data, "Size_min");
+            tempProjectile.Size_increase = ReadfloatData(data, "Size_increase");
+            tempProjectile.Size_max = ReadfloatData(data, "Size_max");
+            tempProjectile.Atk_multiply = ReadfloatData(data, "Atk_multiply");
+            tempProjectile.Force = ReadfloatData(data, "Force");
+            tempProjectile.Lifetime = ReadfloatData(data, "Lifetime");
+            tempProjectile.Collision_able = ReadStringData(data, "Collision_able");
+            tempProjectile.Disappear_condition = ReadStringData(data, "Disappear_condition");
+            tempProjectile.Parry_able = ReadboolData(data, "Parry_able");
+            tempProjectile.Bounce_num = ReadIntData(data, "Bounce_num");
+            tempProjectile.Combo_ID = ReadStringData(data, "Combo_ID");
+
+            LoadedProjectileList.Add(tempProjectile.DataID, tempProjectile);
+        }
+    }
+
+    private void ReadEnemySkillTable(string tableName)
+    {
+        LoadedEnemySkillList = new Dictionary<int, EnemySkill>();
+        XDocument doc = XDocument.Load($"{_dataRootPath}/{tableName}.xml");
+        var dataElements = doc.Descendants("data");
+        foreach (var data in dataElements)
+        {
+            var tempEnemySkill = new EnemySkill();
+            tempEnemySkill.DataID = ReadIntData(data, "DataID");
+            tempEnemySkill.Name = ReadStringData(data, "Name");
+            tempEnemySkill.Cooltime = ReadfloatData(data, "Cooltime");
+            tempEnemySkill.Buff = ReadIntData(data, "Buff");
+            tempEnemySkill.Debuff = ReadIntData(data, "Debuff");
+            tempEnemySkill.Missle_angle = ReadfloatData(data, "Missle_angle");
+            tempEnemySkill.Missle_ea = ReadIntData(data, "Missle_ea");
+            tempEnemySkill.Missle_ID = ReadIntData(data, "Missle_ID");
+            tempEnemySkill.Combo_ID = ReadIntData(data, "Combo_ID");
+
+            LoadedEnemySkillList.Add(tempEnemySkill.DataID, tempEnemySkill);
+        }
+    }
+
+    private void ReadEnemyTable(string tableName) 
+    {
+        LoadedEnemyList = new Dictionary<int, Enemy>();
+        XDocument doc = XDocument.Load($"{_dataRootPath}/{tableName}.xml");
+        var dataElements = doc.Descendants("data");
+        foreach (var data in dataElements)
+        {
+            var tempEnemy = new Enemy();
+            tempEnemy.DataID = ReadIntData(data, "DataID");
+            tempEnemy.Name = ReadStringData(data, "Name");
+            tempEnemy.Type = ReadStringData(data, "Type");
+            tempEnemy.HP = ReadIntData(data, "HP");
+            tempEnemy.Atk = ReadIntData(data, "Atk");
+            tempEnemy.Rotation_sec = ReadfloatData(data, "Rotation_sec");
+            tempEnemy.Rotation_angle = ReadfloatData(data, "Rotation_angle");
+            tempEnemy.Skill = LoadedEnemySkillList[ReadIntData(data, "Skill")];
+
+            LoadedEnemyList.Add(tempEnemy.DataID, tempEnemy);
+        }
+    }
+
+    public  void ReadClearedStage()
+    {
+        XDocument doc = XDocument.Load($"{_dataRootPath}/ClearedStage.xml");
+        var dataElements = doc.Descendants("data");
+        foreach(var data in dataElements)
+        {
+            LoadedClearedStage = ReadIntData(data, "StageNum"); 
+        }
+    }
+
+    public void ModifyClearedStage(int stageNum)
+    {
+        XDocument doc = XDocument.Load($"{_dataRootPath}/ClearedStage.xml");
+
+        XElement dataElement = doc.Descendants("data")
+            .FirstOrDefault(e => e.Attribute("StageNum") != null);
+
+        if(dataElement != null)
+        {
+            dataElement.SetAttributeValue("StageNum", $"{stageNum}");
+        }
+        else
+        {
+            Debug.LogError("StageNum 속성을 가진 요소를 찾을 수 없음");
+        }
+        doc.Save($"{_dataRootPath}/ClearedStage.xml");
+
+        LoadedClearedStage = stageNum;
+    }
+
+    private string ReadStringData(XElement data, string columnName)
+    {
+        return data.Attribute(columnName).Value;
+    }
     private int ReadIntData(XElement data, string columnName)
     {
         string readedData = data.Attribute(columnName).Value;
@@ -107,6 +232,15 @@ public class DataManager : MonoBehaviour
         string readedData = data.Attribute(columnName).Value;
         if (readedData.Length > 0) { return float.Parse(readedData); }
         else { return 0; }
+    }
+
+    private bool ReadboolData(XElement data, string columnName)
+    {
+        string readedData = data.Attribute(columnName).Value;
+        readedData = readedData.ToLower();
+        if (readedData == "true") { return true; }
+        else if(readedData == "false") { return false; }
+        else { Debug.LogError($"wrong table bool값 at {columnName}"); return false; }
     }
 
     private List<int> ReadMultipleData(XElement data, string columnName)
@@ -129,27 +263,15 @@ public class DataManager : MonoBehaviour
         return list;
     }
 
+
+
     private void tempParsingTest()
     {
-        Debug.Log($"{this.LoadedPlayerCharacterList[101].DataID}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Name}\n" +
-            $"{this.LoadedPlayerCharacterList[101].HP}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Atk}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Atk_base}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Evasion}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Atk_special}\n" +
-            $"{this.LoadedPlayerCharacterList[101].Cost_type}");
+        ReadClearedStage();
+        Debug.Log($"{LoadedClearedStage}");
 
-        foreach(var skill in LoadedPlayerSkillList)
-        {
-            Debug.Log($"{skill.Value.DataID}\n" +
-                $"{skill.Value.Name}\n" +
-                $"{skill.Value.Atk_multiply}\n");
-            foreach(var id in skill.Value.Debuff)
-            {
-                Debug.Log($"{id}");
-            }
-        }
-        Debug.Log("?");
+        ModifyClearedStage(2);
+        Debug.Log($"{LoadedClearedStage}");
+
     }
 }

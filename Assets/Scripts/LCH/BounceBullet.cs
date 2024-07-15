@@ -6,19 +6,29 @@ public class BounceBullet : Bullet
 {
     [SerializeField] int bounce_num;
 
-    public override void Shoot(Transform target, Vector3 initPos)
+    public override void Shoot(Vector3 initPos, Vector3 projectionVector)
     {
-        base.Shoot(target, initPos);
+        base.Shoot(initPos, projectionVector);
     }
     
     private void OnCollisionEnter(Collision collision)
     {
-        bounce_num--;
-        Debug.Log(bounce_num);
+        bounce_num--;        
         if(bounce_num == 0)
         {
-            Debug.Log("바운스그만");
-            this.gameObject.SetActive(false);
+            ProjectileDestroy(collision.contacts[0].point);
         }
+
+        if(collision.gameObject.TryGetComponent(out Player player))
+        {
+            player.Hit(1);
+            ProjectileDestroy(collision.contacts[0].point);
+        }
+    }
+
+    void ProjectileDestroy(Vector3 destroyPos)
+    {
+        EffectManager.Instance.EffectGenerate(EffectType.BulletDestroy, destroyPos);
+        ObjectPoolManager.Instance.EnqueueObject(this.gameObject);
     }
 }

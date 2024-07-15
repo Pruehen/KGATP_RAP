@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Enemy>
+  <dataCategory>
+    <data DataID="401" Description="단발일반 투사체를 쏘는 적 (PC조준)" Name="단발 일반 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="208" />
+    <data DataID="402" Description="단발도탄 투사체를 쏘는 적 (PC조준)" Name="단발 도탄 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="209" />
+    <data DataID="403" Description="단발폭발 투사체를 쏘는 적 (PC조준)" Name="단발 폭발 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="210" />
+    <data DataID="404" Description="단발증강 투사체를 쏘는 적 (PC조준)" Name="단발 증간 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="211" />
+    <data DataID="405" Description="샷건일반 투사체를 쏘는 적 (PC조준)" Name="샷건 일반 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="212" />
+    <data DataID="406" Description="부채꼴일반 투사체를 쏘는 적 (PC조준)" Name="부채꼴 일반 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="214" />
+    <data DataID="407" Description="부채꼴도탄 투사체를 쏘는 적 (PC조준)" Name="부채꼴 도탄 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="215" />
+    <data DataID="408" Description="부채꼴폭발 투사체를 쏘는 적 (PC조준)" Name="부채꼴 폭발 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="216" />
+    <data DataID="409" Description="부채꼴증강 투사체를 쏘는 적 (PC조준)" Name="부채꼴 증강 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="217" />
+    <data DataID="410" Description="스나이퍼일반 투사체를 쏘는 적 (PC조준)" Name="스나이퍼 일반 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="218" />
+    <data DataID="411" Description="스나이퍼폭발 투사체를 쏘는 적 (PC조준)" Name="스나이퍼 일반 조준" Type="타겟팅" HP="4" Atk="1" Rotation_sec="" Rotation_angle="" Skill="218" />
+    <data DataID="412" Description="단발일반 투사체를 쏘는 적 (PC미조준)" Name="단발 일반 미조준" Type="논타겟팅" HP="4" Atk="1" Rotation_sec="5" Rotation_angle="10" Skill="208" />
+    <data DataID="413" Description="단발도탄 투사체를 쏘는 적 (PC미조준)" Name="단발 도탄 미조준" Type="논타겟팅" HP="4" Atk="1" Rotation_sec="5" Rotation_angle="10" Skill="209" />
+    <data DataID="414" Description="단발폭발 투사체를 쏘는 적 (PC미조준)" Name="단발 폭발 미조준" Type="논타겟팅" HP="4" Atk="1" Rotation_sec="5" Rotation_angle="10" Skill="210" />
+    <data DataID="415" Description="단발증강 투사체를 쏘는 적 (PC미조준)" Name="단발 등강 미조준" Type="논타겟팅" HP="4" Atk="1" Rotation_sec="5" Rotation_angle="10" Skill="211" />
+    <data DataID="416" Description="샷건일반 투사체를 쏘는 적 (PC미조준)" Name="샷건 일반 미조준" Type="논타겟팅" HP="4" Atk="1" Rotation_sec="5" Rotation_angle="10" Skill="212" />
+    <data DataID="417" Description="부채꼴일반 투사체를 쏘는 적 (PC미조준)" Name="부채꼴 일반 미조준" Type="논타겟팅" HP="4" Atk="1" Rotation_sec="5" Rotation_angle="10" Skill="214" />
+    <data DataID="418" Description="부채꼴도탄 투사체를 쏘는 적 (PC미조준)" Name="부채꼴 도탄 미조준" Type="논타겟팅" HP="4" Atk="1" Rotation_sec="5" Rotation_angle="10" Skill="215" />
+    <data DataID="419" Description="부채꼴폭발 투사체를 쏘는 적 (PC미조준)" Name="부채꼴 폭발 미조준" Type="논타겟팅" HP="4" Atk="1" Rotation_sec="5" Rotation_angle="10" Skill="216" />
+    <data DataID="420" Description="부채꼴증강 투사체를 쏘는 적 (PC미조준)" Name="부채꼴 증강 미조준" Type="논타겟팅" HP="4" Atk="1" Rotation_sec="5" Rotation_angle="10" Skill="217" />
+  </dataCategory>
+</Enemy>

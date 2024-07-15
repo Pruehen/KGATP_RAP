@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 4388947112716342}
   - component: {fileID: 198917022394846920}
   - component: {fileID: 199630755385234010}
-  m_Layer: 0
+  - component: {fileID: 7610069969450307806}
+  - component: {fileID: 2129415574}
+  m_Layer: 6
   m_Name: BulletHit_BigExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1121192042590650}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 6.15, y: 1.88, z: -32.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4923,6 +4925,31 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7610069969450307806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121192042590650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b0350d162d709468a7154ac6f8ccee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &2129415574
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121192042590650}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.3
+  m_Center: {x: 0, y: 0, z: 1.16}
 --- !u!1 &1123476242953952
 GameObject:
   m_ObjectHideFlags: 0
@@ -4934,7 +4961,7 @@ GameObject:
   - component: {fileID: 4657243524966140}
   - component: {fileID: 198805160044956896}
   - component: {fileID: 199271172029159390}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Embers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9736,7 +9763,7 @@ GameObject:
   - component: {fileID: 4285441741452706}
   - component: {fileID: 198751835582626154}
   - component: {fileID: 199877337873867354}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SmokeTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14560,7 +14587,7 @@ GameObject:
   - component: {fileID: 4116738740604250}
   - component: {fileID: 198844874048127756}
   - component: {fileID: 199459376760036170}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Embers (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19361,7 +19388,7 @@ GameObject:
   - component: {fileID: 4564415660777050}
   - component: {fileID: 198918736123329914}
   - component: {fileID: 199729880478975070}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24243,7 +24270,7 @@ GameObject:
   - component: {fileID: 4810292286833524}
   - component: {fileID: 198003277540838118}
   - component: {fileID: 199565671101574698}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29126,7 +29153,7 @@ GameObject:
   - component: {fileID: 4834897586904354}
   - component: {fileID: 198604367962915600}
   - component: {fileID: 199375762842987212}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AdditonalSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34026,7 +34053,7 @@ GameObject:
   - component: {fileID: 4584238095464974}
   - component: {fileID: 198166025632870074}
   - component: {fileID: 199280120914940710}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shockwave
   m_TagString: Untagged
   m_Icon: {fileID: 0}

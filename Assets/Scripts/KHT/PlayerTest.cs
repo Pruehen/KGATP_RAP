@@ -53,6 +53,12 @@ public class PlayerTest : MonoBehaviour
     private IState _curState;
     private Vector2 moveInput;
 
+    public float lastDamagedTime;
+    public float invincibleTime;
+    public bool IsDamagedInvincible
+    {
+        get { return Time.time <= lastDamagedTime + invincibleTime; }
+    }
 
     [SerializeField] Text Text_TemporalState;
     // Start is called before the first frame update
@@ -79,7 +85,7 @@ public class PlayerTest : MonoBehaviour
     void Update()
     {
         InputCheck_OnUpdate();
-        //InputCheck_OnUpdate_Test();
+        InputCheck_OnUpdate_Test();
 
         evasion_coolTimeValue -= Time.deltaTime;
 
@@ -106,6 +112,13 @@ public class PlayerTest : MonoBehaviour
     /// <param name="dmg"></param>
     public void Hit(int dmg)
     {
+        if (IsDamagedInvincible) { Debug.Log("피격무적"); return; }
+        lastDamagedTime = Time.time;
+        invincibleTime = 8;
+        Debug.Log("데미지");
+        BlinkEffect blinkEffect = GetComponent<BlinkEffect>();
+        if (blinkEffect != null) { blinkEffect.StartBlinking(); }
+
         Hp -= dmg;
         OnHit?.Invoke();
 
@@ -189,7 +202,7 @@ public class PlayerTest : MonoBehaviour
     private IEnumerator EvasionCoroutine()
     {
         isEvading = true;
-
+        ChangeLayer(this.gameObject, 13);//레이어 13 Evasion
         Vector3 start = transform.position;
         Vector3 end = transform.position + transform.forward * evasion_distace;
 
@@ -204,6 +217,7 @@ public class PlayerTest : MonoBehaviour
 
         //transform.position = end;
         isEvading = false;
+        ChangeLayer(this.gameObject, 8);//레이어 8 Player
         ChangeState(new EvasionDelayState(this));
     }
 
@@ -242,5 +256,15 @@ public class PlayerTest : MonoBehaviour
     {
         yield return new WaitForSeconds(evasion_delay);
         ChangeState(new IdleState(this));
+    }
+
+    private void ChangeLayer(GameObject player, int newLayer)
+    {
+        player.layer = newLayer;
+
+        foreach (Transform child in player.transform)
+        {
+            ChangeLayer(child.gameObject, newLayer);
+        }
     }
 }

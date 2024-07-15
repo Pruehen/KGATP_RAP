@@ -16,7 +16,7 @@ public class ExplosionBullet : Bullet
         }
         ProjectileDestroy(collision.contacts[0].point);
     }
-    void ProjectileDestroy(Vector3 destroyPos)
+    public override void ProjectileDestroy(Vector3 destroyPos)
     {
         EffectManager.Instance.EffectGenerate(EffectType.Explosion, destroyPos);
         ObjectPoolManager.Instance.EnqueueObject(this.gameObject);

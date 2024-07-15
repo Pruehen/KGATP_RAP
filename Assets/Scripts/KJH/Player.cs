@@ -185,6 +185,10 @@ public class Player : SceneSingleton<Player>
     void OnClick_Z()
     {
         Debug.Log("Z 버튼 클릭");
+        if (TryGetComponent(out kjh.PlayerSkill skill))
+        {
+            skill.Command_Parrying();
+        }
     }
 
     void OnClick_X()
@@ -205,5 +209,6 @@ public class Player : SceneSingleton<Player>
         evasion_powerValue = evasion_power;
         isEvading = true;
         evasion_timeRemaining = evasion_duration;
+        TimeManager.Instance.CommandBulletTime(0.25f, 0.5f);
     }
 }

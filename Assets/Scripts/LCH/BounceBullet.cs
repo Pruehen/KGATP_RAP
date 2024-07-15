@@ -26,7 +26,7 @@ public class BounceBullet : Bullet
         }
     }
 
-    void ProjectileDestroy(Vector3 destroyPos)
+    public override void ProjectileDestroy(Vector3 destroyPos)
     {
         EffectManager.Instance.EffectGenerate(EffectType.BulletDestroy, destroyPos);
         ObjectPoolManager.Instance.EnqueueObject(this.gameObject);

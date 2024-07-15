@@ -15,11 +15,18 @@ public class EnemyWeapon : MonoBehaviour
     [Header("발사 타입 필드")]
     [SerializeField] ProjectionType projectionType;
 
-    [Header("발사 속성 필드")]
-    [Range(0, 500)][SerializeField] float speed_Projectile;
-    [Range(0, 360)][SerializeField] float projection_Angle;
-    [Range(1, 100)][SerializeField] int projection_ea;
-    [Range(0, 0.99f)][SerializeField] float projectionSpeed_RandomGain;
+    [Header("발사 속성 일반 필드")]
+    [Range(0, 500)][SerializeField] float speed_Projectile = 10;    
+
+    [Header("샷건, 부채꼴 필드")]
+    [Range(0, 360)][SerializeField] float projection_Angle = 30;
+    [Range(1, 100)][SerializeField] int projection_ea = 5;
+
+    [Header("샷건 필드")]
+    [Range(0, 0.99f)][SerializeField] float projectionSpeed_RandomGain = 0.1f;
+
+    [Header("스나이핑 필드")]
+    [Range(0.1f, 5)][SerializeField] float bulletChargingTime = 1f;
 
     [SerializeField] Transform Transform_FirePoint;
 

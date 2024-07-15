@@ -1,6 +1,15 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
+public enum KeyName
+{
+    Z,
+    X
+
+}
+
 public class PlayerTest : MonoBehaviour
 {
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
@@ -34,16 +43,16 @@ public class PlayerTest : MonoBehaviour
     float evasion_powerValue = 1;
     float evasion_timeRemaining;
     bool isEvading;
-    bool isAtk = false; 
-    bool iscombo1=false;
-    bool iscombo2=false;
-    bool iscombo3 = false;
-    private Coroutine currentCoroutine;
     [SerializeField]GameObject Atk1Collider;
     [SerializeField] GameObject Atk2Collider;
     [SerializeField] GameObject Atk3Collider;
-    [SerializeField] Animator animator;
+    public Animator animator;
 
+    private IState _curState;
+    private Vector2 moveInput;
+
+
+    [SerializeField] Text Text_TemporalState;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,52 +69,52 @@ public class PlayerTest : MonoBehaviour
         evasion_duration = 0.2f;
         evasion_coolTime = 1.5f;
         isEvading = false;
+
+        ChangeState(new IdleState(this));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isEvading) 
-        {
-            InputCheck_OnUpdate();
-        }
-        InputCheck_OnUpdate_Test();
+        InputCheck_OnUpdate();
+        //InputCheck_OnUpdate_Test();
 
         if (isEvading)
         {
-            animator.SetBool("Evastion", true);
+            animator.SetBool("Evasion", true);
             _rigidbody.AddForce(transform.forward*evasion_powerValue, ForceMode.Impulse);
 
             evasion_timeRemaining -= Time.deltaTime;
             if (evasion_timeRemaining <= 0)
             {
-                animator.SetBool("Evastion", false);
+                animator.SetBool("Evasion", false);
                 isEvading = false;
                 evasion_powerValue = 1;
             }
         }
 
 
-        if (!isAtk)
-        {
-            _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
-            if (_moveCommandVector != Vector2.zero)
-            {
-                animator.SetBool("Run",true);
-                float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0, targetAngle, 0);
-            }
-            else
-            {
-                animator.SetBool("Run", false);
-            }
-        }
+        
 
         evasion_coolTimeValue -= Time.deltaTime;
 
-       
+        _curState?.ExcuteOnUpdate();
+        moveInput = _moveCommandVector;
+        if(moveInput != Vector2.zero)
+        {
+            ChangeState(new MoveState(this));
+        }
     }
 
+    public void Move()
+    {
+        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
+        if (_moveCommandVector != Vector2.zero)
+        {
+            float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, targetAngle, 0);
+        }
+    }
     /// <summary>
     /// 피격 메서드
     /// </summary>
@@ -155,6 +164,7 @@ public class PlayerTest : MonoBehaviour
         {
             OnXClick?.Invoke();
         }
+
     }
 
     void InputCheck_OnUpdate_Test()
@@ -165,38 +175,19 @@ public class PlayerTest : MonoBehaviour
         }
     }
 
+
     void OnClick_X()
     {
         Debug.Log("X 버튼 클릭");
-
-        if (!iscombo3)
-        {
-            if (!iscombo1)
-            {
-                StartNewCoroutine(Atk1());
-            }
-            else if (iscombo1 && !iscombo2)
-            {
-                StartNewCoroutine(Atk2());
-            }
-            else if (iscombo2)
-            {
-                StartNewCoroutine(Atk3());
-            }
-        }
-        else
-        {
-            Debug.Log("리턴");
-            return;
-        }
-            
+        _curState.OnInput(KeyName.X);
     }
 
     void OnClick_Z()
     {
         Debug.Log("Z 버튼 클릭");
+        _curState.OnInput(KeyName.Z);
 
-        if(evasion_coolTimeValue <= 0)
+        if (evasion_coolTimeValue <= 0)
         {
             evasion_coolTimeValue = evasion_coolTime;
             Evasion();
@@ -210,70 +201,47 @@ public class PlayerTest : MonoBehaviour
         isEvading = true;
         evasion_timeRemaining = evasion_duration;
     }
-
-    void Attack1()
+    public void ChangeState(IState newState)
     {
-        Debug.Log("기본공격1");
-        isAtk = true;
-        iscombo1 = true;
-
-    }
-    void Attack2()
-    {
-        Debug.Log("기본공격2");
-        iscombo2 = true;
-    }
-    void Attack3()
-    {
-        Debug.Log("기본공격3");
-        iscombo3 = true;
-    }
-
-    void ComboReset()
-    {
-        Debug.Log("<color=red>콤보리셋.</color>");
-        iscombo1 = false;
-        iscombo2 = false;
-        iscombo3 = false;
-        isAtk = false;
-        animator.SetTrigger("Stop");
-    }
-    IEnumerator Atk1()
-    {
-        Attack1();
-        animator.SetTrigger("Atk1");
-        StartCoroutine(AtkCol(Atk1Collider));
-        yield return new WaitForSeconds(1f);
-        ComboReset();
-    }
-    IEnumerator Atk2()
-    {
-        Attack2();
-        animator.SetTrigger("Atk2");
-        StartCoroutine(AtkCol(Atk2Collider));
-        yield return new WaitForSeconds(1f);
-        ComboReset();
-    }
-    IEnumerator Atk3()
-    {
-        Attack3();
-        animator.SetTrigger("Atk3");
-        StartCoroutine(AtkCol(Atk3Collider));
-        yield return new WaitForSeconds(1f);
-        ComboReset();
-    }
-    void StartNewCoroutine(IEnumerator coroutine)
-    {
-        if (currentCoroutine != null)
+        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State) && newState is MoveState)
         {
-            StopCoroutine(currentCoroutine);
+            Debug.Log("Cannot transition from AtkState to MoveState");
+            return;
         }
-        currentCoroutine = StartCoroutine(coroutine);
+        _curState?.ExitState();
+        _curState = newState;
+        Text_TemporalState.text = _curState.ToString();
+        _curState.EnterState();
     }
-    IEnumerator AtkCol(GameObject obj)
+    public void OnAnimationComplete(string animationName)
     {
-        obj.SetActive(true);
-        yield return new WaitForSeconds(0.3f);
-        obj.SetActive(false);
+        _curState.OnAnimationComplete(animationName);
+    }
+
+    public Vector2 GetMoveInput()
+    {
+        return moveInput;
+    }
+    public void Atk1()
+    {
+        animator.SetTrigger("Atk1");
+        Atk1Collider.SetActive(true);
+    }
+    public void Atk2()
+    {
+        animator.SetTrigger("Atk2");
+        Atk2Collider.SetActive(true);
+    }
+    public void Atk3()
+    {
+        animator.SetTrigger("Atk3");
+        Atk3Collider.SetActive(true);
+    }
+    public void AtkEnd()
+    {
+        //animator.SetTrigger("Stop");
+        Atk1Collider.SetActive(false);
+        Atk2Collider.SetActive(false);
+        Atk3Collider.SetActive(false);
     }
 }

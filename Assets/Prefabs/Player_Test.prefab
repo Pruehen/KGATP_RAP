@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 6301224821951528858}
   - component: {fileID: 6301224821951528838}
   - component: {fileID: 6301224821951528839}
-  m_Layer: 0
+  - component: {fileID: 1489288701}
+  m_Layer: 8
   m_Name: Player_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,6 +133,19 @@ MonoBehaviour:
   MoveSpeed: 5
   evasion_power: 2
   evasion_duration: 0.5
+--- !u!114 &1489288701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6301224821951528861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e38fb5485821f46a3e6b5a3ceb27f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab_SkillProjectile: {fileID: 3030702589660419527, guid: 1df281b29ce32334eb119e9ed7bc0b6c, type: 3}
 --- !u!1 &6301224823634377871
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +158,7 @@ GameObject:
   - component: {fileID: 6301224823634377867}
   - component: {fileID: 6301224823634377866}
   - component: {fileID: 6301224823634377869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

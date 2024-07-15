@@ -111,7 +111,7 @@ namespace LCH
             _animator.enabled = false;
             StopAllCoroutines();
             Debug.Log("Àû »ç¸Á");
-            EffectManager.Instance.EffectGenerate(EffectType.Explosion, this.gameObject.transform.position);
+            EffectManager.Instance.EffectGenerate(EffectType.EnemyDie, this.gameObject.transform.position);
             Destroy(this);
         }
 

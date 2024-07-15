@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -12,6 +15,8 @@ public class DataManager : MonoBehaviour
     public Dictionary<int, Enemy> LoadedEnemyList { get; private set; }
     public Dictionary<int, PlayerSkill> LoadedPlayerSkillList { get; private set; }
     public Dictionary<int, PlayerCharacter> LoadedPlayerCharacterList { get; private set; }
+
+    public int LoadedClearedStage { get; private set; }
 
     //임시로 바탕화면에 DataParser를 복사해놔야 데이터 파싱됨.
     private string _dataRootPath;
@@ -181,6 +186,36 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    public  void ReadClearedStage()
+    {
+        XDocument doc = XDocument.Load($"{_dataRootPath}/ClearedStage.xml");
+        var dataElements = doc.Descendants("data");
+        foreach(var data in dataElements)
+        {
+            LoadedClearedStage = ReadIntData(data, "StageNum"); 
+        }
+    }
+
+    public void ModifyClearedStage(int stageNum)
+    {
+        XDocument doc = XDocument.Load($"{_dataRootPath}/ClearedStage.xml");
+
+        XElement dataElement = doc.Descendants("data")
+            .FirstOrDefault(e => e.Attribute("StageNum") != null);
+
+        if(dataElement != null)
+        {
+            dataElement.SetAttributeValue("StageNum", $"{stageNum}");
+        }
+        else
+        {
+            Debug.LogError("StageNum 속성을 가진 요소를 찾을 수 없음");
+        }
+        doc.Save($"{_dataRootPath}/ClearedStage.xml");
+
+        LoadedClearedStage = stageNum;
+    }
+
     private string ReadStringData(XElement data, string columnName)
     {
         return data.Attribute(columnName).Value;
@@ -228,14 +263,15 @@ public class DataManager : MonoBehaviour
         return list;
     }
 
+
+
     private void tempParsingTest()
     {
+        ReadClearedStage();
+        Debug.Log($"{LoadedClearedStage}");
 
-        foreach (var item in LoadedEnemyList)
-        {
-            Debug.Log($"{item.Value.Name}\n" +
-                $"{item.Value.DataID}\n" +
-                $"{item.Value.Skill.Name}");
-        }
+        ModifyClearedStage(2);
+        Debug.Log($"{LoadedClearedStage}");
+
     }
 }

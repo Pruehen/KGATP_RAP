@@ -1444,6 +1444,7 @@ GameObject:
   - component: {fileID: 5704630628557905137}
   - component: {fileID: 5704630628557905138}
   - component: {fileID: 5704630628557905139}
+  - component: {fileID: 8964095351353133428}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1517,13 +1518,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 0
-  evasion_power: 0
   evasion_duration: 0
   evasion_coolTime: 0
+  evasion_distace: 0
+  evasion_delay: 0
   Atk1Collider: {fileID: 3905946832842860725}
   Atk2Collider: {fileID: 3905946833474219976}
   Atk3Collider: {fileID: 3905946833551205761}
   animator: {fileID: 1333372447017950256}
+  lastDamagedTime: 0
+  invincibleTime: 0
   Text_TemporalState: {fileID: 0}
 --- !u!54 &5704630628557905139
 Rigidbody:
@@ -1541,6 +1545,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &8964095351353133428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704630628557905136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e38fb5485821f46a3e6b5a3ceb27f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab_SkillProjectile: {fileID: 3030702589660419527, guid: 1df281b29ce32334eb119e9ed7bc0b6c, type: 3}
+  Spread: 10
+  Angle: 30
+  Velocity: 30
 --- !u!1 &5872398983355143756
 GameObject:
   m_ObjectHideFlags: 0

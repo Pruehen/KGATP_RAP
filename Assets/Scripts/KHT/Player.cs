@@ -15,9 +15,9 @@ public class Player : MonoBehaviour
     public static Player Instance;
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(0.1f, 5f)] [SerializeField] float evasion_duration;
-    [Range(0f, 5f)] [SerializeField] float evasion_coolTime;
-    [Range(0f, 50f)] [SerializeField] float evasion_distace;
-    [Range(0f, 5f)] [SerializeField] float evasion_delay;
+    [Range(0f, 5f)] [SerializeField] float evasion_coolTime = 1;
+    [Range(0f, 100f)] [SerializeField] float evasion_Velocity = 5;
+    [Range(0f, 5f)] [SerializeField] float evasion_delay = 0.5f;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
 
@@ -254,20 +254,19 @@ public class Player : MonoBehaviour
     {
         isEvading = true;
         ChangeLayer(this.gameObject, 13);//레이어 13 Evasion
-        Vector3 start = transform.position;
-        Vector3 end = transform.position + transform.forward * evasion_distace;
+        //Vector3 start = transform.position;
+        //Vector3 end = transform.position + transform.forward * evasion_Velocity;
 
         float elapsedTime = 0f;
 
         while(elapsedTime < evasion_duration)
         {
             if (!isEvading) yield break;
-            transform.position = Vector3.Lerp(start, end, elapsedTime / evasion_duration);
+            _rigidbody.velocity = this.transform.forward * evasion_Velocity;
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        transform.position = end;
+        
         isEvading = false;
         ChangeLayer(this.gameObject, 8);//레이어 8 Player
         ChangeState(new EvasionDelayState(this));
@@ -283,7 +282,7 @@ public class Player : MonoBehaviour
         }
         _curState?.ExitState();
         _curState = newState;
-        Text_TemporalState.text = _curState.ToString();
+        //Text_TemporalState.text = _curState.ToString(); 스테이트 체크용 디버그 텍스트.
         _curState.EnterState();
     }
 

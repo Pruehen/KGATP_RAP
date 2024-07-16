@@ -1,7 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using System;
-
+public enum EnemyFireType
+{
+    PlayerTargeting,
+    RotateTargeting,
+    FixedPointTargeting
+}
 namespace LCH
 {    
     public class Enemy : MonoBehaviour
@@ -9,7 +14,8 @@ namespace LCH
         [SerializeField] Transform target;
         [SerializeField] float enemyHp;
         [SerializeField] float atkDamage;        
-        [SerializeField] bool isTargeting;        
+        [SerializeField] EnemyFireType enemyFireType;
+        [SerializeField] GameObject enemyHitEffect;
         [Range(0.1f, 10f)][SerializeField] float coolTime;
         [Header("ÀåÂø ¹«±â")]
         [SerializeField] EnemyWeapon weapon;
@@ -26,12 +32,16 @@ namespace LCH
 
         private void Start()
         {
-            if (target == null) target = Player.Instance.transform;
+            if (target == null && Player.Instance != null) target = Player.Instance.transform;
             if (weapon == null) weapon = this.GetComponent<EnemyWeapon>();
 
-            if (!isTargeting)
+            if (enemyFireType == EnemyFireType.RotateTargeting)
             {
                 Nontarget_StartCoroutine_OnStart();
+            }
+            if(enemyFireType == EnemyFireType.FixedPointTargeting)
+            {
+                FixedTarget_StartCoroutine_OnStart();
             }
             _animator = GetComponent<Animator>();
             _fireDelayTime = coolTime;
@@ -43,7 +53,7 @@ namespace LCH
                 OnStun_OnUpdate();
             }
 
-            if (isTargeting)
+            if (enemyFireType == EnemyFireType.PlayerTargeting)
             {
                 FindPlayer_OnUpdate();
                 ShootCoolTime_OnTargetingMode_OnUpdate();
@@ -60,9 +70,16 @@ namespace LCH
         }
         void Nontarget_StartCoroutine_OnStart()
         {
-            if (!isTargeting)
+            if (enemyFireType == EnemyFireType.RotateTargeting)
             {
                 StartCoroutine(CoolTime());
+            }
+        }
+        void FixedTarget_StartCoroutine_OnStart()
+        {
+            if(enemyFireType == EnemyFireType.FixedPointTargeting)
+            {
+                StartCoroutine(FixedCoolTime());
             }
         }
 
@@ -79,7 +96,17 @@ namespace LCH
                 yield return new WaitForSeconds(coolTime);
             }
         }
-        
+        IEnumerator FixedCoolTime()
+        {
+            while (true)
+            {
+                if(_isStun == false)
+                {
+                    weapon.CommandFire(this.gameObject.transform.forward + this.transform.position);
+                }
+                yield return new WaitForSeconds(coolTime);
+            }
+        }
 
         public void Stun(float duration)
         {
@@ -97,7 +124,7 @@ namespace LCH
             enemyHp -= dmg;
             OnHit?.Invoke();
             //OnHpChange?.Invoke(Hp);
-
+            EffectManager.Instance.EffectGenerate(enemyHitEffect, this.gameObject.transform.position);
             if (enemyHp <= 0)
             {
                 Dead();
@@ -139,7 +166,7 @@ namespace LCH
 
         private void OnCollisionEnter(Collision collision)
         {
-            Hit(100);
+            Hit(1);
         }
     }
 }

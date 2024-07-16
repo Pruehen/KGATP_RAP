@@ -120,6 +120,7 @@ MonoBehaviour:
   enemyHp: 10
   atkDamage: 1
   isTargeting: 1
+  enemyHitEffect: {fileID: 1743301284569550, guid: b919813a677f200479405ffa9e6b3159, type: 3}
   coolTime: 5
   weapon: {fileID: 0}
 --- !u!95 &-3439200393340777419

@@ -17,7 +17,7 @@ namespace LCH
 
         [Header("발사 패턴 관련 속성")]
         [SerializeField] EnemyFireType enemyFireType;
-        [Range(0f, 360f)] float autoRotateAngle = 45f;
+        [Range(0f, 360f)][SerializeField] float autoRotateAngle = 45f;
 
         [SerializeField] GameObject enemyHitEffect;
         [Range(0.1f, 10f)][SerializeField] float coolTime;

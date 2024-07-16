@@ -22,6 +22,17 @@ public class EffectManager : SceneSingleton<EffectManager>
 
         StartCoroutine(EffectEnqueue(effect, 5));
     }
+    public GameObject EffectGenerate(GameObject prefab, Transform targetTrf)
+    {
+        GameObject effect = ObjectPoolManager.Instance.DequeueObject(prefab);
+        effect.transform.SetParent(targetTrf);
+        effect.transform.position = targetTrf.position;
+        effect.transform.rotation = Quaternion.identity;
+        effect.GetComponent<ParticleSystem>().Play();
+
+        StartCoroutine(EffectEnqueue(effect, 5));
+        return effect;
+    }
 
     public void EffectGenerate(EffectType effectType, Vector3 pos)
     {

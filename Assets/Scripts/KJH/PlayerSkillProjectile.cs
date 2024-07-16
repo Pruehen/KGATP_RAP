@@ -2,28 +2,29 @@ using UnityEngine;
 
 public class PlayerSkillProjectile : MonoBehaviour
 {
+    [SerializeField] GameObject Prefab_Effect;
+
     Rigidbody rigidbody;
-    float _accumulateDistance;
-    float _range;
-    float _velocity;
-    public void Init(Vector3 initPos, Quaternion initRotation, float velocity, float range)
+    float _lifeTime;
+    GameObject _effect;
+    public void Init(Vector3 initPos, Quaternion initRotation, float velocity)
     {
-        _accumulateDistance = 0;
-        _range = range;
-        _velocity = velocity;
+        _lifeTime = 0;
 
         this.transform.position = initPos;
         this.transform.rotation = initRotation;
         if(rigidbody == null) rigidbody = GetComponent<Rigidbody>();
 
         rigidbody.velocity = this.transform.forward * velocity;
+
+        _effect = EffectManager.Instance.EffectGenerate(Prefab_Effect, this.transform);
     }
 
     private void FixedUpdate()
     {
-        _accumulateDistance += _velocity * Time.fixedDeltaTime;
+        _lifeTime += Time.fixedDeltaTime;
 
-        if (_accumulateDistance > _range)
+        if (_lifeTime > 1)
         {
             DestroyObject();
         }
@@ -53,6 +54,7 @@ public class PlayerSkillProjectile : MonoBehaviour
 
     void DestroyObject()
     {
+        _effect.transform.SetParent(null);
         ObjectPoolManager.Instance.EnqueueObject(this.gameObject);
     }
 }

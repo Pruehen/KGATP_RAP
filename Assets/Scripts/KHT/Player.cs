@@ -101,6 +101,7 @@ public class Player : MonoBehaviour
         MoveCheck_OnUpdate();
 
 
+
         GaugeRecovery_OnUpdate();
     }
     //스킬 게이지 업데이트

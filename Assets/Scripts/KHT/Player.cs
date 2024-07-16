@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     public float SkillGauge_Max { get; private set; }
     public float SkillGauge_RecoverySec { get; private set; }
 
-    float evasion_coolTimeValue;
+    public float evasion_coolTimeValue { get; set; }
     bool isEvading;
 
     [SerializeField] GameObject Atk1Collider;
@@ -101,8 +101,6 @@ public class Player : MonoBehaviour
         InputCheck_OnUpdate_Test();
         EvasionCoolTime_OnUpdate();
         MoveCheck_OnUpdate();
-
-
         GaugeRecovery_OnUpdate();
     }
     //스킬 게이지 업데이트
@@ -220,14 +218,14 @@ public class Player : MonoBehaviour
     void OnClick_Z()
     {
         Debug.Log("Z 버튼 클릭");
-        _curState.OnInput(KeyName.Z);
+        
 
         if (evasion_coolTimeValue <= 0)
         {
+            _curState.OnInput(KeyName.Z);
             evasion_coolTimeValue = evasion_coolTime;            
         }
     }
-
 
     //회피 코루틴 시작 함수
     public void EvasionStart()

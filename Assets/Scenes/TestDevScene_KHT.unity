@@ -1114,6 +1114,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: coolTime
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: -5686845201229807378, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: projectionType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2000134890540377022, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2362,6 +2370,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 431974356, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: playerSkill
+      value: 
+      objectReference: {fileID: 8727517195234549653}
+    - target: {fileID: 1511916938639333586, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511916938639333586, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: m_Size.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2731288486051801702, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4927285410447590986, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -2411,8 +2435,31 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: evasion_Velocity
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: evasion_duration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: Text_TemporalState
       value: 
       objectReference: {fileID: 633607368}
+    - target: {fileID: 6757721223249088889, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+--- !u!114 &8727517195234549653 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8964095351353133428, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+  m_PrefabInstance: {fileID: 3905946832639902588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e38fb5485821f46a3e6b5a3ceb27f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

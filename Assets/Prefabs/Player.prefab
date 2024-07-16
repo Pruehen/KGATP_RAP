@@ -583,7 +583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6757721223249088889
 Transform:
   m_ObjectHideFlags: 0
@@ -624,6 +624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6577fa5cea0ee7846a0242ca13c59ed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSkill: {fileID: 8964095351353133428}
 --- !u!1 &2882643753329370188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1668,9 +1669,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 0
-  evasion_duration: 0.1
+  evasion_duration: 0.5
   evasion_coolTime: 0
-  evasion_Velocity: 50
+  evasion_Velocity: 20
   evasion_delay: 0
   atkcollider_active: 0.5
   atk1delay_second: 0

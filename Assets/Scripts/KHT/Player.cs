@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [Range(0f, 5f)] [SerializeField] float evasion_coolTime = 1;
     [Range(0f, 100f)] [SerializeField] float evasion_Velocity = 30;
     [Range(0f, 5f)] [SerializeField] float evasion_delay = 0.5f;
-    [Range(0f, 1f)] [SerializeField] float atkcollider_active = 0.5f;
+    [Range(0f, 1f)] [SerializeField] float atkcollider_active = 0.2f;
     [Range(0f, 1f)] [SerializeField] float atk1delay_second = 0.1f;
     [Range(0f, 1f)] [SerializeField] float atk2delay_second = 0.1f;
     [Range(0f, 1f)] [SerializeField] float atk3delay_second = 0.3f;
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     public float SkillGauge_Max { get; private set; }
     public float SkillGauge_RecoverySec { get; private set; }
 
-    public float evasion_coolTimeValue { get; set; }
+    float evasion_coolTimeValue;
     bool isEvading;
 
     [SerializeField] GameObject Atk1Collider;
@@ -134,7 +134,7 @@ public class Player : MonoBehaviour
     //이동 및 캐릭터 회전
     public void Move()
     {
-        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
+        _rigidbody.velocity = Vector3.ClampMagnitude(new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y),MoveSpeed);
         if (_moveCommandVector != Vector2.zero)
         {
             float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
@@ -370,6 +370,11 @@ public class Player : MonoBehaviour
         collider.SetActive(false);
     }
 
+    public void OnParrying()
+    {
+        evasion_coolTimeValue = 0;
+        SkillGauge += 10;
+    }
   
 }
 public enum AtkCollider

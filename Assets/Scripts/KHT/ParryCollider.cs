@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class ParryCollider : MonoBehaviour
 {
+    [SerializeField] Player player;
     [SerializeField] kjh.PlayerSkill playerSkill;
     private void OnTriggerEnter(Collider other)
     {
         if(other.TryGetComponent(out Bullet bullet))
         {
-            playerSkill.Command_Parrying();
-            Player.Instance.evasion_coolTimeValue = 0;
-            this.gameObject.SetActive(false);
+            if (bullet.IsCanParry)
+            {
+                playerSkill.Command_Parrying();
+                player.OnParrying();
+                this.gameObject.SetActive(false);
+            }
+
         }
     }
 }

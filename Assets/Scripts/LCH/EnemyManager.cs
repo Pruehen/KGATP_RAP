@@ -23,6 +23,9 @@ public class EnemyManager : SceneSingleton<EnemyManager>
         EnemyDic.Remove(instanceID);
         OnDestroy?.Invoke();
         Debug.Log(EnemyDic.Count);
-
+        if (EnemyDic.Count == 0)
+        {
+            GameManager.Instance.StageClear();
+        }
     }
 }

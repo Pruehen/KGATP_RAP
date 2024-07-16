@@ -3,12 +3,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public enum KeyName
-{
-    Z,
-    X
 
-}
 
 public class Player : MonoBehaviour
 {
@@ -16,8 +11,13 @@ public class Player : MonoBehaviour
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(0.1f, 5f)] [SerializeField] float evasion_duration;
     [Range(0f, 5f)] [SerializeField] float evasion_coolTime = 1;
-    [Range(0f, 100f)] [SerializeField] float evasion_Velocity = 5;
+    [Range(0f, 100f)] [SerializeField] float evasion_Velocity = 30;
     [Range(0f, 5f)] [SerializeField] float evasion_delay = 0.5f;
+    [Range(0f, 1f)] [SerializeField] float atkcollider_active = 0.5f;
+    [Range(0f, 1f)] [SerializeField] float atk1delay_second = 0.1f;
+    [Range(0f, 1f)] [SerializeField] float atk2delay_second = 0.1f;
+    [Range(0f, 1f)] [SerializeField] float atk3delay_second = 0.3f;
+    [Range(0f, 1f)] [SerializeField] float parrydelay_second;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
 
@@ -49,18 +49,21 @@ public class Player : MonoBehaviour
     float evasion_coolTimeValue;
     bool isEvading;
 
-    [SerializeField]GameObject Atk1Collider;
+    [SerializeField] GameObject Atk1Collider;
     [SerializeField] GameObject Atk2Collider;
     [SerializeField] GameObject Atk3Collider;
+    [SerializeField] GameObject StrongAtkCollider;
+    [SerializeField] GameObject ParryCollider;
     public Animator animator;
 
     private IState _curState;
     private Vector2 moveInput;
 
     private Coroutine evasionCoroutine;
+    private Coroutine atkCoroutine;
 
     public float lastDamagedTime;
-    public float invincibleTime;
+    [SerializeField] float invincibleTime =2;
     public bool IsDamagedInvincible
     {
         get { return Time.time <= lastDamagedTime + invincibleTime; }
@@ -78,12 +81,14 @@ public class Player : MonoBehaviour
 
         OnZClick += OnClick_Z;
         OnXClick += OnClick_X;
-        SkillGauge = 100;
         SkillGauge_Max = 100;
         SkillGauge_RecoverySec = 1;
 
+        Hp = 4;
+        Atk = 1;
+
         MoveSpeed = 10f;
-        evasion_duration = 0.2f;
+        evasion_duration = 0.5f;
         evasion_coolTime = 1.5f;
         isEvading = false;
 
@@ -103,7 +108,7 @@ public class Player : MonoBehaviour
 
         GaugeRecovery_OnUpdate();
     }
-    //Ω∫≈≥ ∞‘¿Ã¡ˆ æ˜µ•¿Ã∆Æ
+    //Ïä§ÌÇ¨ Í≤åÏù¥ÏßÄ ÏóÖÎç∞Ïù¥Ìä∏
     void GaugeRecovery_OnUpdate()
     {
         SkillGauge += Time.deltaTime * SkillGauge_RecoverySec;
@@ -114,7 +119,7 @@ public class Player : MonoBehaviour
 
         OnGaugeChange?.Invoke(SkillGauge / SkillGauge_Max);
     }
-    //»∏«« ƒ≈∏¿” æ˜µ•¿Ã∆Æ
+    //ÌöåÌîº Ïø®ÌÉÄÏûÑ ÏóÖÎç∞Ïù¥Ìä∏
     void EvasionCoolTime_OnUpdate()
     {
         if (evasion_coolTimeValue > 0)
@@ -131,7 +136,7 @@ public class Player : MonoBehaviour
             ChangeState(new MoveState(this));
         }
     }
-    //¿Ãµø π◊ ƒ≥∏Ø≈Õ »∏¿¸
+    //Ïù¥Îèô Î∞è Ï∫êÎ¶≠ÌÑ∞ ÌöåÏ†Ñ
     public void Move()
     {
         _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
@@ -142,21 +147,20 @@ public class Player : MonoBehaviour
         }
     }
     /// <summary>
-    /// ««∞› ∏ﬁº≠µÂ
+    /// ÌîºÍ≤© Î©îÏÑúÎìú
     /// </summary>
     /// <param name="dmg"></param>
     public void Hit(int dmg)
     {
-        if (IsDamagedInvincible) { Debug.Log("««∞›π´¿˚"); return; }
+        if (IsDamagedInvincible) { Debug.Log("ÌîºÍ≤©Î¨¥Ï†Å"); return; }
         lastDamagedTime = Time.time;
-        invincibleTime = 8;
-        Debug.Log("µ•πÃ¡ˆ");
+        Debug.Log("Îç∞ÎØ∏ÏßÄ");
         BlinkEffect blinkEffect = GetComponent<BlinkEffect>();
         if (blinkEffect != null) { blinkEffect.StartBlinking(); }
 
         Hp -= dmg;
         OnHit?.Invoke();
-
+        OnHpChange?.Invoke(Hp);
         if(Hp <= 0)
         {
             Dead();
@@ -166,7 +170,7 @@ public class Player : MonoBehaviour
     void Dead()
     {
         OnDead?.Invoke();
-        Debug.Log("«√∑π¿ÃæÓ ªÁ∏¡");
+        Debug.Log("ÌîåÎ†àÏù¥Ïñ¥ ÏÇ¨Îßù");
     }
 
     void InputCheck_OnUpdate()
@@ -211,28 +215,33 @@ public class Player : MonoBehaviour
 
     void OnClick_X()
     {
-        Debug.Log("X πˆ∆∞ ≈¨∏Ø");
+        Debug.Log("X Î≤ÑÌäº ÌÅ¥Î¶≠");
         _curState.OnInput(KeyName.X);
     }
 
     void OnClick_Z()
     {
-        Debug.Log("Z πˆ∆∞ ≈¨∏Ø");
-        _curState.OnInput(KeyName.Z);
+        Debug.Log("Z Î≤ÑÌäº ÌÅ¥Î¶≠");       
 
         if (evasion_coolTimeValue <= 0)
         {
+            _curState.OnInput(KeyName.Z);
             evasion_coolTimeValue = evasion_coolTime;            
         }
     }
 
 
-    //»∏«« ƒ⁄∑Á∆æ Ω√¿€ «‘ºˆ
+    //ÌöåÌîº ÏΩîÎ£®Ìã¥ ÏãúÏûë Ìï®Ïàò
     public void EvasionStart()
     {
         if (evasionCoroutine != null)
         {
             StopCoroutine(evasionCoroutine);
+        }
+        if (_moveCommandVector != Vector2.zero)
+        {
+            float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, targetAngle, 0);
         }
         evasionCoroutine = StartCoroutine(EvasionCoroutine());
     }
@@ -243,19 +252,17 @@ public class Player : MonoBehaviour
             StopCoroutine(evasionCoroutine);
             evasionCoroutine = null;
 
-            // «ˆ¿Á ¿ßƒ°ø° ∞Ì¡§
+            // ÌòÑÏû¨ ÏúÑÏπòÏóê Í≥†Ï†ï
+            _rigidbody.velocity = Vector3.zero;
             isEvading = false;
-            ChangeLayer(this.gameObject, 8); // ∑π¿ÃæÓ 8 Player
-            ChangeState(new EvasionDelayState(this));
+            ChangeLayer(this.gameObject, 8); // Î†àÏù¥Ïñ¥ 8 Player
         }
     }
-    //¥ı≈∑ ƒ⁄∑Á∆æ
+    //ÎçîÌÇπ ÏΩîÎ£®Ìã¥
     private IEnumerator EvasionCoroutine()
     {
         isEvading = true;
-        ChangeLayer(this.gameObject, 13);//∑π¿ÃæÓ 13 Evasion
-        //Vector3 start = transform.position;
-        //Vector3 end = transform.position + transform.forward * evasion_Velocity;
+        ChangeLayer(this.gameObject, 13);//Î†àÏù¥Ïñ¥ 13 Evasion
 
         float elapsedTime = 0f;
 
@@ -266,52 +273,52 @@ public class Player : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        
+
+        _rigidbody.velocity = Vector3.zero;
         isEvading = false;
-        ChangeLayer(this.gameObject, 8);//∑π¿ÃæÓ 8 Player
+        ChangeLayer(this.gameObject, 8);//Î†àÏù¥Ïñ¥ 8 Player
         ChangeState(new EvasionDelayState(this));
     }
 
-    //«√∑π¿ÃæÓ ªÛ≈¬∫Ø∞Ê
+    //ÌîåÎ†àÏù¥Ïñ¥ ÏÉÅÌÉúÎ≥ÄÍ≤Ω
     public void ChangeState(IState newState)
     {
-        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State|| _curState is EvasionDelayState) && newState is MoveState)
+        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State || _curState is StrongAtkState|| _curState is EvasionState||_curState is EvasionDelayState|| _curState is SpecialAtkState) && newState is MoveState)
         {
-            Debug.Log("Cannot transition from AtkState to MoveState");
+ 
             return;
         }
         _curState?.ExitState();
         _curState = newState;
-        //Text_TemporalState.text = _curState.ToString(); Ω∫≈◊¿Ã∆Æ √º≈©øÎ µπˆ±◊ ≈ÿΩ∫∆Æ.
+        //Text_TemporalState.text = _curState.ToString(); //Ïä§ÌÖåÏù¥Ìä∏ Ï≤¥ÌÅ¨Ïö© ÎîîÎ≤ÑÍ∑∏ ÌÖçÏä§Ìä∏.
         _curState.EnterState();
     }
 
-    //æ÷¥œ∏ﬁ¿Ãº« øœ∑· «‘ºˆ
+    //Ïï†ÎãàÎ©îÏù¥ÏÖò ÏôÑÎ£å Ìï®Ïàò
     public void OnAnimationComplete(string animationName)
     {
-        Debug.Log($"{animationName}1234");
         _curState.OnAnimationComplete(animationName);
     }
 
-    //¿Ãµø ¿‘∑¬√º≈©
+    //Ïù¥Îèô ÏûÖÎ†•Ï≤¥ÌÅ¨
     public Vector2 GetMoveInput()
     {
         return moveInput;
     }
     
-    //»∏«« µÙ∑π¿Ã Ω√¿€ «‘ºˆ
+    //ÌöåÌîº ÎîúÎ†àÏù¥ ÏãúÏûë Ìï®Ïàò
     public void Delay()
     {
         StartCoroutine(EvasionDelay());
     }
-    //»∏«« µÙ∑π¿Ã ƒ⁄∑Á∆æ
+    //ÌöåÌîº ÎîúÎ†àÏù¥ ÏΩîÎ£®Ìã¥
     private IEnumerator EvasionDelay()
     {
         yield return new WaitForSeconds(evasion_delay);
         ChangeState(new IdleState(this));
     }
 
-    //»∏«« ∑π¿ÃæÓ ∫Ø∞Ê «‘ºˆ
+    //ÌöåÌîº Î†àÏù¥Ïñ¥ Î≥ÄÍ≤Ω Ìï®Ïàò
     private void ChangeLayer(GameObject player, int newLayer)
     {
         player.layer = newLayer;
@@ -321,9 +328,60 @@ public class Player : MonoBehaviour
             ChangeLayer(child.gameObject, newLayer);
         }
     }
-    //
+    //Ïä§ÌéòÏÖúÏñ¥ÌÉù Í≤åÏù¥ÏßÄ Ï¥àÍ∏∞Ìôî
     public void SpecialAttack()
     {
         SkillGauge = 0;
     }
+
+    //Í≥µÍ≤© ÏΩîÎ£®Ìã¥ Ìò∏Ï∂ú Ìï®Ïàò
+    public void CallCollider(AtkCollider col)
+    {
+        
+        if (atkCoroutine != null)
+        {
+            StopCoroutine(atkCoroutine);
+        }
+
+        switch(col)
+        {
+            case AtkCollider.Atk1:
+                atkCoroutine = StartCoroutine(ActiveCollider(Atk1Collider,atk1delay_second));
+                break;
+
+            case AtkCollider.Atk2:
+                atkCoroutine = StartCoroutine(ActiveCollider(Atk2Collider, atk2delay_second));
+                break;
+
+            case AtkCollider.Atk3:
+                atkCoroutine = StartCoroutine(ActiveCollider(Atk3Collider, atk3delay_second));
+                break;
+
+            case AtkCollider.StrongAtk:
+                atkCoroutine = StartCoroutine(ActiveCollider(StrongAtkCollider,0f));
+                StartCoroutine(ActiveCollider(ParryCollider,parrydelay_second));
+                break;
+        }
+        
+    }
+
+    //Í≥µÍ≤© ÏΩúÎ¶¨Îçî ÌôúÏÑ±,ÎπÑÌôúÏÑ±Ìôî ÏΩîÎ£®Ìã¥
+    private IEnumerator ActiveCollider (GameObject collider , float second)
+    {
+        yield return new WaitForSeconds(second);
+        collider.SetActive(true);
+        yield return new WaitForSeconds(atkcollider_active);
+        collider.SetActive(false);
+    }
+
+  
+}
+public enum AtkCollider
+{
+    Atk1,
+    Atk2,
+    Atk3,
+    StrongAtk,
+    Parry
+
 }

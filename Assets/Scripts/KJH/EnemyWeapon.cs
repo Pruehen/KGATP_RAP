@@ -156,7 +156,7 @@ public class EnemyWeapon : MonoBehaviour
 
                 lineRenderer.SetPosition(1, hit.point);
                 int hitLayer = hit.collider.gameObject.layer;
-                Debug.Log("Hit layer: " + LayerMask.LayerToName(hitLayer));
+                //Debug.Log("Hit layer: " + LayerMask.LayerToName(hitLayer));
             }
             else
             {

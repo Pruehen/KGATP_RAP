@@ -2,22 +2,29 @@ using UnityEngine;
 
 public class CamMove : MonoBehaviour
 {
-    [SerializeField] Transform targetObejct;
+    [Range(0.1f, 10f)][SerializeField] float CamSpeed = 2;
+    [Range(1, 50f)][SerializeField] float CamDistance = 10;
 
-    Vector3 localPos;
+    Transform _targetObejct;
+
+    Vector3 _viewDir;
     // Start is called before the first frame update
     void Start()
     {
-        localPos = this.transform.position;
+        _viewDir = this.transform.position.normalized;
+        if(_targetObejct == null)
+        {
+            _targetObejct = Player.Instance.transform;
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if(targetObejct != null)
+        if(_targetObejct != null)
         {
-            Vector3 targetVec = targetObejct.position + localPos;
-            this.transform.position = Vector3.Lerp(this.transform.position, targetVec, Time.deltaTime * 2);            
+            Vector3 targetVec = _targetObejct.position + _viewDir * CamDistance;
+            this.transform.position = Vector3.Lerp(this.transform.position, targetVec, Time.deltaTime * CamSpeed);            
         }
     }
 }

@@ -1371,9 +1371,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1141710834967556788, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
+      propertyPath: blinkDuration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3339024935763580425, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_Name
       value: RequireObjectGroup
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173884709939769814, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
+      propertyPath: invincibleTime
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6264710320178151390, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_RootOrder

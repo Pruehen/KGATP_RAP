@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
     private Coroutine atkCoroutine;
 
     public float lastDamagedTime;
-    public float invincibleTime;
+    [SerializeField] float invincibleTime =2;
     public bool IsDamagedInvincible
     {
         get { return Time.time <= lastDamagedTime + invincibleTime; }
@@ -83,6 +83,9 @@ public class Player : MonoBehaviour
         OnXClick += OnClick_X;
         SkillGauge_Max = 100;
         SkillGauge_RecoverySec = 1;
+
+        Hp = 4;
+        Atk = 1;
 
         MoveSpeed = 10f;
         evasion_duration = 0.5f;
@@ -152,7 +155,6 @@ public class Player : MonoBehaviour
     {
         if (IsDamagedInvincible) { Debug.Log("피격무적"); return; }
         lastDamagedTime = Time.time;
-        invincibleTime = 8;
         Debug.Log("데미지");
         BlinkEffect blinkEffect = GetComponent<BlinkEffect>();
         if (blinkEffect != null) { blinkEffect.StartBlinking(); }
@@ -220,11 +222,11 @@ public class Player : MonoBehaviour
 
     void OnClick_Z()
     {
-        Debug.Log("Z 버튼 클릭");
-        _curState.OnInput(KeyName.Z);
+        Debug.Log("Z 버튼 클릭");       
 
         if (evasion_coolTimeValue <= 0)
         {
+            _curState.OnInput(KeyName.Z);
             evasion_coolTimeValue = evasion_coolTime;            
         }
     }

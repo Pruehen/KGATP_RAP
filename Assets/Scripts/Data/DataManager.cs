@@ -268,10 +268,10 @@ public class DataManager : MonoBehaviour
     private void tempParsingTest()
     {
         ReadClearedStage();
-        Debug.Log($"{LoadedClearedStage}");
+        //Debug.Log($"{LoadedClearedStage}");
 
         ModifyClearedStage(2);
-        Debug.Log($"{LoadedClearedStage}");
+        //Debug.Log($"{LoadedClearedStage}");
 
     }
 }

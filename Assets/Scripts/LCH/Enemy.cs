@@ -41,7 +41,7 @@ namespace LCH
             }
             if(enemyFireType == EnemyFireType.FixedPointTargeting)
             {
-                FixedTarget_StartCoroutine_OnStart();
+                //FixedTarget_StartCoroutine_OnStart();
             }
             _animator = GetComponent<Animator>();
             _fireDelayTime = coolTime;
@@ -54,11 +54,21 @@ namespace LCH
                 OnStun_OnUpdate();
             }
 
-            if (enemyFireType == EnemyFireType.PlayerTargeting)
+            switch (enemyFireType)
             {
-                FindPlayer_OnUpdate();
-                ShootCoolTime_OnTargetingMode_OnUpdate();
-            }                        
+                case EnemyFireType.PlayerTargeting:
+                    FindPlayer_OnUpdate();
+                    ShootCoolTime_OnTargetingMode_OnUpdate();
+                    break;
+                case EnemyFireType.RotateTargeting:
+                    ShootCoolTime_NoneTargetingMode_OnUpdate();
+                    break;
+                case EnemyFireType.FixedPointTargeting:
+                    ShootCoolTime_NoneTargetingMode_OnUpdate();
+                    break;
+                default:
+                    break;
+            }
         }
 
         void FindPlayer_OnUpdate()
@@ -73,41 +83,29 @@ namespace LCH
         {
             if (enemyFireType == EnemyFireType.RotateTargeting)
             {
-                StartCoroutine(CoolTime());
+                StartCoroutine(Rotate());
             }
         }
-        void FixedTarget_StartCoroutine_OnStart()
+        /*void FixedTarget_StartCoroutine_OnStart()
         {
             if(enemyFireType == EnemyFireType.FixedPointTargeting)
             {
                 StartCoroutine(FixedCoolTime());
             }
-        }
+        }*/
 
-        IEnumerator CoolTime()
+        IEnumerator Rotate()
         {
             while (true)
             {
                 if (_isStun == false)
                 {
                     transform.Rotate(0, 40, 0);
+                }
+                yield return new WaitForSeconds(coolTime);
+            }
+        }
 
-                    weapon.CommandFire(this.gameObject.transform.forward + this.transform.position);
-                }
-                yield return new WaitForSeconds(coolTime);
-            }
-        }
-        IEnumerator FixedCoolTime()
-        {
-            while (true)
-            {
-                if(_isStun == false)
-                {
-                    weapon.CommandFire(this.gameObject.transform.forward + this.transform.position);
-                }
-                yield return new WaitForSeconds(coolTime);
-            }
-        }
 
         public void Stun(float duration)
         {
@@ -144,7 +142,7 @@ namespace LCH
             Destroy(this);
         }
 
-        void ShootCoolTime_OnTargetingMode_OnUpdate()
+        void ShootCoolTime_NoneTargetingMode_OnUpdate()
         {
             if (_isStun == false)
             {
@@ -153,9 +151,21 @@ namespace LCH
             if(_fireDelayTime <= 0)
             {
                 _fireDelayTime = coolTime;
-                weapon.CommandFire(target);
+                weapon.CommandFire(this.transform.forward + this.transform.position);
             }            
-        }        
+        }
+        void ShootCoolTime_OnTargetingMode_OnUpdate()
+        {
+            if (_isStun == false)
+            {
+                _fireDelayTime -= Time.deltaTime;
+            }
+            if (_fireDelayTime <= 0)
+            {
+                _fireDelayTime = coolTime;
+                weapon.CommandFire(target);
+            }
+        }
 
         void OnStun_OnUpdate()
         {            
@@ -173,7 +183,7 @@ namespace LCH
 
         private void OnCollisionEnter(Collision collision)
         {
-            Hit(10);
+            //Hit(10);
         }
     }
 }

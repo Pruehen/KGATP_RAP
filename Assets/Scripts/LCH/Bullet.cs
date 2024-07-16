@@ -31,7 +31,7 @@ public abstract class Bullet : MonoBehaviour
     //    this.GetComponent<Rigidbody>().velocity = projectionVector.normalized * bulletSpeed;
     //}
     //타겟 위치로 발사
-    public virtual void Shoot(Vector3 initPos, Vector3 projectionVector)
+    public virtual void Shoot(Vector3 initPos, Vector3 projectionVector, float value1, float value2)
     {
         this.transform.position = initPos;
         this.GetComponent<Rigidbody>().velocity = projectionVector;

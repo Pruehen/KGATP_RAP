@@ -2,23 +2,26 @@ using UnityEngine;
 
 public class IncreaseBullet : Bullet
 {
-    [SerializeField] private float size_IncreasePercent_PerSec;//10
-    [SerializeField] private float size_MaxPercent;//100
+    float _size_IncreasePercent_PerSec;
+    float _size_MaxPercent;
 
     Vector3 initScale;
     float activeTime = 0;
 
-    public override void Shoot(Vector3 initPos, Vector3 projectionVector)
+    public override void Shoot(Vector3 initPos, Vector3 projectionVector, float value1, float value2)
     {
-        base.Shoot(initPos, projectionVector);
+        base.Shoot(initPos, projectionVector, value1, value2);
         this.gameObject.transform.localScale = Vector3.one;
         initScale = this.transform.localScale;
         activeTime = 0;
+
+        _size_IncreasePercent_PerSec = value1;
+        _size_MaxPercent = value2;
     }
     private void Update()
     {
         activeTime += Time.deltaTime;
-        this.gameObject.transform.localScale = initScale * (1 + (Mathf.Clamp(activeTime * 500, 0, 1000) / 100));
+        this.gameObject.transform.localScale = initScale * (1 + (Mathf.Clamp(activeTime * _size_IncreasePercent_PerSec, 0, _size_MaxPercent) / 100));
     }
 
     private void OnCollisionEnter(Collision collision)

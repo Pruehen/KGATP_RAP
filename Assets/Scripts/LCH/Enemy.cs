@@ -183,7 +183,7 @@ namespace LCH
 
         private void OnCollisionEnter(Collision collision)
         {
-            Hit(10);
+            //Hit(10);
         }
     }
 }

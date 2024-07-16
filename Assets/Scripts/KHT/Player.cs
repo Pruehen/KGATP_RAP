@@ -285,7 +285,7 @@ public class Player : MonoBehaviour
         }
         _curState?.ExitState();
         _curState = newState;
-        Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
+        //Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
         _curState.EnterState();
     }
 

@@ -45,6 +45,7 @@ namespace LCH
             }
             _animator = GetComponent<Animator>();
             _fireDelayTime = coolTime;
+            EnemyManager.Instance.AddDic(this.gameObject.GetInstanceID(), this);
         }
         private void Update()
         {
@@ -139,6 +140,7 @@ namespace LCH
             StopAllCoroutines();
             Debug.Log("Àû »ç¸Á");
             EffectManager.Instance.EffectGenerate(EffectType.EnemyDie, this.gameObject.transform.position);
+            EnemyManager.Instance.DestroyDic(this.gameObject.GetInstanceID());
             Destroy(this);
         }
 
@@ -164,9 +166,14 @@ namespace LCH
             }
         }
 
+        public float GetFireDelayRatio()
+        {
+            return 1 - (_fireDelayTime / coolTime);
+        }
+
         private void OnCollisionEnter(Collision collision)
         {
-            Hit(1);
+            Hit(10);
         }
     }
 }

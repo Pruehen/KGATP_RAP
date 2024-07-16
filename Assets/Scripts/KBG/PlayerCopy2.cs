@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerCopy2 : SceneSingleton<Player>
+public class PlayerCopy2 : SceneSingleton<PlayerLegacy>
 {
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(1f, 10f)][SerializeField] float evasion_power;
@@ -54,7 +54,7 @@ public class PlayerCopy2 : SceneSingleton<Player>
     void Start()
     {
         PlayerCharacter player = DataManager.Instance.LoadedPlayerCharacterList[101];
-
+        
         _rigidbody = GetComponent<Rigidbody>();
 
         OnZClick += OnClick_Z;
@@ -95,6 +95,8 @@ public class PlayerCopy2 : SceneSingleton<Player>
         lastDamagedTime = Time.time;
         invincibleTime = 8;
         Debug.Log("µ¥¹ÌÁö");
+        BlinkEffect blinkEffect = GetComponent<BlinkEffect>();
+        if (blinkEffect != null) { blinkEffect.StartBlinking(); }
 
         
         Hp -= dmg;
@@ -106,6 +108,8 @@ public class PlayerCopy2 : SceneSingleton<Player>
             Dead();
         }
     }
+    
+
 
     void Dead()
     {

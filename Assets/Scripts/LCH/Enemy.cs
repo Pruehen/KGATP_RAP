@@ -13,8 +13,12 @@ namespace LCH
     {
         [SerializeField] Transform target;
         [SerializeField] float enemyHp;
-        [SerializeField] float atkDamage;        
+        [SerializeField] float atkDamage;
+
+        [Header("발사 패턴 관련 속성")]
         [SerializeField] EnemyFireType enemyFireType;
+        [Range(0f, 360f)] float autoRotateAngle = 45f;
+
         [SerializeField] GameObject enemyHitEffect;
         [Range(0.1f, 10f)][SerializeField] float coolTime;
         [Header("장착 무기")]
@@ -100,7 +104,7 @@ namespace LCH
             {
                 if (_isStun == false)
                 {
-                    transform.Rotate(0, 40, 0);
+                    transform.Rotate(0, autoRotateAngle, 0);
                 }
                 yield return new WaitForSeconds(coolTime);
             }
@@ -183,7 +187,7 @@ namespace LCH
 
         private void OnCollisionEnter(Collision collision)
         {
-            Hit(10);
+            //Hit(10);
         }
     }
 }

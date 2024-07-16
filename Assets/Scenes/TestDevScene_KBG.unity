@@ -2688,6 +2688,7 @@ GameObject:
   - component: {fileID: 419117202}
   - component: {fileID: 419117201}
   - component: {fileID: 419117200}
+  - component: {fileID: 419117207}
   - component: {fileID: 419117205}
   - component: {fileID: 419117206}
   m_Layer: 0
@@ -2822,9 +2823,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b157f6de9d2843469bc2137677ac5f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRenderer: {fileID: 419117202}
-  blinkDuration: 1
+  playerRenderer: {fileID: 0}
+  blinkDuration: 2.01
   blinkInterval: 0.1
+--- !u!114 &419117207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419117197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc624b549c0b104ca7346702c6d1e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 0
+  evasion_power: 0
+  evasion_duration: 0
 --- !u!1 &421606606
 GameObject:
   m_ObjectHideFlags: 0

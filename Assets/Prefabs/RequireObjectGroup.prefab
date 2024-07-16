@@ -639,6 +639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: invincibleTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5704630628557905139, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: m_Mass
       value: 150
@@ -650,6 +654,10 @@ PrefabInstance:
     - target: {fileID: 5704630628557905139, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: m_Interpolate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727517195234549648, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: blinkDuration
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0530dd090a50a30449171369246ddf09, type: 3}

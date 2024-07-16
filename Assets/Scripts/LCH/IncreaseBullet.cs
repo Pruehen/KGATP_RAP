@@ -18,7 +18,7 @@ public class IncreaseBullet : Bullet
     private void Update()
     {
         activeTime += Time.deltaTime;
-        this.gameObject.transform.localScale = initScale * (1 + (Mathf.Clamp(activeTime * size_IncreasePercent_PerSec, 0, size_MaxPercent) / 100));
+        this.gameObject.transform.localScale = initScale * (1 + (Mathf.Clamp(activeTime * 500, 0, 1000) / 100));
     }
 
     private void OnCollisionEnter(Collision collision)

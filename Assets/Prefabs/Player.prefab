@@ -233,6 +233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7353859677054679488}
   - component: {fileID: 28463567422598631}
+  - component: {fileID: 1869737108}
   m_Layer: 8
   m_Name: Atk3Collider
   m_TagString: Untagged
@@ -268,6 +269,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1869737108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085277544270441904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23568008025a3ce4f96d20cfa4ae26f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atk: 1
+  stun: 1
 --- !u!1 &1193211654270732118
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,6 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6420082471559686826}
   - component: {fileID: 1595228463685695743}
+  - component: {fileID: 647223289}
   m_Layer: 8
   m_Name: StrongAtkCollider
   m_TagString: Untagged
@@ -440,6 +456,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &647223289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888351480317904424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 562a631d86271184a93dfe6d247b3b79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atk: 1
+  stun: 2
 --- !u!1 &2376423231043200277
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6757721223249088889}
   - component: {fileID: 1511916938639333586}
+  - component: {fileID: 431974356}
   m_Layer: 8
   m_Name: ParryCollider
   m_TagString: Untagged
@@ -581,6 +612,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &431974356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731288486051801702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6577fa5cea0ee7846a0242ca13c59ed8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2882643753329370188
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +855,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7384322022241616638}
   - component: {fileID: 5152133569627942758}
+  - component: {fileID: 2041292963}
   m_Layer: 8
   m_Name: Atk2Collider
   m_TagString: Untagged
@@ -847,6 +891,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2041292963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3491049626766301755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f5aae7b46f6f0942bbf2b930d4ee84a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atk: 1
 --- !u!1 &3809461100519836467
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,6 +1112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3d097570bc6a2409490c43d4b961e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atk: 1
 --- !u!1 &3905946834046275314
 GameObject:
   m_ObjectHideFlags: 0
@@ -1104,6 +1162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3d097570bc6a2409490c43d4b961e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  atk: 1
 --- !u!1 &3925374015280310578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,7 +1672,10 @@ MonoBehaviour:
   evasion_coolTime: 0
   evasion_Velocity: 50
   evasion_delay: 0
-  atkcollider_active: 0
+  atkcollider_active: 0.5
+  atk1delay_second: 0
+  atk2delay_second: 0
+  atk3delay_second: 0.5
   parrydelay_second: 0
   Atk1Collider: {fileID: 3905946832842860725}
   Atk2Collider: {fileID: 3491049626766301755}

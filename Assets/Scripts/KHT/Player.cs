@@ -14,6 +14,9 @@ public class Player : MonoBehaviour
     [Range(0f, 100f)] [SerializeField] float evasion_Velocity = 30;
     [Range(0f, 5f)] [SerializeField] float evasion_delay = 0.5f;
     [Range(0f, 1f)] [SerializeField] float atkcollider_active = 0.5f;
+    [Range(0f, 1f)] [SerializeField] float atk1delay_second = 0.1f;
+    [Range(0f, 1f)] [SerializeField] float atk2delay_second = 0.1f;
+    [Range(0f, 1f)] [SerializeField] float atk3delay_second = 0.3f;
     [Range(0f, 1f)] [SerializeField] float parrydelay_second;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
@@ -285,7 +288,7 @@ public class Player : MonoBehaviour
         }
         _curState?.ExitState();
         _curState = newState;
-        //Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
+        Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
         _curState.EnterState();
     }
 
@@ -341,41 +344,35 @@ public class Player : MonoBehaviour
         switch(col)
         {
             case AtkCollider.Atk1:
-                atkCoroutine = StartCoroutine(ActiveCollider(Atk1Collider));
+                atkCoroutine = StartCoroutine(ActiveCollider(Atk1Collider,atk1delay_second));
                 break;
 
             case AtkCollider.Atk2:
-                atkCoroutine = StartCoroutine(ActiveCollider(Atk2Collider));
+                atkCoroutine = StartCoroutine(ActiveCollider(Atk2Collider, atk2delay_second));
                 break;
 
             case AtkCollider.Atk3:
-                atkCoroutine = StartCoroutine(ActiveCollider(Atk3Collider));
+                atkCoroutine = StartCoroutine(ActiveCollider(Atk3Collider, atk3delay_second));
                 break;
 
             case AtkCollider.StrongAtk:
-                atkCoroutine = StartCoroutine(ActiveCollider(StrongAtkCollider));
-                StartCoroutine(ParryActive());
+                atkCoroutine = StartCoroutine(ActiveCollider(StrongAtkCollider,0f));
+                StartCoroutine(ActiveCollider(ParryCollider,parrydelay_second));
                 break;
         }
         
     }
 
     //공격 콜리더 활성,비활성화 코루틴
-    private IEnumerator ActiveCollider (GameObject collider)
+    private IEnumerator ActiveCollider (GameObject collider , float second)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(second);
         collider.SetActive(true);
         yield return new WaitForSeconds(atkcollider_active);
         collider.SetActive(false);
     }
 
-    //패리 콜리더 지연 코루틴
-    private IEnumerator ParryActive()
-    {
-        yield return new WaitForSeconds(parrydelay_second);
-        StartCoroutine(ActiveCollider(ParryCollider));
-    }
-
+  
 }
 public enum AtkCollider
 {

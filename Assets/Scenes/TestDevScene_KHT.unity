@@ -571,6 +571,9 @@ MonoBehaviour:
   evasion_Velocity: 5
   evasion_delay: 0
   atkcollider_active: 0
+  atk1delay_second: 0.1
+  atk2delay_second: 0.1
+  atk3delay_second: 0.3
   parrydelay_second: 0
   Atk1Collider: {fileID: 876178377}
   Atk2Collider: {fileID: 0}

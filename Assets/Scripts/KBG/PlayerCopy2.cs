@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerCopy2 : SceneSingleton<Player>
+public class PlayerCopy2 : SceneSingleton<PlayerLegacy>
 {
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(1f, 10f)][SerializeField] float evasion_power;

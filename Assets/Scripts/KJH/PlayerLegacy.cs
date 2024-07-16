@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
 
-public class Player : SceneSingleton<Player>
-{    
+public class PlayerLegacy : MonoBehaviour
+{
+    public static PlayerLegacy Instance;
+
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(1f, 10f)][SerializeField] float evasion_power;
     [Range(0.1f, 1f)][SerializeField] float evasion_duration;
+
 
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
@@ -40,6 +43,10 @@ public class Player : SceneSingleton<Player>
     float evasion_timeRemaining;
     bool isEvading;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {

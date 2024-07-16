@@ -10,10 +10,10 @@ public enum KeyName
 
 }
 
-public class PlayerTest : MonoBehaviour
+public class Player : MonoBehaviour
 {
+    public static Player Instance;
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
-    //[Range(1f, 50f)][SerializeField] float evasion_power;
     [Range(0.1f, 5f)] [SerializeField] float evasion_duration;
     [Range(0f, 5f)] [SerializeField] float evasion_coolTime;
     [Range(0f, 50f)] [SerializeField] float evasion_distace;
@@ -31,20 +31,24 @@ public class PlayerTest : MonoBehaviour
     public void UnRegister_OnHpChange(Action<int> callBack) { OnHpChange -= callBack; }
 
     Action<float> OnGaugeChange;
-    public void Register_OnGaugeChange(Action<float> callBack) { OnGaugeChange += callBack; }
-    public void UnRegister_OnGaugeChange(Action<float> callBack) { OnGaugeChange -= callBack; }
+    public void Register_OnSkillGaugeChange(Action<float> callBack) { OnGaugeChange += callBack; }
+    public void UnRegister_OnSkillGaugeChange(Action<float> callBack) { OnGaugeChange -= callBack; }
+
+
+    Action<float> OnEvasionGaugeChange;
+    public void Register_OnEvasionGaugeChange(Action<float> callBack) { OnEvasionGaugeChange += callBack; }
+    public void UnRegister_OnEvasionGaugeChange(Action<float> callBack) { OnEvasionGaugeChange -= callBack; }
+
 
     public int Hp { get; private set; }
     public int Atk { get; private set; }
-    public float Gauge { get; private set; }
-    public float Gauge_Max { get; private set; }
-    public float Gauge_RecoverySec { get; private set; }    
-    //public float evasion_coolTime { get; private set; }
+    public float SkillGauge { get; private set; }
+    public float SkillGauge_Max { get; private set; }
+    public float SkillGauge_RecoverySec { get; private set; }
 
     float evasion_coolTimeValue;
-    float evasion_powerValue = 1;
-    float evasion_timeRemaining;
     bool isEvading;
+
     [SerializeField]GameObject Atk1Collider;
     [SerializeField] GameObject Atk2Collider;
     [SerializeField] GameObject Atk3Collider;
@@ -52,6 +56,8 @@ public class PlayerTest : MonoBehaviour
 
     private IState _curState;
     private Vector2 moveInput;
+
+    private Coroutine evasionCoroutine;
 
     public float lastDamagedTime;
     public float invincibleTime;
@@ -61,19 +67,22 @@ public class PlayerTest : MonoBehaviour
     }
 
     [SerializeField] Text Text_TemporalState;
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
 
         OnZClick += OnClick_Z;
         OnXClick += OnClick_X;
-
-        Gauge_Max = 100;
-        Gauge_RecoverySec = 1;
+        SkillGauge = 100;
+        SkillGauge_Max = 100;
+        SkillGauge_RecoverySec = 1;
 
         MoveSpeed = 10f;
-        //evasion_power = 5f;
         evasion_duration = 0.2f;
         evasion_coolTime = 1.5f;
         isEvading = false;
@@ -81,22 +90,48 @@ public class PlayerTest : MonoBehaviour
         ChangeState(new IdleState(this));
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        _curState?.ExcuteOnUpdate();
+
         InputCheck_OnUpdate();
         InputCheck_OnUpdate_Test();
+        EvasionCoolTime_OnUpdate();
+        MoveCheck_OnUpdate();
 
-        evasion_coolTimeValue -= Time.deltaTime;
 
-        _curState?.ExcuteOnUpdate();
+        GaugeRecovery_OnUpdate();
+    }
+    //스킬 게이지 업데이트
+    void GaugeRecovery_OnUpdate()
+    {
+        SkillGauge += Time.deltaTime * SkillGauge_RecoverySec;
+        if (SkillGauge > SkillGauge_Max)
+        {
+            SkillGauge = SkillGauge_Max;
+        }
+
+        OnGaugeChange?.Invoke(SkillGauge / SkillGauge_Max);
+    }
+    //회피 쿨타임 업데이트
+    void EvasionCoolTime_OnUpdate()
+    {
+        if (evasion_coolTimeValue > 0)
+        {
+            evasion_coolTimeValue -= Time.deltaTime;
+            OnEvasionGaugeChange?.Invoke(evasion_coolTimeValue / evasion_coolTime);
+        }
+    }
+    void MoveCheck_OnUpdate()
+    {
         moveInput = _moveCommandVector;
-        if(moveInput != Vector2.zero)
+        if (moveInput != Vector2.zero)
         {
             ChangeState(new MoveState(this));
         }
     }
-
+    //이동 및 캐릭터 회전
     public void Move()
     {
         _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
@@ -187,17 +222,33 @@ public class PlayerTest : MonoBehaviour
 
         if (evasion_coolTimeValue <= 0)
         {
-            evasion_coolTimeValue = evasion_coolTime;
-            //Evasion();
-            
-            
+            evasion_coolTimeValue = evasion_coolTime;            
         }
     }
+
+
+    //회피 코루틴 시작 함수
     public void EvasionStart()
     {
-        StartCoroutine(EvasionCoroutine());
+        if (evasionCoroutine != null)
+        {
+            StopCoroutine(evasionCoroutine);
+        }
+        evasionCoroutine = StartCoroutine(EvasionCoroutine());
     }
+    public void EvasionStop()
+    {
+        if (evasionCoroutine != null)
+        {
+            StopCoroutine(evasionCoroutine);
+            evasionCoroutine = null;
 
+            // 현재 위치에 고정
+            isEvading = false;
+            ChangeLayer(this.gameObject, 8); // 레이어 8 Player
+            ChangeState(new EvasionDelayState(this));
+        }
+    }
     //더킹 코루틴
     private IEnumerator EvasionCoroutine()
     {
@@ -210,12 +261,13 @@ public class PlayerTest : MonoBehaviour
 
         while(elapsedTime < evasion_duration)
         {
+            if (!isEvading) yield break;
             transform.position = Vector3.Lerp(start, end, elapsedTime / evasion_duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        //transform.position = end;
+        transform.position = end;
         isEvading = false;
         ChangeLayer(this.gameObject, 8);//레이어 8 Player
         ChangeState(new EvasionDelayState(this));
@@ -248,16 +300,19 @@ public class PlayerTest : MonoBehaviour
         return moveInput;
     }
     
+    //회피 딜레이 시작 함수
     public void Delay()
     {
         StartCoroutine(EvasionDelay());
     }
+    //회피 딜레이 코루틴
     private IEnumerator EvasionDelay()
     {
         yield return new WaitForSeconds(evasion_delay);
         ChangeState(new IdleState(this));
     }
 
+    //회피 레이어 변경 함수
     private void ChangeLayer(GameObject player, int newLayer)
     {
         player.layer = newLayer;
@@ -266,5 +321,10 @@ public class PlayerTest : MonoBehaviour
         {
             ChangeLayer(child.gameObject, newLayer);
         }
+    }
+    //
+    public void SpecialAttack()
+    {
+        SkillGauge = 0;
     }
 }

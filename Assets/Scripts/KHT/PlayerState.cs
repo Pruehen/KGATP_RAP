@@ -22,9 +22,9 @@ public abstract class StateBase : IState
 //Idle
 public class IdleState : StateBase
 {
-    private readonly PlayerTest _player;
+    private readonly Player _player;
 
-    public IdleState(PlayerTest player)
+    public IdleState(Player player)
     {
         _player = player;
     }
@@ -42,7 +42,14 @@ public class IdleState : StateBase
         switch (InputName)
         {
             case KeyName.X:
-                _player.ChangeState(new Atk1State(_player));
+                if (_player.SkillGauge >= _player.SkillGauge_Max)
+                {
+                    _player.ChangeState(new SpecialAtkState(_player));
+                }
+                else
+                {
+                    _player.ChangeState(new Atk1State(_player));
+                }
                 break;
             case KeyName.Z:
                 _player.ChangeState(new EvasionState(_player));
@@ -54,9 +61,9 @@ public class IdleState : StateBase
 //Move
 public class MoveState : StateBase
 {
-    private readonly PlayerTest _player;
+    private readonly Player _player;
 
-    public MoveState(PlayerTest player)
+    public MoveState(Player player)
     {
         _player = player;
     }
@@ -84,9 +91,9 @@ public class MoveState : StateBase
 //Evasition
 public class EvasionState : StateBase
 {
-    private readonly PlayerTest _player;
+    private readonly Player _player;
 
-    public EvasionState(PlayerTest player)
+    public EvasionState(Player player)
     {
         _player = player;
     }
@@ -105,7 +112,9 @@ public class EvasionState : StateBase
     {
         if (InputName == KeyName.X)
         {
+            _player.EvasionStop();
             _player.ChangeState(new StrongAtkState(_player));
+
         }
     }
 }
@@ -114,9 +123,9 @@ public class EvasionState : StateBase
 //EvastionDelay
 public class EvasionDelayState : StateBase
 {
-    private readonly PlayerTest _player;
+    private readonly Player _player;
 
-    public EvasionDelayState(PlayerTest player)
+    public EvasionDelayState(Player player)
     {
         _player = player;
     }
@@ -130,14 +139,13 @@ public class EvasionDelayState : StateBase
 
     }
 
- 
 }
 //Atk1
 public class Atk1State : StateBase
 {
-    private readonly PlayerTest _player;
+    private readonly Player _player;
     bool iscombo = false;
-    public Atk1State(PlayerTest player)
+    public Atk1State(Player player)
     {
         _player = player;
     }
@@ -177,9 +185,9 @@ public class Atk1State : StateBase
 //Atk2
 public class Atk2State : StateBase
 {
-    private readonly PlayerTest _player;
+    private readonly Player _player;
     bool iscombo = false;
-    public Atk2State(PlayerTest player)
+    public Atk2State(Player player)
     {
         _player = player;
     }
@@ -222,9 +230,9 @@ public class Atk2State : StateBase
 //Atk3
 public class Atk3State : StateBase
 {
-    private readonly PlayerTest _player;
+    private readonly Player _player;
 
-    public Atk3State(PlayerTest player)
+    public Atk3State(Player player)
     {
         _player = player;
     }
@@ -251,9 +259,9 @@ public class Atk3State : StateBase
 //StrongAtk
 public class StrongAtkState : StateBase
 {
-    private readonly PlayerTest _player;
+    private readonly Player _player;
 
-    public StrongAtkState(PlayerTest player)
+    public StrongAtkState(Player player)
     {
         _player = player;
     }
@@ -275,9 +283,9 @@ public class StrongAtkState : StateBase
 //SpecialAtk
 public class SpecialAtkState : StateBase
 {
-    private readonly PlayerTest _player;
+    private readonly Player _player;
 
-    public SpecialAtkState(PlayerTest player)
+    public SpecialAtkState(Player player)
     {
         _player = player;
     }
@@ -285,10 +293,11 @@ public class SpecialAtkState : StateBase
     public override void EnterState()
     {
         _player.animator.SetTrigger("SpecialAtk");
+        _player.SpecialAttack();
     }
     public override void ExitState()
     {
-
+        
     }
     public override void OnAnimationComplete(string animationName)
     {

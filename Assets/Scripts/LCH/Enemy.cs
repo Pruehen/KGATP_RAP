@@ -26,7 +26,7 @@ namespace LCH
 
         private void Start()
         {
-            if (target == null) target = Player.Instance.transform;
+            if (target == null && Player.Instance != null) target = Player.Instance.transform;
             if (weapon == null) weapon = this.GetComponent<EnemyWeapon>();
 
             if (!isTargeting)

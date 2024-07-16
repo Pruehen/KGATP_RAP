@@ -568,11 +568,15 @@ MonoBehaviour:
   MoveSpeed: 0
   evasion_duration: 0
   evasion_coolTime: 0
-  evasion_distace: 0
+  evasion_Velocity: 5
   evasion_delay: 0
+  atkcollider_active: 0
+  parrydelay_second: 0
   Atk1Collider: {fileID: 876178377}
-  Atk2Collider: {fileID: 1339731124}
-  Atk3Collider: {fileID: 1248978685}
+  Atk2Collider: {fileID: 0}
+  Atk3Collider: {fileID: 0}
+  StrongAtkCollider: {fileID: 0}
+  ParryCollider: {fileID: 0}
   animator: {fileID: 2645199430765780812}
   lastDamagedTime: 0
   invincibleTime: 0
@@ -1155,6 +1159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CommonBullet_Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3041262898025056512, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
 --- !u!1 &876178377 stripped
@@ -1447,11 +1455,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1248978685 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3905946833551205761, guid: 0530dd090a50a30449171369246ddf09, type: 3}
-  m_PrefabInstance: {fileID: 3905946832639902588}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1311833169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,11 +1531,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311833169}
   m_CullTransparentMesh: 1
---- !u!1 &1339731124 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3905946833474219976, guid: 0530dd090a50a30449171369246ddf09, type: 3}
-  m_PrefabInstance: {fileID: 3905946832639902588}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1379127980
 GameObject:
   m_ObjectHideFlags: 0
@@ -2410,37 +2408,8 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
-      propertyPath: evasion_distace
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: Text_TemporalState
       value: 
       objectReference: {fileID: 633607368}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0530dd090a50a30449171369246ddf09, type: 3}
---- !u!1 &8727517195234549644 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5704630628557905136, guid: 0530dd090a50a30449171369246ddf09, type: 3}
-  m_PrefabInstance: {fileID: 3905946832639902588}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8727517195234549648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8727517195234549644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b157f6de9d2843469bc2137677ac5f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerRenderer: {fileID: 9081677235896290569}
-  blinkDuration: 1
-  blinkInterval: 0.1
---- !u!137 &9081677235896290569 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 5205084366535511669, guid: 0530dd090a50a30449171369246ddf09, type: 3}
-  m_PrefabInstance: {fileID: 3905946832639902588}
-  m_PrefabAsset: {fileID: 0}

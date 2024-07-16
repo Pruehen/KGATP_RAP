@@ -20,7 +20,7 @@ public class PlayerUIView : MonoBehaviour
         _vm.PropertyChanged += OnPropertyChanged;
     }
 
-    private void OnEnable()
+    private void Start()
     {
         _vm.Register_OnEnable();
     }

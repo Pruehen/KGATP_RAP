@@ -219,11 +219,11 @@ public class Player : MonoBehaviour
 
     void OnClick_Z()
     {
-        Debug.Log("Z 버튼 클릭");
-        _curState.OnInput(KeyName.Z);
+        Debug.Log("Z 버튼 클릭");       
 
         if (evasion_coolTimeValue <= 0)
         {
+            _curState.OnInput(KeyName.Z);
             evasion_coolTimeValue = evasion_coolTime;            
         }
     }

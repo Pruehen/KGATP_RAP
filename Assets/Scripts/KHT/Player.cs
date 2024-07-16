@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Range(0.1f, 5f)] [SerializeField] float evasion_duration;
     [Range(0f, 5f)] [SerializeField] float evasion_coolTime = 1;
-    [Range(0f, 100f)] [SerializeField] float evasion_Velocity = 5;
+    [Range(0f, 100f)] [SerializeField] float evasion_Velocity = 30;
     [Range(0f, 5f)] [SerializeField] float evasion_delay = 0.5f;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
         SkillGauge_RecoverySec = 1;
 
         MoveSpeed = 10f;
-        evasion_duration = 0.2f;
+        evasion_duration = 0.5f;
         evasion_coolTime = 1.5f;
         isEvading = false;
 
@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
 
         Hp -= dmg;
         OnHit?.Invoke();
-
+        OnHpChange?.Invoke(Hp);
         if(Hp <= 0)
         {
             Dead();
@@ -244,6 +244,7 @@ public class Player : MonoBehaviour
             evasionCoroutine = null;
 
             // 현재 위치에 고정
+            _rigidbody.velocity = Vector3.zero;
             isEvading = false;
             ChangeLayer(this.gameObject, 8); // 레이어 8 Player
             ChangeState(new EvasionDelayState(this));
@@ -254,8 +255,6 @@ public class Player : MonoBehaviour
     {
         isEvading = true;
         ChangeLayer(this.gameObject, 13);//레이어 13 Evasion
-        //Vector3 start = transform.position;
-        //Vector3 end = transform.position + transform.forward * evasion_Velocity;
 
         float elapsedTime = 0f;
 
@@ -266,7 +265,8 @@ public class Player : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        
+
+        _rigidbody.velocity = Vector3.zero;
         isEvading = false;
         ChangeLayer(this.gameObject, 8);//레이어 8 Player
         ChangeState(new EvasionDelayState(this));
@@ -275,14 +275,14 @@ public class Player : MonoBehaviour
     //플레이어 상태변경
     public void ChangeState(IState newState)
     {
-        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State|| _curState is EvasionDelayState) && newState is MoveState)
+        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State|| _curState is EvasionState||_curState is EvasionDelayState|| _curState is SpecialAtkState) && newState is MoveState)
         {
             Debug.Log("Cannot transition from AtkState to MoveState");
             return;
         }
         _curState?.ExitState();
         _curState = newState;
-        //Text_TemporalState.text = _curState.ToString(); 스테이트 체크용 디버그 텍스트.
+        Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
         _curState.EnterState();
     }
 

@@ -568,7 +568,7 @@ MonoBehaviour:
   MoveSpeed: 0
   evasion_duration: 0
   evasion_coolTime: 0
-  evasion_distace: 0
+  evasion_Velocity: 5
   evasion_delay: 0
   Atk1Collider: {fileID: 876178377}
   Atk2Collider: {fileID: 1339731124}
@@ -1154,6 +1154,10 @@ PrefabInstance:
     - target: {fileID: 3041262898025056512, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: m_Name
       value: CommonBullet_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041262898025056512, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
@@ -2412,6 +2416,14 @@ PrefabInstance:
     - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: evasion_distace
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: evasion_Velocity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: evasion_duration
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: Text_TemporalState

@@ -84,6 +84,16 @@ public class MoveState : StateBase
         {
             _player.ChangeState(new IdleState(_player));
         }
+        
+        
+    }
+    public override void OnInput(KeyName InputName)
+    {
+        if(InputName == KeyName.Z)
+        {
+            _player.animator.SetTrigger("MoveEvasion");
+            _player.ChangeState(new EvasionState(_player));
+        }
     }
 }
 
@@ -114,7 +124,6 @@ public class EvasionState : StateBase
         {
             _player.EvasionStop();
             _player.ChangeState(new StrongAtkState(_player));
-
         }
     }
 }

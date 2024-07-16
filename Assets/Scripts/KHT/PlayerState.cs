@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum KeyName
+{
+    Z,
+    X
+}
 public interface IState
 {
     void EnterState();
@@ -91,7 +95,7 @@ public class MoveState : StateBase
     {
         if(InputName == KeyName.Z)
         {
-            _player.animator.SetTrigger("MoveEvasion");
+           //_player.animator.SetTrigger("MoveEvasion");
             _player.ChangeState(new EvasionState(_player));
         }
     }
@@ -122,8 +126,9 @@ public class EvasionState : StateBase
     {
         if (InputName == KeyName.X)
         {
-            _player.EvasionStop();
             _player.ChangeState(new StrongAtkState(_player));
+            _player.EvasionStop();
+            
         }
     }
 }
@@ -162,19 +167,25 @@ public class Atk1State : StateBase
     public override void EnterState()
     {
         _player.animator.SetTrigger("Atk1");
+        _player.CallCollider(AtkCollider.Atk1);
     }
     public override void ExitState()
     {
-        
         iscombo = false;
-        
     }
     public override void OnInput(KeyName InputName)
     {
-        if(InputName == KeyName.X)
+        switch (InputName)
         {
-            iscombo = true;
+            case KeyName.X:
+                iscombo = true;
+                break;
+            case KeyName.Z:
+                _player.animator.SetTrigger("Stop");
+                _player.ChangeState(new EvasionState(_player));
+                break;
         }
+
     }
     public override void OnAnimationComplete(string animationName)
     {
@@ -204,7 +215,7 @@ public class Atk2State : StateBase
     public override void EnterState()
     {
         _player.animator.SetTrigger("Atk2");
-        
+        _player.CallCollider(AtkCollider.Atk2);
     }
     public override void ExitState()
     {
@@ -214,9 +225,15 @@ public class Atk2State : StateBase
     }
     public override void OnInput(KeyName InputName)
     {
-        if (InputName == KeyName.X)
+        switch (InputName)
         {
-            iscombo = true;
+            case KeyName.X:
+                iscombo = true;
+                break;
+            case KeyName.Z:
+                _player.animator.SetTrigger("Stop");
+                _player.ChangeState(new EvasionState(_player));
+                break;
         }
     }
     public override void OnAnimationComplete(string animationName)
@@ -249,6 +266,7 @@ public class Atk3State : StateBase
     public override void EnterState()
     {
         _player.animator.SetTrigger("Atk3");
+        _player.CallCollider(AtkCollider.Atk3);
     }
     public override void ExitState()
     {
@@ -256,7 +274,13 @@ public class Atk3State : StateBase
     }
     public override void OnInput(KeyName InputName)
     {
-
+        switch (InputName)
+        {
+            case KeyName.Z:
+                _player.animator.SetTrigger("Stop");
+                _player.ChangeState(new EvasionState(_player));
+                break;
+        }
     }
     public override void OnAnimationComplete(string animationName)
     {
@@ -277,11 +301,12 @@ public class StrongAtkState : StateBase
 
     public override void EnterState()
     {
-        _player.animator.SetTrigger("StrongAtk");
+        _player.animator.SetTrigger("Strong");
+        _player.CallCollider(AtkCollider.StrongAtk);
     }
     public override void ExitState()
     {
-
+        
     }
     public override void OnAnimationComplete(string animationName)
     {

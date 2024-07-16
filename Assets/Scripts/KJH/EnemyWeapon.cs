@@ -12,6 +12,9 @@ public class EnemyWeapon : MonoBehaviour
 {
     [Header("투사체 종류 필드")]
     [SerializeField] GameObject Prefab_Projectile;
+    [Header("증강 탄환 매개 변수 필드")]
+    [SerializeField] float size_IncreasePercent_PerSec = 33;
+    [SerializeField] float size_MaxPercent = 200;
 
     [Header("발사 타입 필드")]
     [SerializeField] ProjectionType projectionType;
@@ -93,7 +96,7 @@ public class EnemyWeapon : MonoBehaviour
         GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile);
 
         Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * speed_Projectile;
-        obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector);
+        obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector, size_IncreasePercent_PerSec, size_MaxPercent);
     }
     void Fire_ShotGun(Vector3 target)
     {
@@ -108,7 +111,7 @@ public class EnemyWeapon : MonoBehaviour
             Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * randomProjecitonVelocity;
             projectionVector = angle * projectionVector;
 
-            obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector);
+            obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector, size_IncreasePercent_PerSec, size_MaxPercent);
         }
     }
     void Fire_Scatter(Vector3 target)
@@ -124,7 +127,7 @@ public class EnemyWeapon : MonoBehaviour
             Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * speed_Projectile;
             projectionVector = angle * projectionVector;
 
-            obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector);
+            obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector, size_IncreasePercent_PerSec, size_MaxPercent);
         }
     }
     void Fire_Sniping(Vector3 targetPos)

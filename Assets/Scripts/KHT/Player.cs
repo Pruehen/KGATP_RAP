@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
     [Range(0f, 5f)] [SerializeField] float specialinvincible = 3f;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
-    //.
 
     Action OnZClick;
     Action OnXClick;
@@ -84,7 +83,7 @@ public class Player : MonoBehaviour
         OnXClick += OnClick_X;
         SkillGauge_Max = 100;
         SkillGauge_RecoverySec = 1;
-
+        Hp = 4;
         MoveSpeed = 10f;
         evasion_duration = 0.5f;
         evasion_coolTime = 1.5f;
@@ -385,7 +384,7 @@ public class Player : MonoBehaviour
         SkillGauge += 10;
     }
 
-
+    //무적 시작 코루틴
     private void StartInvincible(float time)
     {
         if(invincibleCoroutine != null)

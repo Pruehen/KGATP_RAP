@@ -20,11 +20,11 @@ public class PlayerSkillProjectile : MonoBehaviour
         _effect = EffectManager.Instance.EffectGenerate(Prefab_Effect, this.transform);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        _lifeTime += Time.fixedDeltaTime;
+        _lifeTime += Time.deltaTime;
 
-        if (_lifeTime > 1)
+        if (_lifeTime > 0.5f)
         {
             DestroyObject();
         }

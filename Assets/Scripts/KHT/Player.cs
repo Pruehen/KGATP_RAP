@@ -9,18 +9,22 @@ public class Player : MonoBehaviour
 {
     public static Player Instance;
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
+    [Header("회피")]
     [Range(0.1f, 5f)][SerializeField] float evasion_duration;
     [Range(0f, 5f)][SerializeField] float evasion_coolTime = 1;
     [Range(0f, 100f)][SerializeField] float evasion_Velocity = 30;
     [Range(0f, 5f)][SerializeField] float evasion_delay = 0.5f;
+    [Header("공격시간")]
     [Range(0f, 1f)][SerializeField] float atkcollider_active = 0.2f;
     [Range(0f, 1f)][SerializeField] float atk1delay_second = 0.1f;
     [Range(0f, 1f)][SerializeField] float atk2delay_second = 0.1f;
     [Range(0f, 1f)][SerializeField] float atk3delay_second = 0.3f;
     [Range(0f, 1f)][SerializeField] float parrydelay_second;
+    [Header("무적시간")]
     [Range(0f, 5f)] [SerializeField] float damagedinvincible = 1f;
     [Range(0f, 5f)] [SerializeField] float parryinvincible = 2f;
     [Range(0f, 5f)] [SerializeField] float specialinvincible = 3f;
+
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
 
@@ -51,7 +55,7 @@ public class Player : MonoBehaviour
     public float Damagedinvincible { get { return damagedinvincible; } }
     float evasion_coolTimeValue;
     bool isEvading;
-
+    [Header("공격콜리더")]
     [SerializeField] GameObject Atk1Collider;
     [SerializeField] GameObject Atk2Collider;
     [SerializeField] GameObject Atk3Collider;
@@ -67,10 +71,12 @@ public class Player : MonoBehaviour
     private Coroutine invincibleCoroutine;
 
     bool IsInvincible = false;
-
+    [Header("스킬스크립트")]
     [SerializeField] kjh.PlayerSkill_Parrying playerSkill1;
     [SerializeField] kjh.PlayerSkill_Special playerSkill2;
 
+    [Header("카메라 이벤트")]
+    [SerializeField] CameraZoom camera;
     private void Awake()
     {
         Instance = this;
@@ -329,6 +335,7 @@ public class Player : MonoBehaviour
     //스페셜어택
     public void SpecialAttack()
     {
+        camera.StartZoomIn();
         StartInvincible(specialinvincible);
         //SkillGauge = 0;
 
@@ -410,6 +417,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         playerSkill2.Command_Special();
+        camera.StartZoomOut();
     }
 
 }

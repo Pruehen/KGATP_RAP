@@ -13,17 +13,16 @@ public class CameraZoom : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] float zoomInFovLimit;
     [SerializeField] float zoomOutFovLimit;
-
     [Header("Zoom In Parameter")]
     [SerializeField][Range(0.1f, 5)] float zoomInTime;
     [SerializeField] ZoomType zoomInType;
-    [SerializeField][Range(2, 30)] float fastSlowInForce;
+    [SerializeField][Range(2, 100)] float fastSlowInForce;
     [SerializeField][Range(2, 10)] float slowFastInForce;
 
     [Header("Zoom Out Parameter")]
     [SerializeField][Range(0.1f, 5)] float zoomOutTime;
     [SerializeField] ZoomType zoomOutType;
-    [SerializeField][Range(2, 30)] float fastSlowOutForce;
+    [SerializeField][Range(2, 100)] float fastSlowOutForce;
     [SerializeField][Range(2, 10)] float slowFastOutForce;
 
     private Coroutine zoomCoroutine;
@@ -79,7 +78,7 @@ public class CameraZoom : MonoBehaviour
         }
     }
 
-    private void StartZoomIn()
+    public void StartZoomIn()
     {
         if(zoomCoroutine != null)
         {
@@ -132,7 +131,7 @@ public class CameraZoom : MonoBehaviour
         cam.fieldOfView = zoomInFovLimit; // Ensure it reaches the exact limit at the end
     }
 
-    private void StartZoomOut()
+    public void StartZoomOut()
     {
         if(zoomCoroutine != null)
         {

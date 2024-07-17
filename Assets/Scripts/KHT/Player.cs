@@ -90,6 +90,9 @@ public class Player : MonoBehaviour
         evasion_coolTime = 1.5f;
         isEvading = false;
 
+        Hp = 4;
+        Atk = 1;
+
         ChangeState(new IdleState(this));
 
         SkillGauge = 100;

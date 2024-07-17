@@ -131,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57a54dcfaa83f52488837eb60a9db0f3
-      internalID: -2033037301
+      spriteID: 351376bc26373ba40bf734e0d047d1d5
+      internalID: -440189984
       vertices: []
       indices: 
       edges: []
@@ -152,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d364623203eec72458083c5e457654a0
-      internalID: 1437636612
+      spriteID: f2197bb165e2c7548a44a1b1b0584c6a
+      internalID: 1379215566
       vertices: []
       indices: 
       edges: []
@@ -173,8 +173,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3640b7172a851bd4494ebe8e60cc0e76
-      internalID: -481321481
+      spriteID: 85cf3619eafd9d945b8d64a667a99403
+      internalID: 76359065
       vertices: []
       indices: 
       edges: []
@@ -194,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e08084147e597ae4683c088f2e6ad9f5
-      internalID: 1002393917
+      spriteID: 9e640e57a51c5434f83bf630781e68c2
+      internalID: -1083864101
       vertices: []
       indices: 
       edges: []
@@ -203,7 +203,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 49a8a47060de1f2438942f90158876a7
+    spriteID: ba2676e7ec35e3f4383083730949c1f4
     internalID: 0
     vertices: []
     indices: 
@@ -211,10 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      "UI_\uAC8C\uC784\uC885\uB8CC \uBC84\uD2BC_0": -2033037301
-      "UI_\uAC8C\uC784\uC885\uB8CC \uBC84\uD2BC_1": 1437636612
-      "UI_\uAC8C\uC784\uC885\uB8CC \uBC84\uD2BC_2": -481321481
-      "UI_\uAC8C\uC784\uC885\uB8CC \uBC84\uD2BC_3": 1002393917
+      "UI_\uAC8C\uC784\uC885\uB8CC \uBC84\uD2BC_0": -440189984
+      "UI_\uAC8C\uC784\uC885\uB8CC \uBC84\uD2BC_1": 1379215566
+      "UI_\uAC8C\uC784\uC885\uB8CC \uBC84\uD2BC_2": 76359065
+      "UI_\uAC8C\uC784\uC885\uB8CC \uBC84\uD2BC_3": -1083864101
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

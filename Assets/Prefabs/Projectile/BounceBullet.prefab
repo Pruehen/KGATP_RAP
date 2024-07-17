@@ -130,4 +130,4 @@ MonoBehaviour:
   bulletSize: 0
   isCanParry: 1
   Prefab_DestroyEffect: {fileID: 1329845292236604, guid: 3e007ffa39b58a5468e10616bc8f605b, type: 3}
-  bounce_num: 3
+  bounce_num: 2

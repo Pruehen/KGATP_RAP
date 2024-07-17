@@ -9,15 +9,15 @@ public class Player : MonoBehaviour
 {
     public static Player Instance;
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
-    [Range(0.1f, 5f)] [SerializeField] float evasion_duration;
-    [Range(0f, 5f)] [SerializeField] float evasion_coolTime = 1;
-    [Range(0f, 100f)] [SerializeField] float evasion_Velocity = 30;
-    [Range(0f, 5f)] [SerializeField] float evasion_delay = 0.5f;
-    [Range(0f, 1f)] [SerializeField] float atkcollider_active = 0.5f;
-    [Range(0f, 1f)] [SerializeField] float atk1delay_second = 0.1f;
-    [Range(0f, 1f)] [SerializeField] float atk2delay_second = 0.1f;
-    [Range(0f, 1f)] [SerializeField] float atk3delay_second = 0.3f;
-    [Range(0f, 1f)] [SerializeField] float parrydelay_second;
+    [Range(0.1f, 5f)][SerializeField] float evasion_duration;
+    [Range(0f, 5f)][SerializeField] float evasion_coolTime = 1;
+    [Range(0f, 100f)][SerializeField] float evasion_Velocity = 30;
+    [Range(0f, 5f)][SerializeField] float evasion_delay = 0.5f;
+    [Range(0f, 1f)][SerializeField] float atkcollider_active = 0.2f;
+    [Range(0f, 1f)][SerializeField] float atk1delay_second = 0.1f;
+    [Range(0f, 1f)][SerializeField] float atk2delay_second = 0.1f;
+    [Range(0f, 1f)][SerializeField] float atk3delay_second = 0.3f;
+    [Range(0f, 1f)][SerializeField] float parrydelay_second;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
 
@@ -101,9 +101,6 @@ public class Player : MonoBehaviour
         InputCheck_OnUpdate_Test();
         EvasionCoolTime_OnUpdate();
         MoveCheck_OnUpdate();
-
-
-
         GaugeRecovery_OnUpdate();
     }
     //스킬 게이지 업데이트
@@ -137,7 +134,7 @@ public class Player : MonoBehaviour
     //이동 및 캐릭터 회전
     public void Move()
     {
-        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
+        _rigidbody.velocity = Vector3.ClampMagnitude(new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y), MoveSpeed);
         if (_moveCommandVector != Vector2.zero)
         {
             float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
@@ -160,7 +157,7 @@ public class Player : MonoBehaviour
         Hp -= dmg;
         OnHit?.Invoke();
         OnHpChange?.Invoke(Hp);
-        if(Hp <= 0)
+        if (Hp <= 0)
         {
             Dead();
         }
@@ -221,14 +218,14 @@ public class Player : MonoBehaviour
     void OnClick_Z()
     {
         Debug.Log("Z 버튼 클릭");
-        _curState.OnInput(KeyName.Z);
+
 
         if (evasion_coolTimeValue <= 0)
         {
-            evasion_coolTimeValue = evasion_coolTime;            
+            _curState.OnInput(KeyName.Z);
+            evasion_coolTimeValue = evasion_coolTime;
         }
     }
-
 
     //회피 코루틴 시작 함수
     public void EvasionStart()
@@ -265,7 +262,7 @@ public class Player : MonoBehaviour
 
         float elapsedTime = 0f;
 
-        while(elapsedTime < evasion_duration)
+        while (elapsedTime < evasion_duration)
         {
             if (!isEvading) yield break;
             _rigidbody.velocity = this.transform.forward * evasion_Velocity;
@@ -282,14 +279,14 @@ public class Player : MonoBehaviour
     //플레이어 상태변경
     public void ChangeState(IState newState)
     {
-        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State || _curState is StrongAtkState|| _curState is EvasionState||_curState is EvasionDelayState|| _curState is SpecialAtkState) && newState is MoveState)
+        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State || _curState is StrongAtkState || _curState is EvasionState || _curState is EvasionDelayState || _curState is SpecialAtkState) && newState is MoveState)
         {
- 
+
             return;
         }
         _curState?.ExitState();
         _curState = newState;
-        //Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
+        Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
         _curState.EnterState();
     }
 
@@ -304,7 +301,7 @@ public class Player : MonoBehaviour
     {
         return moveInput;
     }
-    
+
     //회피 딜레이 시작 함수
     public void Delay()
     {
@@ -336,16 +333,16 @@ public class Player : MonoBehaviour
     //공격 코루틴 호출 함수
     public void CallCollider(AtkCollider col)
     {
-        
+
         if (atkCoroutine != null)
         {
             StopCoroutine(atkCoroutine);
         }
 
-        switch(col)
+        switch (col)
         {
             case AtkCollider.Atk1:
-                atkCoroutine = StartCoroutine(ActiveCollider(Atk1Collider,atk1delay_second));
+                atkCoroutine = StartCoroutine(ActiveCollider(Atk1Collider, atk1delay_second));
                 break;
 
             case AtkCollider.Atk2:
@@ -357,15 +354,15 @@ public class Player : MonoBehaviour
                 break;
 
             case AtkCollider.StrongAtk:
-                atkCoroutine = StartCoroutine(ActiveCollider(StrongAtkCollider,0f));
-                StartCoroutine(ActiveCollider(ParryCollider,parrydelay_second));
+                atkCoroutine = StartCoroutine(ActiveCollider(StrongAtkCollider, 0f));
+                StartCoroutine(ActiveCollider(ParryCollider, parrydelay_second));
                 break;
         }
-        
+
     }
 
     //공격 콜리더 활성,비활성화 코루틴
-    private IEnumerator ActiveCollider (GameObject collider , float second)
+    private IEnumerator ActiveCollider(GameObject collider, float second)
     {
         yield return new WaitForSeconds(second);
         collider.SetActive(true);
@@ -373,7 +370,12 @@ public class Player : MonoBehaviour
         collider.SetActive(false);
     }
 
-  
+    public void OnParrying()
+    {
+        evasion_coolTimeValue = 0;
+        SkillGauge += 10;
+    }
+
 }
 public enum AtkCollider
 {

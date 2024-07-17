@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [Range(0f, 5f)] [SerializeField] float evasion_coolTime = 1;
     [Range(0f, 100f)] [SerializeField] float evasion_Velocity = 30;
     [Range(0f, 5f)] [SerializeField] float evasion_delay = 0.5f;
-    [Range(0f, 1f)] [SerializeField] float atkcollider_active = 0.5f;
+    [Range(0f, 1f)] [SerializeField] float atkcollider_active = 0.2f;
     [Range(0f, 1f)] [SerializeField] float atk1delay_second = 0.1f;
     [Range(0f, 1f)] [SerializeField] float atk2delay_second = 0.1f;
     [Range(0f, 1f)] [SerializeField] float atk3delay_second = 0.3f;
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
     private Coroutine atkCoroutine;
 
     public float lastDamagedTime;
-    [SerializeField] float invincibleTime =2;
+    public float invincibleTime;
     public bool IsDamagedInvincible
     {
         get { return Time.time <= lastDamagedTime + invincibleTime; }
@@ -84,9 +84,6 @@ public class Player : MonoBehaviour
         SkillGauge_Max = 100;
         SkillGauge_RecoverySec = 1;
 
-        Hp = 4;
-        Atk = 1;
-
         MoveSpeed = 10f;
         evasion_duration = 0.5f;
         evasion_coolTime = 1.5f;
@@ -104,8 +101,6 @@ public class Player : MonoBehaviour
         InputCheck_OnUpdate_Test();
         EvasionCoolTime_OnUpdate();
         MoveCheck_OnUpdate();
-
-
         GaugeRecovery_OnUpdate();
     }
     //스킬 게이지 업데이트
@@ -139,7 +134,7 @@ public class Player : MonoBehaviour
     //이동 및 캐릭터 회전
     public void Move()
     {
-        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
+        _rigidbody.velocity = Vector3.ClampMagnitude(new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y),MoveSpeed);
         if (_moveCommandVector != Vector2.zero)
         {
             float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
@@ -154,6 +149,7 @@ public class Player : MonoBehaviour
     {
         if (IsDamagedInvincible) { Debug.Log("피격무적"); return; }
         lastDamagedTime = Time.time;
+        invincibleTime = 8;
         Debug.Log("데미지");
         BlinkEffect blinkEffect = GetComponent<BlinkEffect>();
         if (blinkEffect != null) { blinkEffect.StartBlinking(); }
@@ -221,7 +217,8 @@ public class Player : MonoBehaviour
 
     void OnClick_Z()
     {
-        Debug.Log("Z 버튼 클릭");       
+        Debug.Log("Z 버튼 클릭");
+        
 
         if (evasion_coolTimeValue <= 0)
         {
@@ -229,7 +226,6 @@ public class Player : MonoBehaviour
             evasion_coolTimeValue = evasion_coolTime;            
         }
     }
-
 
     //회피 코루틴 시작 함수
     public void EvasionStart()
@@ -290,7 +286,7 @@ public class Player : MonoBehaviour
         }
         _curState?.ExitState();
         _curState = newState;
-        //Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
+        Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
         _curState.EnterState();
     }
 
@@ -374,6 +370,11 @@ public class Player : MonoBehaviour
         collider.SetActive(false);
     }
 
+    public void OnParrying()
+    {
+        evasion_coolTimeValue = 0;
+        SkillGauge += 10;
+    }
   
 }
 public enum AtkCollider

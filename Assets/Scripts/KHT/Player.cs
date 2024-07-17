@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     [Range(0f, 5f)] [SerializeField] float Specialinvincible = 3f;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
+    //.
 
     Action OnZClick;
     Action OnXClick;

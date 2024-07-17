@@ -517,7 +517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4915034530468834518, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5103835942589250322, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
       propertyPath: m_RootOrder
@@ -636,15 +636,17 @@ MonoBehaviour:
   atk2delay_second: 0.1
   atk3delay_second: 0.3
   parrydelay_second: 0
+  Damagedinvincible: 1
+  Parryinvincible: 2
+  Specialinvincible: 3
   Atk1Collider: {fileID: 876178377}
   Atk2Collider: {fileID: 0}
   Atk3Collider: {fileID: 0}
   StrongAtkCollider: {fileID: 0}
   ParryCollider: {fileID: 0}
   animator: {fileID: 2645199430765780812}
-  lastDamagedTime: 0
-  invincibleTime: 0
-  Text_TemporalState: {fileID: 633607368}
+  playerSkill1: {fileID: 0}
+  playerSkill2: {fileID: 0}
 --- !u!1001 &393265294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -702,7 +704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3041262898025056512, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
@@ -1360,7 +1362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5107384110790540597, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9210854646572882584, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
       propertyPath: coolTime
@@ -2050,7 +2052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5776407243901140310, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
@@ -2618,13 +2620,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 431974356, guid: 0530dd090a50a30449171369246ddf09, type: 3}
-      propertyPath: playerSkill
-      value: 
-      objectReference: {fileID: 3905946832639902589}
-    - target: {fileID: 2731288486051801702, guid: 0530dd090a50a30449171369246ddf09, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 3128002920605841333, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: Angle
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128002920605841333, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: Spread
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4927285410447590986, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: m_RootOrder
@@ -2678,21 +2680,5 @@ PrefabInstance:
       propertyPath: Text_TemporalState
       value: 
       objectReference: {fileID: 633607368}
-    - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
-      propertyPath: atkcollider_active
-      value: 0.2
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8964095351353133428, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0530dd090a50a30449171369246ddf09, type: 3}
---- !u!114 &3905946832639902589 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1984842105640441598, guid: 0530dd090a50a30449171369246ddf09, type: 3}
-  m_PrefabInstance: {fileID: 3905946832639902588}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77f96893293043b47958735be9210525, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

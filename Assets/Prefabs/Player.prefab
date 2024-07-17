@@ -1598,6 +1598,7 @@ GameObject:
   - component: {fileID: 8727517195234549648}
   - component: {fileID: 1984842105640441598}
   - component: {fileID: 3128002920605841333}
+  - component: {fileID: 2645199430765780823}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1680,17 +1681,18 @@ MonoBehaviour:
   atk2delay_second: 0
   atk3delay_second: 0.5
   parrydelay_second: 0
+  damagedinvincible: 1
+  parryinvincible: 2
+  specialinvincible: 3
   Atk1Collider: {fileID: 3905946832842860725}
   Atk2Collider: {fileID: 3491049626766301755}
   Atk3Collider: {fileID: 1085277544270441904}
   StrongAtkCollider: {fileID: 1888351480317904424}
   ParryCollider: {fileID: 2731288486051801702}
   animator: {fileID: 1333372447017950256}
-  lastDamagedTime: 0
-  invincibleTime: 0
   playerSkill1: {fileID: 1984842105640441598}
   playerSkill2: {fileID: 3128002920605841333}
-  Text_TemporalState: {fileID: 0}
+  camera: {fileID: 2645199430765780823}
 --- !u!54 &5704630628557905139
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1720,8 +1722,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRenderer: {fileID: 5205084366535511669}
-  blinkDuration: 1
   blinkInterval: 0.1
+  player: {fileID: 5704630628557905138}
 --- !u!114 &1984842105640441598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1751,9 +1753,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab_SkillProjectile: {fileID: 3030702589660419527, guid: f9189760a376578429a01f38204ba427, type: 3}
-  Spread: 10
-  Angle: 60
+  Spread: 7
+  Angle: 180
   Velocity: 60
+--- !u!114 &2645199430765780823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704630628557905136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4792c00b4c7a04d429e62bb8f0d71674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  zoomInFovLimit: 10
+  zoomOutFovLimit: 0
+  zoomInTime: 1
+  zoomInType: 0
+  fastSlowInForce: 100
+  slowFastInForce: 0
+  zoomOutTime: 1
+  zoomOutType: 0
+  fastSlowOutForce: 100
+  slowFastOutForce: 0
 --- !u!1 &5872398983355143756
 GameObject:
   m_ObjectHideFlags: 0

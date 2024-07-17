@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5704630628557905138}
-  playerSkill: {fileID: 8964095351353133428}
+  playerSkill: {fileID: 1984842105640441598}
 --- !u!1 &2882643753329370188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,8 +1595,9 @@ GameObject:
   - component: {fileID: 5704630628557905137}
   - component: {fileID: 5704630628557905138}
   - component: {fileID: 5704630628557905139}
-  - component: {fileID: 8964095351353133428}
   - component: {fileID: 8727517195234549648}
+  - component: {fileID: 1984842105640441598}
+  - component: {fileID: 3128002920605841333}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1674,7 +1675,7 @@ MonoBehaviour:
   evasion_coolTime: 0
   evasion_Velocity: 20
   evasion_delay: 0
-  atkcollider_active: 0.5
+  atkcollider_active: 0.2
   atk1delay_second: 0
   atk2delay_second: 0
   atk3delay_second: 0.5
@@ -1687,6 +1688,8 @@ MonoBehaviour:
   animator: {fileID: 1333372447017950256}
   lastDamagedTime: 0
   invincibleTime: 0
+  playerSkill1: {fileID: 1984842105640441598}
+  playerSkill2: {fileID: 3128002920605841333}
   Text_TemporalState: {fileID: 0}
 --- !u!54 &5704630628557905139
 Rigidbody:
@@ -1704,22 +1707,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &8964095351353133428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5704630628557905136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94e38fb5485821f46a3e6b5a3ceb27f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab_SkillProjectile: {fileID: 3030702589660419527, guid: 1df281b29ce32334eb119e9ed7bc0b6c, type: 3}
-  Spread: 10
-  Angle: 30
-  Velocity: 30
 --- !u!114 &8727517195234549648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1735,6 +1722,38 @@ MonoBehaviour:
   playerRenderer: {fileID: 5205084366535511669}
   blinkDuration: 1
   blinkInterval: 0.1
+--- !u!114 &1984842105640441598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704630628557905136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f96893293043b47958735be9210525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab_SkillProjectile: {fileID: 3030702589660419527, guid: 1df281b29ce32334eb119e9ed7bc0b6c, type: 3}
+  Spread: 10
+  Angle: 30
+  Velocity: 30
+--- !u!114 &3128002920605841333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704630628557905136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82e8d82abe2282342b8e4d07980b53a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab_SkillProjectile: {fileID: 3030702589660419527, guid: f9189760a376578429a01f38204ba427, type: 3}
+  Spread: 10
+  Angle: 60
+  Velocity: 60
 --- !u!1 &5872398983355143756
 GameObject:
   m_ObjectHideFlags: 0

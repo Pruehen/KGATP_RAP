@@ -18,8 +18,12 @@ public class Player : MonoBehaviour
     [Range(0f, 1f)][SerializeField] float atk2delay_second = 0.1f;
     [Range(0f, 1f)][SerializeField] float atk3delay_second = 0.3f;
     [Range(0f, 1f)][SerializeField] float parrydelay_second;
+    [Range(0f, 5f)][SerializeField] float Damagedinvincible = 1f;
+    [Range(0f, 5f)][SerializeField] float Parryinvincible = 2f;
+    [Range(0f, 5f)][SerializeField] float Specialinvincible = 3f;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
+    //.
 
     Action OnZClick;
     Action OnXClick;
@@ -61,15 +65,12 @@ public class Player : MonoBehaviour
 
     private Coroutine evasionCoroutine;
     private Coroutine atkCoroutine;
+    private Coroutine invincibleCoroutine;
 
-    public float lastDamagedTime;
-    public float invincibleTime;
-    public bool IsDamagedInvincible
-    {
-        get { return Time.time <= lastDamagedTime + invincibleTime; }
-    }
+    bool IsInvincible = false;
 
-    [SerializeField] Text Text_TemporalState;
+    [SerializeField] kjh.PlayerSkill_Parrying playerSkill1;
+    [SerializeField] kjh.PlayerSkill_Special playerSkill2;
 
     private void Awake()
     {
@@ -89,7 +90,12 @@ public class Player : MonoBehaviour
         evasion_coolTime = 1.5f;
         isEvading = false;
 
+        Hp = 4;
+        Atk = 1;
+
         ChangeState(new IdleState(this));
+
+        SkillGauge = 100;
     }
 
 
@@ -147,9 +153,9 @@ public class Player : MonoBehaviour
     /// <param name="dmg"></param>
     public void Hit(int dmg)
     {
-        if (IsDamagedInvincible) { Debug.Log("피격무적"); return; }
-        lastDamagedTime = Time.time;
-        invincibleTime = 8;
+        if (IsInvincible) { Debug.Log("무적"); return; }
+        StartInvincible(Damagedinvincible);
+
         Debug.Log("데미지");
         BlinkEffect blinkEffect = GetComponent<BlinkEffect>();
         if (blinkEffect != null) { blinkEffect.StartBlinking(); }
@@ -241,6 +247,7 @@ public class Player : MonoBehaviour
         }
         evasionCoroutine = StartCoroutine(EvasionCoroutine());
     }
+    //회피 정지
     public void EvasionStop()
     {
         if (evasionCoroutine != null)
@@ -286,7 +293,6 @@ public class Player : MonoBehaviour
         }
         _curState?.ExitState();
         _curState = newState;
-        Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
         _curState.EnterState();
     }
 
@@ -327,7 +333,10 @@ public class Player : MonoBehaviour
     //스페셜어택 게이지 초기화
     public void SpecialAttack()
     {
-        SkillGauge = 0;
+        StartInvincible(Specialinvincible);
+        IsInvincible = true;
+        playerSkill2.Command_Special();
+        //SkillGauge = 0;
     }
 
     //공격 코루틴 호출 함수
@@ -370,10 +379,36 @@ public class Player : MonoBehaviour
         collider.SetActive(false);
     }
 
+    //패리
     public void OnParrying()
     {
+        StartInvincible(Parryinvincible);
+        playerSkill1.Command_Parrying();
         evasion_coolTimeValue = 0;
         SkillGauge += 10;
+    }
+
+
+    private void StartInvincible(float time)
+    {
+        if (invincibleCoroutine != null)
+        {
+            StopCoroutine(invincibleCoroutine);
+            invincibleCoroutine = StartCoroutine(InvincibleMode(time));
+        }
+        else
+        {
+            invincibleCoroutine = StartCoroutine(InvincibleMode(time));
+        }
+    }
+    //무적 코루틴
+    private IEnumerator InvincibleMode(float time)
+    {
+        Debug.Log($"무적시작, {time} 초");
+        IsInvincible = true;
+        yield return new WaitForSeconds(time);
+        IsInvincible = false;
+        Debug.Log("무적끝");
     }
 
 }

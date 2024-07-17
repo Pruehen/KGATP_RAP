@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [Range(0f, 5f)] [SerializeField] float evasion_coolTime = 1;
     [Range(0f, 100f)] [SerializeField] float evasion_Velocity = 30;
     [Range(0f, 5f)] [SerializeField] float evasion_delay = 0.5f;
-    [Range(0f, 1f)] [SerializeField] float atkcollider_active = 0.2f;
+    [Range(0f, 1f)] [SerializeField] float atkcollider_active = 0.5f;
     [Range(0f, 1f)] [SerializeField] float atk1delay_second = 0.1f;
     [Range(0f, 1f)] [SerializeField] float atk2delay_second = 0.1f;
     [Range(0f, 1f)] [SerializeField] float atk3delay_second = 0.3f;
@@ -101,6 +101,9 @@ public class Player : MonoBehaviour
         InputCheck_OnUpdate_Test();
         EvasionCoolTime_OnUpdate();
         MoveCheck_OnUpdate();
+
+
+
         GaugeRecovery_OnUpdate();
     }
     //스킬 게이지 업데이트
@@ -134,7 +137,7 @@ public class Player : MonoBehaviour
     //이동 및 캐릭터 회전
     public void Move()
     {
-        _rigidbody.velocity = Vector3.ClampMagnitude(new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y),MoveSpeed);
+        _rigidbody.velocity = new Vector3(_moveCommandVector.x, 0, _moveCommandVector.y);
         if (_moveCommandVector != Vector2.zero)
         {
             float targetAngle = Mathf.Atan2(_moveCommandVector.x, _moveCommandVector.y) * Mathf.Rad2Deg;
@@ -218,14 +221,14 @@ public class Player : MonoBehaviour
     void OnClick_Z()
     {
         Debug.Log("Z 버튼 클릭");
-        
+        _curState.OnInput(KeyName.Z);
 
         if (evasion_coolTimeValue <= 0)
         {
-            _curState.OnInput(KeyName.Z);
             evasion_coolTimeValue = evasion_coolTime;            
         }
     }
+
 
     //회피 코루틴 시작 함수
     public void EvasionStart()
@@ -286,7 +289,7 @@ public class Player : MonoBehaviour
         }
         _curState?.ExitState();
         _curState = newState;
-        Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
+        //Text_TemporalState.text = _curState.ToString(); //스테이트 체크용 디버그 텍스트.
         _curState.EnterState();
     }
 
@@ -370,11 +373,6 @@ public class Player : MonoBehaviour
         collider.SetActive(false);
     }
 
-    public void OnParrying()
-    {
-        evasion_coolTimeValue = 0;
-        SkillGauge += 10;
-    }
   
 }
 public enum AtkCollider

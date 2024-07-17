@@ -12,5 +12,10 @@ public class Atk2Collider : MonoBehaviour
             enemy.Hit(atk);
             Debug.Log("¶§¸²2");
         }
+        else if (other.TryGetComponent(out DestroybleObject obj))
+        {
+            obj.Hit(atk);
+            Debug.Log("obj");
+        }
     }
 }

@@ -14,5 +14,10 @@ public class Atk3Collider : MonoBehaviour
             enemy.Stun(stun);
             Debug.Log("¶§¸²3");
         }
+        else if (other.TryGetComponent(out DestroybleObject obj))
+        {
+            obj.Hit(atk);
+            Debug.Log("obj");
+        }
     }
 }

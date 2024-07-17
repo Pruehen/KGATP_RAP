@@ -14,5 +14,10 @@ public class StrongAtkCollider : MonoBehaviour
             enemy.Stun(stun);
             Debug.Log("½ê°Ô¶§¸²");
         }
+        else if (other.TryGetComponent(out DestroybleObject obj))
+        {
+            obj.Hit(2);
+            Debug.Log("obj");
+        }
     }
 }

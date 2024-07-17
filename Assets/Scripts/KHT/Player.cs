@@ -288,7 +288,7 @@ public class Player : MonoBehaviour
     //플레이어 상태변경
     public void ChangeState(IState newState)
     {
-        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State || _curState is StrongAtkState || _curState is EvasionState || _curState is EvasionDelayState || _curState is SpecialAtkState) && newState is MoveState)
+        if ((_curState is SpecialAtkState || _curState is Atk1State || _curState is Atk2State || _curState is Atk3State || _curState is StrongAtkState || _curState is EvasionState || _curState is EvasionDelayState || _curState is SpecialAtkState) && newState is MoveState)
         {
 
             return;
@@ -308,6 +308,11 @@ public class Player : MonoBehaviour
     public Vector2 GetMoveInput()
     {
         return moveInput;
+    }
+
+    public void StopPlayer()
+    {
+        _rigidbody.velocity = Vector2.zero;
     }
 
     //회피 딜레이 시작 함수
@@ -337,7 +342,7 @@ public class Player : MonoBehaviour
     {
         camera.StartZoomIn();
         StartInvincible(specialinvincible);
-        //SkillGauge = 0;
+        SkillGauge = 0;
 
         StartCoroutine(SpecialDelay());
     }
@@ -388,6 +393,7 @@ public class Player : MonoBehaviour
         StartInvincible(parryinvincible);
         playerSkill1.Command_Parrying();
         evasion_coolTimeValue = 0;
+        OnEvasionGaugeChange?.Invoke(evasion_coolTimeValue / evasion_coolTime);
         SkillGauge += 10;
     }
 

@@ -108,10 +108,10 @@ TextureImporter:
       name: "UI_PC\uCCB4\uB825_0"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 540
-        width: 1920
-        height: 540
+        x: 775
+        y: 649
+        width: 311
+        height: 309
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -129,10 +129,10 @@ TextureImporter:
       name: "UI_PC\uCCB4\uB825_1"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 540
+        x: 776
+        y: 114
+        width: 304
+        height: 309
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -18,9 +18,9 @@ public class Player : MonoBehaviour
     [Range(0f, 1f)][SerializeField] float atk2delay_second = 0.1f;
     [Range(0f, 1f)][SerializeField] float atk3delay_second = 0.3f;
     [Range(0f, 1f)][SerializeField] float parrydelay_second;
-    [Range(0f, 5f)] [SerializeField] float Damagedinvincible = 1f;
-    [Range(0f, 5f)] [SerializeField] float Parryinvincible = 2f;
-    [Range(0f, 5f)] [SerializeField] float Specialinvincible = 3f;
+    [Range(0f, 5f)] [SerializeField] float damagedinvincible = 1f;
+    [Range(0f, 5f)] [SerializeField] float parryinvincible = 2f;
+    [Range(0f, 5f)] [SerializeField] float specialinvincible = 3f;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
     //.
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     public float SkillGauge { get; private set; }
     public float SkillGauge_Max { get; private set; }
     public float SkillGauge_RecoverySec { get; private set; }
-
+    public float Damagedinvincible { get { return damagedinvincible; } }
     float evasion_coolTimeValue;
     bool isEvading;
 
@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
     public void Hit(int dmg)
     {
         if (IsInvincible) { Debug.Log("무적"); return; }
-        StartInvincible(Damagedinvincible);
+        StartInvincible(damagedinvincible);
 
         Debug.Log("데미지");
         BlinkEffect blinkEffect = GetComponent<BlinkEffect>();
@@ -327,13 +327,13 @@ public class Player : MonoBehaviour
             ChangeLayer(child.gameObject, newLayer);
         }
     }
-    //스페셜어택 게이지 초기화
+    //스페셜어택
     public void SpecialAttack()
     {
-        StartInvincible(Specialinvincible);
-        IsInvincible = true;
-        playerSkill2.Command_Special();
+        StartInvincible(specialinvincible);
         //SkillGauge = 0;
+
+        StartCoroutine(SpecialDelay());
     }
 
     //공격 코루틴 호출 함수
@@ -379,7 +379,7 @@ public class Player : MonoBehaviour
     //패리
     public void OnParrying()
     {
-        StartInvincible(Parryinvincible);
+        StartInvincible(parryinvincible);
         playerSkill1.Command_Parrying();
         evasion_coolTimeValue = 0;
         SkillGauge += 10;
@@ -406,6 +406,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(time);
         IsInvincible = false;
         Debug.Log("무적끝");
+    }
+    private IEnumerator SpecialDelay()
+    {
+        yield return new WaitForSeconds(1);
+        playerSkill2.Command_Special();
     }
 
 }

@@ -636,9 +636,9 @@ MonoBehaviour:
   atk2delay_second: 0.1
   atk3delay_second: 0.3
   parrydelay_second: 0
-  Damagedinvincible: 1
-  Parryinvincible: 2
-  Specialinvincible: 3
+  damagedinvincible: 1
+  parryinvincible: 2
+  specialinvincible: 3
   Atk1Collider: {fileID: 876178377}
   Atk2Collider: {fileID: 0}
   Atk3Collider: {fileID: 0}
@@ -1240,11 +1240,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: coolTime
-      value: 0.35
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5686845201229807378, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: projectionType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2000134890540377022, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: m_RootOrder
@@ -2613,6 +2613,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 1333372447017950256, guid: 0530dd090a50a30449171369246ddf09, type: 3}
   m_PrefabInstance: {fileID: 3905946832639902588}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2645199430765780816 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+  m_PrefabInstance: {fileID: 3905946832639902588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7f83d9251dfdb488a706565d78458e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3905946832639902588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2680,5 +2691,9 @@ PrefabInstance:
       propertyPath: Text_TemporalState
       value: 
       objectReference: {fileID: 633607368}
+    - target: {fileID: 8727517195234549648, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2645199430765780816}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0530dd090a50a30449171369246ddf09, type: 3}

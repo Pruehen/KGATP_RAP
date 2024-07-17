@@ -93,7 +93,7 @@ public class EnemyWeapon : MonoBehaviour
 
     void Fire_Common(Vector3 target)
     {
-        GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile);
+        GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile, Transform_FirePoint.position);
 
         Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * speed_Projectile;
         obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector, size_IncreasePercent_PerSec, size_MaxPercent);
@@ -102,7 +102,7 @@ public class EnemyWeapon : MonoBehaviour
     {
         for (int i = 0; i < projection_ea; i++)
         {
-            GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile);
+            GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile, Transform_FirePoint.position);
 
             float randomProjectionAngle = Random.Range(-projection_Angle * 0.5f, projection_Angle * 0.5f);
             float randomProjecitonVelocity = speed_Projectile * (1 + Random.Range(-projectionSpeed_RandomGain, projectionSpeed_RandomGain));
@@ -118,7 +118,7 @@ public class EnemyWeapon : MonoBehaviour
     {
         for (int i = 0; i < projection_ea; i++)
         {
-            GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile);
+            GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile, Transform_FirePoint.position);
 
             float projectionAngle = ((float)i / (float)projection_ea) * projection_Angle - projection_Angle * 0.5f;
 

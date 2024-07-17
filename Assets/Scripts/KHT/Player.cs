@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     [Range(0f, 1f)][SerializeField] float parrydelay_second;
     Rigidbody _rigidbody;
     Vector2 _moveCommandVector = Vector2.zero;
+    //.
 
     Action OnZClick;
     Action OnXClick;

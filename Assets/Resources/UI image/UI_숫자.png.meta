@@ -101,6 +101,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -108,12 +120,12 @@ TextureImporter:
       name: "UI_\uC22B\uC790_0"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 810
-        width: 1920
-        height: 270
+        x: 8
+        y: 821
+        width: 350
+        height: 259
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -129,12 +141,12 @@ TextureImporter:
       name: "UI_\uC22B\uC790_1"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 540
-        width: 1920
-        height: 270
+        x: 8
+        y: 545
+        width: 350
+        height: 260
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,36 +159,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "UI_\uC22B\uC790_2"
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 270
-        width: 1920
-        height: 270
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 04aaf4bf9184dec419c77bc52f4da100
-      internalID: 1557298294
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: "UI_\uC22B\uC790_3"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 270
+        x: 9
+        y: 280
+        width: 350
+        height: 260
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -184,6 +175,27 @@ TextureImporter:
       bones: []
       spriteID: 503c49d7249ebf242b6d065a98779e9b
       internalID: -1898356584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UI_\uC22B\uC790_4"
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 6
+        width: 350
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c94f93cf227d75640961b8a6a7b9b9f2
+      internalID: -883688236
       vertices: []
       indices: 
       edges: []
@@ -203,6 +215,9 @@ TextureImporter:
       "UI_\uC22B\uC790_1": -986891862
       "UI_\uC22B\uC790_2": 1557298294
       "UI_\uC22B\uC790_3": -1898356584
+      "UI_\uC22B\uC790_4": -883688236
+      "UI_\uC22B\uC790_5": 1430109983
+      "UI_\uC22B\uC790_6": -182201681
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

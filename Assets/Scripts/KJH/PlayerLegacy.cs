@@ -192,7 +192,7 @@ public class PlayerLegacy : MonoBehaviour
     void OnClick_Z()
     {
         Debug.Log("Z 버튼 클릭");
-        if (TryGetComponent(out kjh.PlayerSkill skill))
+        if (TryGetComponent(out kjh.PlayerSkill_Parrying skill))
         {
             skill.Command_Parrying();
         }

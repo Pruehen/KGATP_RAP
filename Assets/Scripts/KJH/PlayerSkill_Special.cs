@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace kjh
 {
-    public class PlayerSkill : MonoBehaviour
+    public class PlayerSkill_Special : MonoBehaviour
     {
         [SerializeField] GameObject Prefab_SkillProjectile;
         [Range(1, 20)][SerializeField] int Spread = 10;
         [Range(0f, 360f)][SerializeField] float Angle = 30;
         [Range(1f, 128f)][SerializeField] float Velocity = 30;        
-        public void Command_Parrying()
+        public void Command_Special()
         {
             for (int i = 0; i <= Angle * 0.5f; i += Spread)
             {                

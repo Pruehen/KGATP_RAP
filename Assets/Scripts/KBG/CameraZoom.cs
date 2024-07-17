@@ -1,3 +1,4 @@
+using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public enum ZoomType
     FastSlow,
     SlowFast
 }
+
 
 public class CameraZoom : MonoBehaviour
 {
@@ -27,6 +29,12 @@ public class CameraZoom : MonoBehaviour
 
     private Coroutine zoomCoroutine;
     private float velocity = 0.0f;
+
+    private void Start()
+    {
+        if(cam == null) { cam = Camera.main; }
+        zoomOutFovLimit = cam.fieldOfView;
+    }
 
 
     //테스트용 나중에 지워야함.

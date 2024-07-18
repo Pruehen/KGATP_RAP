@@ -2879,8 +2879,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRenderer: {fileID: 0}
-  blinkDuration: 2.01
   blinkInterval: 0.1
+  player: {fileID: 0}
 --- !u!114 &419117207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7503,8 +7503,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bce03a07c74b9468c935f3ca0f1dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Trf_Cam: {fileID: 0}
   CamSpeed: 2
   CamDistance: 10
+  CamAngle_X: 45
+  CamAngle_Y: 0
 --- !u!81 &892601304
 AudioListener:
   m_ObjectHideFlags: 0
@@ -10500,7 +10503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7366855522536226669, guid: 3fdcc0203b00c7148ae600e955a64e82, type: 3}
       propertyPath: flyInDuration
-      value: 1
+      value: 0.332
       objectReference: {fileID: 0}
     - target: {fileID: 7366855522536226669, guid: 3fdcc0203b00c7148ae600e955a64e82, type: 3}
       propertyPath: maxImageScale

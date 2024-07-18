@@ -5,13 +5,15 @@ public enum EffectType
 { 
     Explosion,
     BulletDestroy,
-    EnemyDie
+    EnemyDie,
+    Hit
 }
 public class EffectManager : SceneSingleton<EffectManager>
 {
     [SerializeField] GameObject Prefab_ExplosionEffect;
     [SerializeField] GameObject Prefab_BulletDestroyEffect;
     [SerializeField] GameObject Prefab_EnemyDie_Effect;
+    [SerializeField] GameObject Prefab_Hit_Effect;
 
     public void EffectGenerate(GameObject prefab, Vector3 position)
     {
@@ -46,6 +48,9 @@ public class EffectManager : SceneSingleton<EffectManager>
                 break;
             case EffectType.EnemyDie:
                 EffectGenerate(Prefab_EnemyDie_Effect, pos);
+                break;
+            case EffectType.Hit:
+                EffectGenerate(Prefab_Hit_Effect, pos);
                 break;
             default:
                 break;

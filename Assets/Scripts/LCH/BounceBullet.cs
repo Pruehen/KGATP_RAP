@@ -5,16 +5,18 @@ using UnityEngine;
 public class BounceBullet : Bullet
 {
     [SerializeField] int bounce_num;
+    int _bounce_count;
 
     public override void Shoot(Vector3 initPos, Vector3 projectionVector, float value1, float value2)
     {
+        _bounce_count = 0;
         base.Shoot(initPos, projectionVector, value1, value2);
     }
     
     private void OnCollisionEnter(Collision collision)
     {
-        bounce_num--;        
-        if(bounce_num == 0)
+        _bounce_count++;        
+        if(_bounce_count == bounce_num)
         {
             ProjectileDestroy(collision.contacts[0].point);
         }

@@ -11,6 +11,13 @@ public class Atk1Collider : MonoBehaviour
         {
             enemy.Hit(atk);
             Debug.Log("¶§¸²1");
+            Player.Instance.playerSound.Play_AttackSound(1);
+        }
+        else if(other.TryGetComponent(out DestroybleObject obj))
+        {
+            obj.Hit(atk);
+            Debug.Log("obj");
+            Player.Instance.playerSound.Play_AttackSound(1);
         }
     }
 }

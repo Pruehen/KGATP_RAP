@@ -6,14 +6,14 @@ using UnityEngine;
 public static class QueueExtensions
 {
     // 오브젝트 풀에 오브젝트를 추가하는 확장 메서드
-    public static void EnqueuePool<T>(this Queue<T> queue, T item) where T : Component
+    public static void EnqueuePool(this Queue<GameObject> queue, GameObject item)
     {
         item.gameObject.SetActive(false);
         queue.Enqueue(item);
     }
 
     // 오브젝트 풀에서 오브젝트를 가져오는 확장 메서드
-    public static T DequeuePool<T>(this Queue<T> queue) where T : Component
+    public static GameObject DequeuePool(this Queue<GameObject> queue)
     {
         if (queue.Count == 0)
         {
@@ -21,7 +21,21 @@ public static class QueueExtensions
             return null;
         }
 
-        T item = queue.Dequeue();
+        GameObject item = queue.Dequeue();
+        item.gameObject.SetActive(true);
+        return item;
+    }
+
+    public static GameObject DequeuePool(this Queue<GameObject> queue, Vector3 pos)
+    {
+        if (queue.Count == 0)
+        {
+            Debug.LogWarning("!!!queue.Count == 0!!!");
+            return null;
+        }
+
+        GameObject item = queue.Dequeue();
+        item.transform.position = pos;
         item.gameObject.SetActive(true);
         return item;
     }
@@ -29,13 +43,13 @@ public static class QueueExtensions
 
 public class Pool//풀 관리 클래스
 {
-    public Queue<Component> queue;
+    public Queue<GameObject> queue;
     public int count;
     public Transform transform;
 
     public Pool(Transform transform)
     {
-        queue = new Queue<Component>();
+        queue = new Queue<GameObject>();
         count = 0;
         this.transform = transform;
     }
@@ -64,7 +78,7 @@ public class ObjectPoolManager : SceneSingleton<ObjectPoolManager>
         {
             GameObject item = Instantiate(prefab, objectPools[itemType].transform);
             item.name = itemType;
-            objectPools[itemType].queue.EnqueuePool(item.GetComponent<Component>());
+            objectPools[itemType].queue.EnqueuePool(item);
             objectPools[itemType].count++;
         }
     }
@@ -76,7 +90,7 @@ public class ObjectPoolManager : SceneSingleton<ObjectPoolManager>
             CreatePool(item);//자동으로 풀을 생성
         }
         item.transform.SetParent(objectPools[itemType].transform);
-        objectPools[itemType].queue.EnqueuePool(item.GetComponent<Component>());
+        objectPools[itemType].queue.EnqueuePool(item);
     }
     public void AllDestroyObject(GameObject prefab)//prefab과 같은 타입의 모든 오브젝트를 큐에 다시 담음.
     {
@@ -103,17 +117,38 @@ public class ObjectPoolManager : SceneSingleton<ObjectPoolManager>
         {
             CreatePool(prefab);//자동으로 풀을 생성
         }
-        Component? dequeneObject = objectPools[itemType].queue.DequeuePool();
+        GameObject dequeneObject = objectPools[itemType].queue.DequeuePool();
         //디큐 시도. 큐에 있는 모든 아이템이 사용중일경우 null을 반환함.
         if (dequeneObject != null)//큐에 내용물이 있을 경우
         {
             //Debug.Log(objectPools[itemType].queue.Count);
-            return dequeneObject.gameObject;//해당 오브젝트를 반환
+            return dequeneObject;//해당 오브젝트를 반환
         }
         else//큐에 내용물이 없는 경우
         {
             CreatePool(prefab, objectPools[itemType].count);//풀 확장.
             return DequeueObject(prefab);//추가한 풀에서 디큐.
+        }
+    }
+    public GameObject DequeueObject(GameObject prefab, Vector3 pos)//쓸 걸 반환함. Instantiate를 대체함.
+    {
+        string itemType = prefab.name;
+        if (!objectPools.ContainsKey(itemType))//키가 없는 경우
+        {
+            CreatePool(prefab);//자동으로 풀을 생성
+        }
+        GameObject dequeneObject = objectPools[itemType].queue.DequeuePool(pos);
+        //디큐 시도. 큐에 있는 모든 아이템이 사용중일경우 null을 반환함.
+        if (dequeneObject != null)//큐에 내용물이 있을 경우
+        {
+            //Debug.Log(objectPools[itemType].queue.Count);
+            return dequeneObject;//해당 오브젝트를 반환
+        }
+        else//큐에 내용물이 없는 경우
+        {
+            CreatePool(prefab, objectPools[itemType].count);//풀 확장.
+            dequeneObject = objectPools[itemType].queue.DequeuePool(pos);
+            return dequeneObject;
         }
     }
 

@@ -13,6 +13,13 @@ public class Atk3Collider : MonoBehaviour
             enemy.Hit(atk);
             enemy.Stun(stun);
             Debug.Log("¶§¸²3");
+            Player.Instance.playerSound.Play_AttackSound(3);
+        }
+        else if (other.TryGetComponent(out DestroybleObject obj))
+        {
+            obj.Hit(atk);
+            Debug.Log("obj");
+            Player.Instance.playerSound.Play_AttackSound(3);
         }
     }
 }

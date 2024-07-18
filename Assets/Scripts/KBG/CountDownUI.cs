@@ -18,12 +18,12 @@ public class CountDownUI : MonoBehaviour
     [SerializeField] FlyInDirection flyInDirection = FlyInDirection.FromTop;
     public enum FlyInDirection { FromLeft, FromRight, FromTop, FromBottom }
 
+    private bool isPaused = false;
 
     private void Start()
     {
         StartCountDown();
     }
-
 
     public void SetCountDownPanel(bool setActive)
     {
@@ -37,6 +37,9 @@ public class CountDownUI : MonoBehaviour
 
     private IEnumerator CountdownRoutine()
     {
+        // 게임의 주요 동작을 멈춤
+        PauseGame();
+
         int timeRemaining = Sprites_Count.Count;
         int spriteIndex = Sprites_Count.Count - 1;
 
@@ -45,7 +48,7 @@ public class CountDownUI : MonoBehaviour
             Img_Count.sprite = Sprites_Count[spriteIndex];
             StartCoroutine(ScaleDownImage());
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSecondsRealtime(1f); // 실제 시간 기준으로 대기
 
             timeRemaining--;
             spriteIndex--;
@@ -65,7 +68,7 @@ public class CountDownUI : MonoBehaviour
         while (elapsed < duration)
         {
             Img_Count.transform.localScale = Vector3.Lerp(originalScale, targetScale, elapsed / duration);
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime; // Time.unscaledDeltaTime 사용
             yield return null;
         }
 
@@ -89,16 +92,20 @@ public class CountDownUI : MonoBehaviour
         {
             Img_Count.transform.position = Vector3.Lerp(offScreenPosition, originalPosition, elapsed / flyInDuration);
             Img_Count.transform.localScale = Vector3.Lerp(maxScale, originalScale, elapsed / flyInDuration);
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime; // Time.unscaledDeltaTime 사용
             yield return null;
         }
 
         Img_Count.transform.position = originalPosition;
         Img_Count.transform.localScale = originalScale;
 
+        yield return new WaitForSecondsRealtime(1f); // 실제 시간 기준으로 대기
 
-        yield return new WaitForSeconds(1f);
+        // 카운트다운 패널 비활성화
         SetCountDownPanel(false);
+
+        // 게임 재개
+        ResumeGame();
     }
 
     private Vector3 GetOffScreenPosition(Vector3 originalPosition)
@@ -125,5 +132,17 @@ public class CountDownUI : MonoBehaviour
         }
 
         return offScreenPosition;
+    }
+
+    private void PauseGame()
+    {
+        Time.timeScale = 0;
+        isPaused = true;
+    }
+
+    private void ResumeGame()
+    {
+        Time.timeScale = 1;
+        isPaused = false;
     }
 }

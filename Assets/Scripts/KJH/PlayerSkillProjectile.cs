@@ -50,6 +50,13 @@ public class PlayerSkillProjectile : MonoBehaviour
                 bullet.ProjectileDestroy();
             }
         }
+        if(other.gameObject.layer == 10)//CanDestroyObject
+        {
+            if(other.TryGetComponent(out DestroybleObject obj))
+            {
+                obj.Hit(4);
+            }
+        }
     }
 
     void DestroyObject()

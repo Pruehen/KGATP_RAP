@@ -14,6 +14,7 @@ public class ParryCollider : MonoBehaviour
             {
                 player.OnParrying();
                 this.gameObject.SetActive(false);
+                Player.Instance.playerSound.Play_ParryingSound();
             }
         }
     }

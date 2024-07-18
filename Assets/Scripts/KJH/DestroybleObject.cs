@@ -1,12 +1,11 @@
+
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class DestroybleObject : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
-    {
-        DestroyObject();
-    }
+    private int _hp = 4;
 
     void DestroyObject()
     {        
@@ -26,5 +25,13 @@ public class DestroybleObject : MonoBehaviour
         }
 
         Destroy(this.gameObject, 8);
+    }
+    public void Hit(int dmg)
+    {
+        _hp -= dmg; 
+        if (_hp <= 0)
+        {
+            DestroyObject();
+        }
     }
 }

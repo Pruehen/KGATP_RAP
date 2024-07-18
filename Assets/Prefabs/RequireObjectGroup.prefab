@@ -658,6 +658,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6264710320178151390}
     m_Modifications:
+    - target: {fileID: 382228831, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 409921515, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1815496903, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4927285410447590986, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -706,6 +718,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5704630628557905137, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: e31d40fcdb4a8914ba43a2da503196c3, type: 2}
     - target: {fileID: 5704630628557905138, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: evasion_Pac
       value: 
@@ -725,6 +741,14 @@ PrefabInstance:
     - target: {fileID: 5704630628557905139, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: m_Interpolate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7291385271706321390, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7291385271706321390, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7493073426757442576, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: m_LocalPosition.x

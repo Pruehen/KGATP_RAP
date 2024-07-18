@@ -8,9 +8,9 @@ public class IncreaseBullet : Bullet
     Vector3 initScale;
     float activeTime = 0;
 
-    public override void Shoot(Vector3 initPos, Vector3 projectionVector, float value1, float value2)
+    public override void Shoot(Vector3 initPos, Vector3 projectionVector, float value1, float value2, int dmg)
     {
-        base.Shoot(initPos, projectionVector, value1, value2);
+        base.Shoot(initPos, projectionVector, value1, value2, dmg);
         this.gameObject.transform.localScale = Vector3.one;
         initScale = this.transform.localScale;
         activeTime = 0;
@@ -28,7 +28,7 @@ public class IncreaseBullet : Bullet
     {
         if (collision.gameObject.TryGetComponent(out Player player))
         {
-            player.Hit(1);            
+            player.Hit(dmg);            
         }
 
         ProjectileDestroy(collision.contacts[0].point);

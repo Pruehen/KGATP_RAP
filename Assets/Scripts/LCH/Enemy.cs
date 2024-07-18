@@ -12,8 +12,7 @@ namespace LCH
     public class Enemy : MonoBehaviour
     {
         [SerializeField] Transform target;
-        [SerializeField] float enemyHp;
-        [SerializeField] float atkDamage;
+        [SerializeField] float enemyHp;        
 
         [Header("발사 패턴 관련 속성")]
         [SerializeField] EnemyFireType enemyFireType;

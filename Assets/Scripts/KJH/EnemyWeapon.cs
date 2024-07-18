@@ -20,7 +20,8 @@ public class EnemyWeapon : MonoBehaviour
     [SerializeField] ProjectionType projectionType;
 
     [Header("발사 속성 일반 필드")]
-    [Range(0, 500)][SerializeField] float speed_Projectile = 10;    
+    [Range(0, 500)][SerializeField] float speed_Projectile = 10;
+    [Range(1, 4)][SerializeField] int dmg_Projectile = 1;
 
     [Header("샷건, 부채꼴 필드")]
     [Range(0, 360)][SerializeField] float projection_Angle = 30;
@@ -96,7 +97,7 @@ public class EnemyWeapon : MonoBehaviour
         GameObject obj = ObjectPoolManager.Instance.DequeueObject(Prefab_Projectile, Transform_FirePoint.position);
 
         Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * speed_Projectile;
-        obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector, size_IncreasePercent_PerSec, size_MaxPercent);
+        obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector, size_IncreasePercent_PerSec, size_MaxPercent, dmg_Projectile);
     }
     void Fire_ShotGun(Vector3 target)
     {
@@ -111,7 +112,7 @@ public class EnemyWeapon : MonoBehaviour
             Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * randomProjecitonVelocity;
             projectionVector = angle * projectionVector;
 
-            obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector, size_IncreasePercent_PerSec, size_MaxPercent);
+            obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector, size_IncreasePercent_PerSec, size_MaxPercent, dmg_Projectile);
         }
     }
     void Fire_Scatter(Vector3 target)
@@ -127,7 +128,7 @@ public class EnemyWeapon : MonoBehaviour
             Vector3 projectionVector = (target - Transform_FirePoint.position).normalized * speed_Projectile;
             projectionVector = angle * projectionVector;
 
-            obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector, size_IncreasePercent_PerSec, size_MaxPercent);
+            obj.GetComponent<Bullet>().Shoot(Transform_FirePoint.position, projectionVector, size_IncreasePercent_PerSec, size_MaxPercent, dmg_Projectile);
         }
     }
     void Fire_Sniping(Vector3 targetPos)

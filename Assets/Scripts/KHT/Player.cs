@@ -101,6 +101,7 @@ public class Player : MonoBehaviour
         isEvading = false;
 
         ChangeState(new IdleState(this));
+
     }
 
 
@@ -430,6 +431,7 @@ public class Player : MonoBehaviour
     private IEnumerator SpecialDelay()
     {
         yield return new WaitForSeconds(1);
+        TimeManager.Instance.CommandBulletTime(0.2f, 0.7f);
         playerSkill2.Command_Special();
         playerSound.Play_SpecialAttackSound();
         camera.StartZoomOut();

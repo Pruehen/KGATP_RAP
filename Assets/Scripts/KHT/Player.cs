@@ -78,6 +78,9 @@ public class Player : MonoBehaviour
 
     [Header("카메라 이벤트")]
     [SerializeField] CameraZoom camera;
+
+    public bool isPaused;
+
     private void Awake()
     {
         Instance = this;
@@ -178,6 +181,8 @@ public class Player : MonoBehaviour
 
     void InputCheck_OnUpdate()
     {
+        if(isPaused) return;
+
         _moveCommandVector = Vector2.zero;
 
         if (Input.GetKey(KeyCode.RightArrow))

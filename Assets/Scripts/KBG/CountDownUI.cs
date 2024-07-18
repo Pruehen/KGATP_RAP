@@ -37,8 +37,8 @@ public class CountDownUI : MonoBehaviour
 
     private IEnumerator CountdownRoutine()
     {
-        // 게임의 주요 동작을 멈춤
-        PauseGame();
+        TimeManager.Instance.CommandBulletTime(0f, 3f);
+        Player.Instance.isPaused = true;
 
         int timeRemaining = Sprites_Count.Count;
         int spriteIndex = Sprites_Count.Count - 1;
@@ -99,13 +99,13 @@ public class CountDownUI : MonoBehaviour
         Img_Count.transform.position = originalPosition;
         Img_Count.transform.localScale = originalScale;
 
+        Player.Instance.isPaused = false;
+
         yield return new WaitForSecondsRealtime(1f); // 실제 시간 기준으로 대기
 
         // 카운트다운 패널 비활성화
         SetCountDownPanel(false);
 
-        // 게임 재개
-        ResumeGame();
     }
 
     private Vector3 GetOffScreenPosition(Vector3 originalPosition)
@@ -134,15 +134,4 @@ public class CountDownUI : MonoBehaviour
         return offScreenPosition;
     }
 
-    private void PauseGame()
-    {
-        Time.timeScale = 0;
-        isPaused = true;
-    }
-
-    private void ResumeGame()
-    {
-        Time.timeScale = 1;
-        isPaused = false;
-    }
 }

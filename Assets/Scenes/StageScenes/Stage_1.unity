@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -434,6 +434,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplosionBullet_Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9210854646572882584, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
+      propertyPath: enemyHp
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
 --- !u!1001 &257157425
@@ -498,6 +502,10 @@ PrefabInstance:
     - target: {fileID: 5103835942589250322, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754301043469698936, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
+      propertyPath: enemyHp
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
@@ -634,6 +642,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6754301043469698936, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
+      propertyPath: enemyHp
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
 --- !u!1001 &307296879
@@ -764,6 +776,10 @@ PrefabInstance:
     - target: {fileID: 5107384110790540597, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
       propertyPath: m_Name
       value: ExplosionBullet_Enemy(2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210854646572882584, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
+      propertyPath: enemyHp
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
@@ -923,6 +939,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplosionBullet_Enemy(4)
       objectReference: {fileID: 0}
+    - target: {fileID: 9210854646572882584, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
+      propertyPath: enemyHp
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
 --- !u!4 &513460382 stripped
@@ -1008,6 +1028,10 @@ PrefabInstance:
     - target: {fileID: 5776407243901140310, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
       propertyPath: m_Name
       value: IncreaseBullet_Enemy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357282935129492152, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
+      propertyPath: enemyHp
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6357282935129492152, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
       propertyPath: coolTime
@@ -1496,6 +1520,10 @@ PrefabInstance:
     - target: {fileID: 5776407243901140310, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
       propertyPath: m_Name
       value: IncreaseBullet_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357282935129492152, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
+      propertyPath: enemyHp
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6357282935129492152, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
       propertyPath: enemyFireType
@@ -2501,6 +2529,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 857811532}
     m_Modifications:
     - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: enemyHp
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: coolTime
       value: 8
       objectReference: {fileID: 0}
@@ -2829,6 +2861,10 @@ PrefabInstance:
       value: ExplosionBullet_Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 9210854646572882584, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
+      propertyPath: enemyHp
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210854646572882584, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
       propertyPath: coolTime
       value: 8
       objectReference: {fileID: 0}
@@ -3102,6 +3138,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6754301043469698936, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
+      propertyPath: enemyHp
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
 --- !u!1001 &1584856624
@@ -3213,6 +3253,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1986690270}
     m_Modifications:
     - target: {fileID: 2551990493753126301, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
+      propertyPath: projection_ea
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551990493753126301, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
+      propertyPath: projectionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551990493753126301, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
       propertyPath: speed_Projectile
       value: 25
       objectReference: {fileID: 0}
@@ -3269,6 +3317,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6754301043469698936, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
+      propertyPath: enemyHp
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754301043469698936, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
       propertyPath: coolTime
       value: 0.5
       objectReference: {fileID: 0}
@@ -3289,6 +3341,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 204363984}
     m_Modifications:
+    - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: enemyHp
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -3594,6 +3650,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 857811532}
     m_Modifications:
     - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: enemyHp
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: coolTime
       value: 4
       objectReference: {fileID: 0}
@@ -3730,6 +3790,10 @@ PrefabInstance:
     - target: {fileID: 5776407243901140310, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
       propertyPath: m_Name
       value: IncreaseBullet_Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6357282935129492152, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
+      propertyPath: enemyHp
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6357282935129492152, guid: 5bfdff0452b56664f945e8b88c7b9848, type: 3}
       propertyPath: coolTime
@@ -3977,8 +4041,16 @@ PrefabInstance:
       value: 360
       objectReference: {fileID: 0}
     - target: {fileID: 8086345702625352470, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
+      propertyPath: CamAngle_X
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8086345702625352470, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
+      propertyPath: CamAngle_Y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8086345702625352470, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: CamDistance
-      value: 50
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8558657140758826411, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4086,6 +4158,10 @@ PrefabInstance:
     - target: {fileID: 5103835942589250322, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754301043469698936, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
+      propertyPath: enemyHp
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}

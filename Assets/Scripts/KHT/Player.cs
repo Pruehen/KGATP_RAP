@@ -177,6 +177,8 @@ public class Player : MonoBehaviour
     {
         OnDead?.Invoke();
         Debug.Log("플레이어 사망");
+        animator.enabled = false;
+        this.enabled = false;
         GameManager.Instance.GameOver_OnPlayerDead();
     }
 

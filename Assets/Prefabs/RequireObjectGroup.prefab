@@ -670,6 +670,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3128002920605841333, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: Angle
+      value: 360
+      objectReference: {fileID: 0}
     - target: {fileID: 4927285410447590986, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: m_RootOrder
       value: 0

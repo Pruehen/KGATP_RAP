@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CommonBullet_Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3041262898025056512, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
 --- !u!1 &466610909 stripped
@@ -1228,14 +1232,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1438408699977084106, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
-      propertyPath: lengthInSec
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1438408699977084106, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3339024935763580425, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_Name
       value: RequireObjectGroup

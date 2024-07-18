@@ -28,7 +28,8 @@ public class DestroybleObject : MonoBehaviour
     }
     public void Hit(int dmg)
     {
-        _hp -= dmg; 
+        _hp -= dmg;
+        EffectManager.Instance.EffectGenerate(EffectType.Hit, this.transform.position);
         if (_hp <= 0)
         {
             DestroyObject();

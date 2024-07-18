@@ -324,6 +324,10 @@ public class StrongAtkState : StateBase
     {
         
     }
+    public override void ExcuteOnUpdate()
+    {
+        _player.StopPlayer();
+    }
     public override void OnAnimationComplete(string animationName)
     {
         _player.ChangeState(new IdleState(_player));
@@ -348,6 +352,10 @@ public class SpecialAtkState : StateBase
     public override void ExitState()
     {
         
+    }
+    public override void ExcuteOnUpdate()
+    {
+        _player.StopPlayer();
     }
     public override void OnAnimationComplete(string animationName)
     {

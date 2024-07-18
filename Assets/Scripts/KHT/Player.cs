@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
+    public PlayerSound playerSound;
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Header("회피")]
     [Range(0.1f, 5f)][SerializeField] float evasion_duration;
@@ -266,6 +267,7 @@ public class Player : MonoBehaviour
     //더킹 코루틴
     private IEnumerator EvasionCoroutine()
     {
+        playerSound.Play_EvasionSound();
         isEvading = true;
         ChangeLayer(this.gameObject, 13);//레이어 13 Evasion
 
@@ -423,6 +425,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         playerSkill2.Command_Special();
+        playerSound.Play_SpecialAttackSound();
         camera.StartZoomOut();
     }
 

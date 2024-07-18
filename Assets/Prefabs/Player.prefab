@@ -1599,6 +1599,7 @@ GameObject:
   - component: {fileID: 1984842105640441598}
   - component: {fileID: 3128002920605841333}
   - component: {fileID: 2645199430765780823}
+  - component: {fileID: 4527430054011115855}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1671,6 +1672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7f83d9251dfdb488a706565d78458e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSound: {fileID: 4527430054011115855}
   MoveSpeed: 0
   evasion_duration: 0.5
   evasion_coolTime: 0
@@ -1779,6 +1781,24 @@ MonoBehaviour:
   zoomOutType: 0
   fastSlowOutForce: 100
   slowFastOutForce: 0
+--- !u!114 &4527430054011115855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704630628557905136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10821c1c188996c46b68bba99d3e2c3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab_PC_sound_atk_base_1_2: {fileID: 1058026629395005222, guid: 861cb9f435d14034bb9188986e6d4e07, type: 3}
+  Prefab_PC_sound_atk_base_3: {fileID: 4094745765225565521, guid: fbc23b29f1980cd4c8d8fca6629fcf0d, type: 3}
+  Prefab_PC_sound_atk_parrying_1: {fileID: 5536066599533129545, guid: 1ae889fce9c514d48bbfe52519dd1dfd, type: 3}
+  Prefab_PC_sound_atk_special_1: {fileID: 371860752022092365, guid: a78b32707d8032441b0e328ab0945780, type: 3}
+  Prefab_PC_sound_atk_strong_1: {fileID: 7831802966445873508, guid: d74b7440a5016644a96ae64767da3612, type: 3}
+  Prefab_PC_sound_evasion_1: {fileID: 4200555676118168505, guid: 3e9a3d9f1b08fb543ba88209e3933d14, type: 3}
 --- !u!1 &5872398983355143756
 GameObject:
   m_ObjectHideFlags: 0

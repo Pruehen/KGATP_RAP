@@ -13,11 +13,13 @@ public class StrongAtkCollider : MonoBehaviour
             enemy.Hit(atk);
             enemy.Stun(stun);
             Debug.Log("½ê°Ô¶§¸²");
+            Player.Instance.playerSound.Play_StrongAttackSound();
         }
         else if (other.TryGetComponent(out DestroybleObject obj))
         {
             obj.Hit(2);
             Debug.Log("obj");
+            Player.Instance.playerSound.Play_StrongAttackSound();
         }
     }
 }

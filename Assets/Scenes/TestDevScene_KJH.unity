@@ -134,6 +134,18 @@ PrefabInstance:
       propertyPath: coolTime
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: atkDamage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5686845201229807378, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: projection_ea
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: -5686845201229807378, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: dmg_Projectile
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -5686845201229807378, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: projectionType
       value: 2
@@ -141,6 +153,10 @@ PrefabInstance:
     - target: {fileID: -5686845201229807378, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: projection_Angle
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: -5686845201229807378, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: speed_Projectile
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2000134890540377022, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: m_RootOrder
@@ -189,6 +205,10 @@ PrefabInstance:
     - target: {fileID: 3041262898025056512, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: m_Name
       value: CommonBullet_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041262898025056512, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
@@ -669,13 +689,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2212140713864994364, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
+      propertyPath: dmg_Projectile
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5107384110790540597, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
       propertyPath: m_Name
       value: ExplosionBullet_Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5107384110790540597, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
@@ -1246,7 +1270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6264710320178151390, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -12.84
       objectReference: {fileID: 0}
     - target: {fileID: 6264710320178151390, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1284,6 +1308,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8558657139423147131, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8558657139513215695, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8558657139848967507, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8558657140758826411, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1291,6 +1327,10 @@ PrefabInstance:
     - target: {fileID: 8558657140758826411, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8558657141149550844, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}

@@ -340,11 +340,6 @@ public class Player : MonoBehaviour
     private void ChangeLayer(GameObject player, int newLayer)
     {
         player.layer = newLayer;
-
-        foreach (Transform child in player.transform)
-        {
-            ChangeLayer(child.gameObject, newLayer);
-        }
     }
     //스페셜어택
     public void SpecialAttack()

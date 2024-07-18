@@ -173,6 +173,7 @@ public class Player : MonoBehaviour
     {
         OnDead?.Invoke();
         Debug.Log("플레이어 사망");
+        GameManager.Instance.GameOver_OnPlayerDead();
     }
 
     void InputCheck_OnUpdate()

@@ -25,7 +25,7 @@ public class EnemyManager : SceneSingleton<EnemyManager>
         Debug.Log(EnemyDic.Count);
         if (EnemyDic.Count == 0)
         {
-            GameManager.Instance.StageClear();
+            GameManager.Instance.GameClear();
         }
     }
 }

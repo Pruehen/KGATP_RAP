@@ -8,12 +8,14 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
+    public PlayerSound playerSound;
     [Range(1f, 100f)][SerializeField] float MoveSpeed;
     [Header("회피")]
     [Range(0.1f, 5f)][SerializeField] float evasion_duration;
     [Range(0f, 5f)][SerializeField] float evasion_coolTime = 1;
     [Range(0f, 100f)][SerializeField] float evasion_Velocity = 30;
     [Range(0f, 5f)][SerializeField] float evasion_delay = 0.5f;
+    [SerializeField] ParticleSystem evasion_Pac;
     [Header("공격시간")]
     [Range(0f, 1f)][SerializeField] float atkcollider_active = 0.2f;
     [Range(0f, 1f)][SerializeField] float atk1delay_second = 0.1f;
@@ -77,6 +79,9 @@ public class Player : MonoBehaviour
 
     [Header("카메라 이벤트")]
     [SerializeField] CameraZoom camera;
+
+    public bool isPaused;
+
     private void Awake()
     {
         Instance = this;
@@ -96,15 +101,12 @@ public class Player : MonoBehaviour
         isEvading = false;
 
         ChangeState(new IdleState(this));
-
-        SkillGauge = 100;
     }
 
 
     void Update()
     {
         _curState?.ExcuteOnUpdate();
-
         InputCheck_OnUpdate();
         InputCheck_OnUpdate_Test();
         EvasionCoolTime_OnUpdate();
@@ -175,10 +177,15 @@ public class Player : MonoBehaviour
     {
         OnDead?.Invoke();
         Debug.Log("플레이어 사망");
+        animator.enabled = false;
+        this.enabled = false;
+        GameManager.Instance.GameOver_OnPlayerDead();
     }
 
     void InputCheck_OnUpdate()
     {
+        if(isPaused) return;
+
         _moveCommandVector = Vector2.zero;
 
         if (Input.GetKey(KeyCode.RightArrow))
@@ -205,7 +212,6 @@ public class Player : MonoBehaviour
         {
             OnXClick?.Invoke();
         }
-
     }
 
     void InputCheck_OnUpdate_Test()
@@ -266,6 +272,8 @@ public class Player : MonoBehaviour
     //더킹 코루틴
     private IEnumerator EvasionCoroutine()
     {
+        playerSound.Play_EvasionSound();
+        evasion_Pac.Play();
         isEvading = true;
         ChangeLayer(this.gameObject, 13);//레이어 13 Evasion
 
@@ -288,7 +296,7 @@ public class Player : MonoBehaviour
     //플레이어 상태변경
     public void ChangeState(IState newState)
     {
-        if ((_curState is Atk1State || _curState is Atk2State || _curState is Atk3State || _curState is StrongAtkState || _curState is EvasionState || _curState is EvasionDelayState || _curState is SpecialAtkState) && newState is MoveState)
+        if ((_curState is SpecialAtkState || _curState is Atk1State || _curState is Atk2State || _curState is Atk3State || _curState is StrongAtkState || _curState is EvasionState || _curState is EvasionDelayState || _curState is SpecialAtkState) && newState is MoveState)
         {
 
             return;
@@ -308,6 +316,11 @@ public class Player : MonoBehaviour
     public Vector2 GetMoveInput()
     {
         return moveInput;
+    }
+
+    public void StopPlayer()
+    {
+        _rigidbody.velocity = Vector2.zero;
     }
 
     //회피 딜레이 시작 함수
@@ -337,7 +350,7 @@ public class Player : MonoBehaviour
     {
         camera.StartZoomIn();
         StartInvincible(specialinvincible);
-        //SkillGauge = 0;
+        SkillGauge = 0;
 
         StartCoroutine(SpecialDelay());
     }
@@ -388,6 +401,7 @@ public class Player : MonoBehaviour
         StartInvincible(parryinvincible);
         playerSkill1.Command_Parrying();
         evasion_coolTimeValue = 0;
+        OnEvasionGaugeChange?.Invoke(evasion_coolTimeValue / evasion_coolTime);
         SkillGauge += 10;
     }
 
@@ -417,6 +431,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         playerSkill2.Command_Special();
+        playerSound.Play_SpecialAttackSound();
         camera.StartZoomOut();
     }
 

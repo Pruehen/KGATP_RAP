@@ -25,6 +25,20 @@ public static class QueueExtensions
         item.gameObject.SetActive(true);
         return item;
     }
+
+    public static GameObject DequeuePool(this Queue<GameObject> queue, Vector3 pos)
+    {
+        if (queue.Count == 0)
+        {
+            Debug.LogWarning("!!!queue.Count == 0!!!");
+            return null;
+        }
+
+        GameObject item = queue.Dequeue();
+        item.transform.position = pos;
+        item.gameObject.SetActive(true);
+        return item;
+    }
 }
 
 public class Pool//풀 관리 클래스
@@ -108,12 +122,33 @@ public class ObjectPoolManager : SceneSingleton<ObjectPoolManager>
         if (dequeneObject != null)//큐에 내용물이 있을 경우
         {
             //Debug.Log(objectPools[itemType].queue.Count);
-            return dequeneObject.gameObject;//해당 오브젝트를 반환
+            return dequeneObject;//해당 오브젝트를 반환
         }
         else//큐에 내용물이 없는 경우
         {
             CreatePool(prefab, objectPools[itemType].count);//풀 확장.
             return DequeueObject(prefab);//추가한 풀에서 디큐.
+        }
+    }
+    public GameObject DequeueObject(GameObject prefab, Vector3 pos)//쓸 걸 반환함. Instantiate를 대체함.
+    {
+        string itemType = prefab.name;
+        if (!objectPools.ContainsKey(itemType))//키가 없는 경우
+        {
+            CreatePool(prefab);//자동으로 풀을 생성
+        }
+        GameObject dequeneObject = objectPools[itemType].queue.DequeuePool(pos);
+        //디큐 시도. 큐에 있는 모든 아이템이 사용중일경우 null을 반환함.
+        if (dequeneObject != null)//큐에 내용물이 있을 경우
+        {
+            //Debug.Log(objectPools[itemType].queue.Count);
+            return dequeneObject;//해당 오브젝트를 반환
+        }
+        else//큐에 내용물이 없는 경우
+        {
+            CreatePool(prefab, objectPools[itemType].count);//풀 확장.
+            dequeneObject = objectPools[itemType].queue.DequeuePool(pos);
+            return dequeneObject;
         }
     }
 

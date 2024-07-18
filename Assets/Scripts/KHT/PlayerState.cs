@@ -41,6 +41,10 @@ public class IdleState : StateBase
     {
         
     }
+    public override void ExcuteOnUpdate()
+    {
+        _player.StopPlayer();
+    }
     public override void OnInput(KeyName InputName)
     {
         switch (InputName)
@@ -79,6 +83,7 @@ public class MoveState : StateBase
     public override void ExitState()
     {
         _player.animator.SetBool("Run", false);
+        
     }
     public override void ExcuteOnUpdate()
     {
@@ -88,15 +93,26 @@ public class MoveState : StateBase
         {
             _player.ChangeState(new IdleState(_player));
         }
-        
-        
     }
     public override void OnInput(KeyName InputName)
     {
-        if(InputName == KeyName.Z)
+        switch (InputName)
         {
-           //_player.animator.SetTrigger("MoveEvasion");
-            _player.ChangeState(new EvasionState(_player));
+            case KeyName.X:
+                if (_player.SkillGauge >= _player.SkillGauge_Max)
+                {
+                    _player.ChangeState(new SpecialAtkState(_player));
+                    _player.StopPlayer();
+                }
+                else
+                {
+                    _player.ChangeState(new Atk1State(_player));
+                    _player.StopPlayer();
+                }
+                break;
+            case KeyName.Z:
+                _player.ChangeState(new EvasionState(_player));
+                break;
         }
     }
 }

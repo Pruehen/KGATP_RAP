@@ -96,8 +96,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab_Projectile: {fileID: 3030702589660419527, guid: e0112bd0c51dbfa4880cdda5272a06fb, type: 3}
+  size_IncreasePercent_PerSec: 33
+  size_MaxPercent: 200
   projectionType: 0
   speed_Projectile: 15
+  dmg_Projectile: 1
   projection_Angle: 30
   projection_ea: 10
   projectionSpeed_RandomGain: 0.2
@@ -117,9 +120,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  enemyHp: 10
-  atkDamage: 1
+  enemyHp: 4
   enemyFireType: 0
+  autoRotateAngle: 45
   enemyHitEffect: {fileID: 1743301284569550, guid: b919813a677f200479405ffa9e6b3159, type: 3}
   coolTime: 5
   weapon: {fileID: 0}

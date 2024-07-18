@@ -339,6 +339,7 @@ MonoBehaviour:
   playerSkill1: {fileID: 0}
   playerSkill2: {fileID: 0}
   camera: {fileID: 0}
+  isPaused: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +443,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: enemyHp
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -7275759016192501703, guid: dd646844d6a351d4893fee3ecf8a5420, type: 3}
       propertyPath: coolTime
@@ -1354,6 +1355,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1385501835941690270, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: zoomInTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385501835941690270, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: zoomOutTime
+      value: 1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385501835941690270, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: zoomInFovLimit
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385501835941690270, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: fastSlowInForce
+      value: 40.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1385501835941690270, guid: 0530dd090a50a30449171369246ddf09, type: 3}
+      propertyPath: fastSlowOutForce
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4927285410447590986, guid: 0530dd090a50a30449171369246ddf09, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1749,6 +1770,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8878144217582380171}
     m_Modifications:
+    - target: {fileID: 484986230887950278, guid: 1cbc638a8b72ba44dbf0958a2f0cc30c, type: 3}
+      propertyPath: flyInDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 484986230887950278, guid: 1cbc638a8b72ba44dbf0958a2f0cc30c, type: 3}
+      propertyPath: maxImageScale
+      value: 31.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2740728876429769244, guid: 1cbc638a8b72ba44dbf0958a2f0cc30c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [Range(0f, 5f)][SerializeField] float evasion_coolTime = 1;
     [Range(0f, 100f)][SerializeField] float evasion_Velocity = 30;
     [Range(0f, 5f)][SerializeField] float evasion_delay = 0.5f;
+    [SerializeField] ParticleSystem evasion_Pac;
     [Header("공격시간")]
     [Range(0f, 1f)][SerializeField] float atkcollider_active = 0.2f;
     [Range(0f, 1f)][SerializeField] float atk1delay_second = 0.1f;
@@ -176,6 +177,8 @@ public class Player : MonoBehaviour
     {
         OnDead?.Invoke();
         Debug.Log("플레이어 사망");
+        animator.enabled = false;
+        this.enabled = false;
         GameManager.Instance.GameOver_OnPlayerDead();
     }
 
@@ -270,6 +273,7 @@ public class Player : MonoBehaviour
     private IEnumerator EvasionCoroutine()
     {
         playerSound.Play_EvasionSound();
+        evasion_Pac.Play();
         isEvading = true;
         ChangeLayer(this.gameObject, 13);//레이어 13 Evasion
 

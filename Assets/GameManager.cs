@@ -23,6 +23,6 @@ public class GameManager : SceneSingleton<GameManager>
     IEnumerator LoadScene()
     {
         yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

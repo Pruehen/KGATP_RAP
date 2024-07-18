@@ -102,7 +102,6 @@ public class Player : MonoBehaviour
 
         ChangeState(new IdleState(this));
 
-        SkillGauge = 100;
     }
 
 

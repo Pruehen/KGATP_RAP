@@ -41,6 +41,10 @@ public class IdleState : StateBase
     {
         
     }
+    public override void ExcuteOnUpdate()
+    {
+        _player.StopPlayer();
+    }
     public override void OnInput(KeyName InputName)
     {
         switch (InputName)

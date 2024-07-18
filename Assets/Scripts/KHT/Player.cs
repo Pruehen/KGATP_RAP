@@ -97,15 +97,12 @@ public class Player : MonoBehaviour
         isEvading = false;
 
         ChangeState(new IdleState(this));
-
-        SkillGauge = 100;
     }
 
 
     void Update()
     {
         _curState?.ExcuteOnUpdate();
-
         InputCheck_OnUpdate();
         InputCheck_OnUpdate_Test();
         EvasionCoolTime_OnUpdate();
@@ -207,7 +204,6 @@ public class Player : MonoBehaviour
         {
             OnXClick?.Invoke();
         }
-
     }
 
     void InputCheck_OnUpdate_Test()

@@ -38,6 +38,7 @@ public class CountDownUI : MonoBehaviour
     private IEnumerator CountdownRoutine()
     {
         TimeManager.Instance.CommandBulletTime(0f, 3f);
+        Player.Instance.isPaused = true;
 
         int timeRemaining = Sprites_Count.Count;
         int spriteIndex = Sprites_Count.Count - 1;
@@ -97,6 +98,8 @@ public class CountDownUI : MonoBehaviour
 
         Img_Count.transform.position = originalPosition;
         Img_Count.transform.localScale = originalScale;
+
+        Player.Instance.isPaused = false;
 
         yield return new WaitForSecondsRealtime(1f); // 실제 시간 기준으로 대기
 

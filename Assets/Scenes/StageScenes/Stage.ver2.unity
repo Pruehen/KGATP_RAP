@@ -428,6 +428,10 @@ PrefabInstance:
       propertyPath: speed_Projectile
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 2212140713864994364, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
+      propertyPath: size_IncreasePercent_PerSec
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5107384110790540597, guid: 0207cc8bd6475df448f414f565314ca2, type: 3}
       propertyPath: m_Name
       value: ExplosionBullet_Enemy (1)

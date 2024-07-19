@@ -3717,12 +3717,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 857811532}
     m_Modifications:
     - target: {fileID: 2551990493753126301, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
+      propertyPath: projection_ea
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551990493753126301, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
       propertyPath: projectionType
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2551990493753126301, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
       propertyPath: projection_Angle
-      value: 60
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 2551990493753126301, guid: 05bb09973cb930044954bd26aecebf0e, type: 3}
       propertyPath: speed_Projectile
@@ -4800,7 +4804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3339024935763580425, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3649972519753263982, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_LocalScale.y
@@ -4884,11 +4888,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8558657140758826411, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8558657140758826411, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0a6e08a36e17074796a701aa309cd91, type: 3}

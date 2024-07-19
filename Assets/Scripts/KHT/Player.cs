@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
         OnXClick += OnClick_X;
         SkillGauge_Max = 100;
         SkillGauge_RecoverySec = 1;
-        Hp = 4;
+        Hp = 9999;
         MoveSpeed = 10f;
         evasion_duration = 0.5f;
         evasion_coolTime = 1.5f;

@@ -101,6 +101,7 @@ public class Player : MonoBehaviour
         isEvading = false;
 
         ChangeState(new IdleState(this));
+
     }
 
 
@@ -339,11 +340,6 @@ public class Player : MonoBehaviour
     private void ChangeLayer(GameObject player, int newLayer)
     {
         player.layer = newLayer;
-
-        foreach (Transform child in player.transform)
-        {
-            ChangeLayer(child.gameObject, newLayer);
-        }
     }
     //스페셜어택
     public void SpecialAttack()
@@ -430,6 +426,7 @@ public class Player : MonoBehaviour
     private IEnumerator SpecialDelay()
     {
         yield return new WaitForSeconds(1);
+        TimeManager.Instance.CommandBulletTime(0.2f, 0.7f);
         playerSkill2.Command_Special();
         playerSound.Play_SpecialAttackSound();
         camera.StartZoomOut();

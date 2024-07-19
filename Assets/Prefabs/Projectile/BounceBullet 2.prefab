@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7133124050190727130}
   - component: {fileID: 5644276622398832630}
   m_Layer: 6
-  m_Name: BounceBullet
+  m_Name: BounceBullet 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,4 +130,4 @@ MonoBehaviour:
   bulletSize: 0
   isCanParry: 1
   Prefab_DestroyEffect: {fileID: 1329845292236604, guid: 3e007ffa39b58a5468e10616bc8f605b, type: 3}
-  bounce_num: 4
+  bounce_num: 2

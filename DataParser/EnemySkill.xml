@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EnemySkill>
+  <dataCategory>
+    <data DataID="208" Description="단발일반" Name="단발일반" Cooltime="5" Buff="" Debuff="" Missle_angle="" Missle_ea="1" Missle_ID="301" Combo_ID="" />
+    <data DataID="209" Description="단발도탄" Name="단발도탄" Cooltime="5" Buff="" Debuff="" Missle_angle="" Missle_ea="1" Missle_ID="302" Combo_ID="" />
+    <data DataID="210" Description="단발폭발" Name="단발폭발" Cooltime="5" Buff="" Debuff="" Missle_angle="" Missle_ea="1" Missle_ID="303" Combo_ID="" />
+    <data DataID="211" Description="단발증강" Name="단발증강" Cooltime="5" Buff="" Debuff="" Missle_angle="" Missle_ea="1" Missle_ID="305" Combo_ID="" />
+    <data DataID="212" Description="샷건일반" Name="샷건일반" Cooltime="5" Buff="" Debuff="" Missle_angle="30" Missle_ea="5" Missle_ID="301" Combo_ID="" />
+    <data DataID="214" Description="부채꼴일반" Name="부채꼴일반" Cooltime="5" Buff="" Debuff="" Missle_angle="60" Missle_ea="3" Missle_ID="301" Combo_ID="" />
+    <data DataID="215" Description="부채꼴도탄" Name="부채꼴도탄" Cooltime="5" Buff="" Debuff="" Missle_angle="60" Missle_ea="3" Missle_ID="302" Combo_ID="" />
+    <data DataID="216" Description="부채꼴폭발" Name="부채꼴폭발" Cooltime="5" Buff="" Debuff="" Missle_angle="60" Missle_ea="3" Missle_ID="303" Combo_ID="" />
+    <data DataID="217" Description="부채꼴증강" Name="부채꼴증강" Cooltime="5" Buff="" Debuff="" Missle_angle="" Missle_ea="3" Missle_ID="305" Combo_ID="" />
+    <data DataID="218" Description="빨간조준" Name="빨간조준" Cooltime="5" Buff="" Debuff="" Missle_angle="" Missle_ea="" Missle_ID="" Combo_ID="219" />
+    <data DataID="219" Description="스나이핑" Name="스나이핑" Cooltime="5" Buff="" Debuff="" Missle_angle="" Missle_ea="1" Missle_ID="301" Combo_ID="" />
+  </dataCategory>
+</EnemySkill>

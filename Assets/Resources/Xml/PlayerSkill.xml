@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PlayerSkill>
+  <dataCategory>
+    <data DataID="201" Description="기본공격_1" Name="파일명" Cost_value="" Cost_recovery="" Atk_multiply="1" Cooltime="0" Buff="" Debuff="604" Melee_angle="" Combo_ID="2" />
+    <data DataID="202" Description="기본공격_2" Name="파일명" Cost_value="" Cost_recovery="" Atk_multiply="1" Cooltime="0" Buff="" Debuff="604" Melee_angle="" Combo_ID="3" />
+    <data DataID="203" Description="기본공격_3" Name="파일명" Cost_value="" Cost_recovery="" Atk_multiply="1" Cooltime="0" Buff="" Debuff=" 601, 604" Melee_angle="" Combo_ID="" />
+    <data DataID="204" Description="회피기_더킹" Name="파일명" Cost_value="" Cost_recovery="" Atk_multiply="" Cooltime="1.5" Buff="710" Debuff="" Melee_angle="" Combo_ID="" />
+    <data DataID="205" Description="강공격_바디블" Name="파일명" Cost_value="" Cost_recovery="" Atk_multiply="1" Cooltime="0" Buff="" Debuff="602, 605" Melee_angle="" Combo_ID="" />
+    <data DataID="206" Description="패링_바디블" Name="파일명" Cost_value="" Cost_recovery="10" Atk_multiply="0" Cooltime="0" Buff="702" Debuff="602, 605" Melee_angle="30" Combo_ID="" />
+    <data DataID="207" Description="필살기_진심펀" Name="파일명" Cost_value="100" Cost_recovery="" Atk_multiply="0" Cooltime="" Buff="703" Debuff="603, 606" Melee_angle="60" Combo_ID="" />
+  </dataCategory>
+</PlayerSkill>

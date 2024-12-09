@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Projectile>
+  <dataCategory>
+    <data DataID="301" Description="일반" Name="일반" Size_min="1" Size_increase="0" Size_max="0" Atk_multiply="1" Force="500" Lifetime="999" Collision_able="PC, 환경, 파괴 불가능 오브젝트" Disappear_condition="Lifetime or 충돌" Parry_able="TRUE" Bounce_num="0" Combo_ID="" />
+    <data DataID="302" Description="도탄" Name="도탄" Size_min="1" Size_increase="0" Size_max="0" Atk_multiply="1" Force="300" Lifetime="999" Collision_able="PC, 환경, 파괴 불가능 오브젝트" Disappear_condition="Lifetime or 충돌 or Bounce_num" Parry_able="TRUE" Bounce_num="3" Combo_ID="" />
+    <data DataID="303" Description="폭발" Name="폭발" Size_min="1.5" Size_increase="0" Size_max="0" Atk_multiply="0" Force="100" Lifetime="999" Collision_able="PC, 환경, 파괴 불가능 오브젝트" Disappear_condition="Lifetime or 충돌" Parry_able="FALSE" Bounce_num="0" Combo_ID="폭발범위ID" />
+    <data DataID="304" Description="폭발범위" Name="폭발범위" Size_min="3" Size_increase="0" Size_max="0" Atk_multiply="1" Force="0" Lifetime="0.2" Collision_able="PC" Disappear_condition="Lifetime" Parry_able="FALSE" Bounce_num="0" Combo_ID="" />
+    <data DataID="305" Description="증강" Name="증강" Size_min="1" Size_increase="10" Size_max="100" Atk_multiply="1" Force="50" Lifetime="500" Collision_able="PC, 환경, 파괴 불가능 오브젝트" Disappear_condition="Lifetime or 충돌" Parry_able="TRUE" Bounce_num="0" Combo_ID="" />
+  </dataCategory>
+</Projectile>

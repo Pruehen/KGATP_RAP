@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PlayerCharacter>
+  <dataCategory>
+    <data DataID="101" Description="캐릭터 A" Name="파일명?" HP="4" Atk="1" Atk_base="201" Atk_strong="205" Evasion="204" Atk_special="207" Cost_type="501" />
+  </dataCategory>
+</PlayerCharacter>
